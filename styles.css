@@ -1,0 +1,54 @@
+:root{
+    --green: #1ced3b;
+    --font:'Roboto', sans-serif;
+}
+
+*{
+margin: 0px;
+padding: 0px;
+
+}
+
+body {
+background-color: gray;
+padding: 30px;
+text-align: center;
+font-family: 'Roboto', sans-serif;
+}
+
+h1, h2 {
+    font-family: var(--font);
+    margin: 15px;
+}
+
+#logo{
+    border-radius: 50%;
+    padding: 5px;
+    border: var(--green) 10px solid;
+    margin-bottom: 35px;
+
+}
+
+ul {
+    list-style-type: none;
+    padding: 40px;
+
+}
+
+li{
+    align-items: center;
+    padding: 1px;
+    font-family: var(--font);
+}
+
+
+a{
+text-align: center;
+font-family: var(--font);
+padding: 30px;
+}
+
+a:hover{
+    transition: 700ms;
+    color: var(--green);
+}
