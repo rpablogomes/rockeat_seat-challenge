@@ -4,7 +4,6 @@
     text-align: left;
 }
 
-
 /* repetitive contents */
 
 #content {
@@ -45,7 +44,6 @@ header {
     position: relative;
     top: 33%;
 }
-
 
 /* Index */
 
@@ -114,7 +112,6 @@ h2 {
     color: #777777
 }
 
-
 /* About */
 
 .paragraph {
@@ -131,7 +128,6 @@ h2 {
     padding: 20px 0;
 }
 
-
 /* receipts */
 
 #receipts {
@@ -139,7 +135,6 @@ h2 {
     display: grid;
     column-gap: 20px;
 }
-
 
 /* Receipts */
 
