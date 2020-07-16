@@ -6,7 +6,8 @@
 
 for (let card of document.getElementsByClassName("card")) {
     card.addEventListener("click", function () {
-        window.location.href = `/receipt/${foodIndex}`
+        const foodIndex = card.getAttribute("id")
+        window.location.href = `/receipts/${foodIndex}`
     })
 } 
 // document.querySelector("#x").addEventListener("click", function () {

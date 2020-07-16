@@ -1,9 +1,25 @@
 {% extends "layout.njk" %}
 
 {% block content %}
-    <img id="imgReceipt" src = 'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/burger.png'> 
+    <img id="imgReceipt" src = {{receipt.image}}> 
 
-    <p Id="foodNameofReceipt"> foods name </p>
-    <p Id="authorNameofReceipt"> author name name </p>
+    <p Id="foodNameofReceipt"> {{receipt.title}} </p>
+    <p Id="authorNameofReceipt"> {{receipt.author}}</p>
 
-{% endblock%}
+    <p>ingredientes</p>
+    <ul>
+        {% for list in receipt.ingredients %}
+            <li> {{list}};</li>
+        {% endfor %}
+    </ul>
+    <p>Modo de Preparo</p>
+    <ul>
+        {% for list in receipt.preparation %}
+            <li> {{list}};</li>
+        {% endfor %}
+    </ul>
+    <p>informações adicionais</p>
+    <p>{{receipt.information}}</p>
+
+
+{% endblock %}

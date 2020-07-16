@@ -33,15 +33,16 @@ server.get("/receipts", function (req, res) {
     return res.render("receipts", { foods: data })
 })
 
-server.get("/receipt", function (req, res){
-    return res.render("receipt")
-})
+// server.get("/receipt", function (req, res){
+//     return res.render("receipt")
+// })
 
-// server.get("/receipt/:index", function (req, res) {
-//     const recipes = []; // Array de receitas carregadas do data.js
-//     const recipeIndex = req.params.index;
-//     console.log(receipts[recipeIndex]);
-//   })
+server.get("/receipts/:index", function (req, res) {
+    // const recipes = req.params.; // Array de receitas carregadas do data.js
+    const recipeIndex = req.params.index;
+
+    res.render("receipt", {receipt : data[`${recipeIndex}`]});
+  })
 
 server.use(function (req, res) {
     res.status(404).render("not-found",);

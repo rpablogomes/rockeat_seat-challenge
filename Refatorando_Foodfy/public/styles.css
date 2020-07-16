@@ -94,6 +94,7 @@ h2 {
 
 .card {
     margin-bottom: 30px;
+    cursor: pointer;
 }
 
 .foodImage {
