@@ -41,9 +41,13 @@ server.get("/receipts/:index", function (req, res) {
     // const recipes = req.params.; // Array de receitas carregadas do data.js
     const recipeIndex = req.params.index;
 
-    res.render("receipt", {receipt : data[`${recipeIndex}`]});
-  })
+    if (recipeIndex < data.length) {
+        res.render("receipt", {receipt : data[`${recipeIndex}`]});
+    } else {
+        res.render("not-found")
+      }
+})
 
 server.use(function (req, res) {
-    res.status(404).render("not-found",);
+    res.status(404).render("not-found");
 })
