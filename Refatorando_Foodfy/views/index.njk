@@ -2,8 +2,6 @@
 
 {% block content %}
 
-
-
     <div id="presentation">
         <div id="textOfPresentation">
             <p id="first">As melhores receitas</p>
@@ -19,14 +17,13 @@
     <div id="cards">
         
         {% for food in foods %}
-        <div class="card">
-            <img class="foodImage" src={{food.image}} alt="image">
-            <span class="foodName">{{food.title}}<br/></span>
-            <span class="cooker">por {{food.author}}</span>
-        </div>
+            <div id="{{foods.indexOf(food)}}" class="card" href="/receipts">
+                <img class="foodImage" src={{food.image}} alt="image">
+                <span class="foodName">{{food.title}}<br/></span>
+                <span class="cooker">por {{food.author}}</span>
+            </div>
         {% endfor %}
 
     </div>
-</main>
 
 {% endblock %}

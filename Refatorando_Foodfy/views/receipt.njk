@@ -1,25 +1,32 @@
 {% extends "layout.njk" %}
 
 {% block content %}
-    <img id="imgReceipt" src = {{receipt.image}}> 
 
-    <p Id="foodNameofReceipt"> {{receipt.title}} </p>
-    <p Id="authorNameofReceipt"> {{receipt.author}}</p>
+    <img id="imgReceipt" src={{receipt.image}}>
 
-    <p>ingredientes</p>
-    <ul>
+    <p id="foodNameofReceipt">
+        {{receipt.title}}
+    </p>
+    <p id="authorNameofReceipt">{{receipt.author}}</p>
+
+    <p class="titlesOfReceipt">ingredientes <span id="hiddenFunctionOfIngredients" class="hiddenLink">esconder</span></p>
+    
+    <ul id="hiddenFunctionOfIngredientsTEXT" class="listOfReceipt" hidden>
         {% for list in receipt.ingredients %}
-            <li> {{list}};</li>
+            <li>{{list}};</li>  
         {% endfor %}
     </ul>
-    <p>Modo de Preparo</p>
-    <ul>
-        {% for list in receipt.preparation %}
-            <li> {{list}};</li>
-        {% endfor %}
-    </ul>
-    <p>informações adicionais</p>
-    <p>{{receipt.information}}</p>
 
+    <p class="titlesOfReceipt">Modo de Preparo <div class="hiddenLink hiddenFunctionOfSteps">esconder</div><div class="hiddenLink hiddenFunctionOfSteps" hidden>mostrar</div></p>
+
+    <ul id="hiddenFunctionOfStepsTEXT" class="listOfReceipt" hidden>
+        {% for list in receipt.preparation %}
+            <li>{{list}}</li>
+        {% endfor %}
+    </ul>
+
+    <p class="titlesOfReceipt">informações adicionais <span id="hiddenFunctionOfInformations" class="hiddenLink">esconder</span></p>
+
+    <span id="hiddenFunctionOfInformationsTEXT" class="textOfReceipt" hidden>{{receipt.information}}</span>
 
 {% endblock %}
