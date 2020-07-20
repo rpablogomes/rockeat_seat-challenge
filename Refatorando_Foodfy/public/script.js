@@ -5,28 +5,26 @@ for (let card of document.getElementsByClassName("card")) {
     })
 }
 
-// document.querySelector("#x").addEventListener("click", function () {
-//     document.querySelector("#modal").setAttribute("hidden", "")
-//     document.getElementById("iframe").setAttribute("src", "")
-// })
-
-
-
-document.querySelector("#hiddenFunctionOfIngredients")
+// INGREDIENTS FUNCTION
+document.querySelector("#visibilityLinksINGREDIENTS")
     .addEventListener("click", function () {
-        document.querySelector(".hiddenFunctionOfIngredientsTEXT").toggleAttribute("hidden")
-     
+        document.querySelector("#showINGREDIENTS").toggleAttribute("hidden")
+        document.querySelector("#hideINGREDIENTS").toggleAttribute("hidden")
+        document.querySelector("#contentINGREDIENTS").toggleAttribute("hidden")
 })
 
-document.querySelector(".hiddenFunctionOfSteps")
+// STEPS FUNCTION
+document.querySelector("#visibilityLinksSTEPS")
     .addEventListener("click", function () {
-        document.querySelector("#hiddenFunctionOfStepsTEXT").toggleAttribute("hidden")
-        document.querySelector("hiddenFunctionOfSteps")
-        // document.getElementsByClassName("hiddenFunctionOfSteps").toggleAttribute("hidden")
-        // document.querySelector("#hiddenFunctionOfStepsTEXT").toggleAttribute("hidden")
+        document.querySelector("#showSTEPS").toggleAttribute("hidden")
+        document.querySelector("#hideSTEPS").toggleAttribute("hidden")
+        document.querySelector("#contentSTEPS").toggleAttribute("hidden")
 })
 
-document.getElementById("hiddenFunctionOfInformations")
+// INFORMATION FUNCTION
+document.getElementById("visibilityLinksINFORMATION")
     .addEventListener("click", function () {
-        document.getElementById("hiddenFunctionOfInformationsTEXT").toggleAttribute("hidden")
+        document.querySelector("#showINFORMATION").toggleAttribute("hidden")
+        document.querySelector("#hideINFORMATION").toggleAttribute("hidden")
+        document.querySelector("#contentINFORMATION").toggleAttribute("hidden")
 })

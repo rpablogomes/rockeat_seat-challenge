@@ -149,7 +149,7 @@ h2 {
 #foodNameofReceipt {
     margin-top: 50px;
     text-align: center;
-    font-size: 36px;    
+    font-size: 36px;
     color: #111111;
     font-weight: bold;
 }
@@ -160,19 +160,19 @@ h2 {
     color: #777777;
 }
 
-.titlesOfReceipt{
+.titlesOfReceipt {
     font-size: 24px;
     margin: 20px 0;
 }
 
-.listOfReceipt{
+.listOfReceipt {
     text-align: left;
     margin: 0 0 20px 0;
     font-size: 18px;
     color: #444444;
 }
 
-.textOfReceipt{
+.textOfReceipt {
     padding: 20px 0 20px 0;
     font-size: 18px;
     color: #444444;

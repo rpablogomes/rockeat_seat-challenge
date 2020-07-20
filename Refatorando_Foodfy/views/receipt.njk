@@ -2,31 +2,34 @@
 
 {% block content %}
 
-    <img id="imgReceipt" src={{receipt.image}}>
+    <img id="imgReceipt" src={{receipt.image} }="}">
 
     <p id="foodNameofReceipt">
         {{receipt.title}}
     </p>
     <p id="authorNameofReceipt">{{receipt.author}}</p>
 
-    <p class="titlesOfReceipt">ingredientes <span id="hiddenFunctionOfIngredients" class="hiddenLink">esconder</span></p>
-    
-    <ul id="hiddenFunctionOfIngredientsTEXT" class="listOfReceipt" hidden>
-        {% for list in receipt.ingredients %}
-            <li>{{list}};</li>  
-        {% endfor %}
-    </ul>
+    <p class="titlesOfReceipt">ingredientes
+        <span id="visibilityLinksINGREDIENTS"><span id="showINGREDIENTS" class="hiddenLink">mostrar</span><span id="hideINGREDIENTS" class="hiddenLink" hidden="hidden">esconder</span></span>
 
-    <p class="titlesOfReceipt">Modo de Preparo <div class="hiddenLink hiddenFunctionOfSteps">esconder</div><div class="hiddenLink hiddenFunctionOfSteps" hidden>mostrar</div></p>
+        <ul id="contentINGREDIENTS" class="listOfReceipt" hidden="hidden">
+            {% for list in receipt.ingredients %}
+                <li>{{list}};</li>
+            {% endfor %}
+        </ul>
 
-    <ul id="hiddenFunctionOfStepsTEXT" class="listOfReceipt" hidden>
-        {% for list in receipt.preparation %}
-            <li>{{list}}</li>
-        {% endfor %}
-    </ul>
+        <p class="titlesOfReceipt">Modo de Preparo
+            <span id="visibilityLinksSTEPS"><span id="showSTEPS" class="hiddenLink">mostrar</span><span id="hideSTEPS" class="hiddenLink" hidden="hidden">esconder</span></span></p>
 
-    <p class="titlesOfReceipt">informações adicionais <span id="hiddenFunctionOfInformations" class="hiddenLink">esconder</span></p>
+        <ul id="contentSTEPS" class="listOfReceipt" hidden="hidden">
+            {% for list in receipt.preparation %}
+                <li>{{list}}</li>
+            {% endfor %}
+        </ul>
 
-    <span id="hiddenFunctionOfInformationsTEXT" class="textOfReceipt" hidden>{{receipt.information}}</span>
+        <p class="titlesOfReceipt">informações adicionais
+            <span id="visibilityLinksINFORMATION"><span id="showINFORMATION" class="hiddenLink">mostrar</span><span id="hideINFORMATION" class="hiddenLink" hidden="hidden">esconder</span></span></p>
 
-{% endblock %}
+        <span id="contentINFORMATION" class="textOfReceipt" hidden="hidden">{{receipt.information}}</span>
+
+    {% endblock %}
