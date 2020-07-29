@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 
+<link href=/styles.css rel="stylesheet">
+
 <html>
 
     <head>
-        <link href=/styles.css rel="stylesheet">
         <link rel="icon" href="https://raw.githubusercontent.com/Rocketseat/bootcamp-launchbase-desafios-02/master/desafios/favicon.ico" type="image/x-icon"/>
         <title>
             Favicon
         </title>
     </head>
 
-    <body>
-        <header>
-            {% for i in menu%}
-                <a href={{i.href} }="}">{{i.name}}</a>
-            {% endfor %}
-        </header>
+    <header>
 
-        {% block content %}{% endblock %}
+        <a href="/">Teachers</a>
+        <a href="/">Students</a>
 
-        <script src="/script.js"></script>
-    </body>
+    </header>
 
 </html>
