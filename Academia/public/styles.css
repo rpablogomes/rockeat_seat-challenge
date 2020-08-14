@@ -1,6 +1,6 @@
 * {
-    /* margin: none;
-    padding: none; */
+    margin: none;
+    padding: none;
     font-family: 'Roboto', sans-serif;
     text-align: center;
 }
@@ -9,15 +9,17 @@ header {
     background-color: gray;
     padding: 30px;
     text-align: center;
-    box-sizing: border-box;
 }
 
-a + a {
+a {
     text-align: center;
     font-family: var(--font);
     padding: 30px;
+    box-sizing: border-box;
+
 }
-/* 
-a : hover {
-    
-} */
+
+a:hover {
+    color: green;
+    transition: 400ms;
+}
