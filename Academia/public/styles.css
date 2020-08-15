@@ -4,11 +4,12 @@
     font-family: 'Roboto', sans-serif;
     text-align: center;
 }
-
+/* Layout */
 header {
     background-color: gray;
     padding: 30px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 a {
@@ -16,10 +17,44 @@ a {
     font-family: var(--font);
     padding: 30px;
     box-sizing: border-box;
-
 }
 
 a:hover {
     color: green;
     transition: 400ms;
+}
+
+/* teacher */
+.teacherCard{
+    width: 90%;
+    height: 150px;
+    display: grid;
+    grid-template-columns: 40% 60%;
+
+}
+
+.imgTeachercard{
+    height: auto;
+    width: 100%;
+}
+
+.details{
+    height: 150px;
+}
+
+.details div :first-child{
+    font-size: 5px;
+    color: #aaa;
+}
+
+.details div :last-child{
+    font-size: 10px;
+}
+
+.details div{
+    border-bottom: #aaa solid 1px;
+}
+
+.details :last-child{
+    border-bottom: none
 }

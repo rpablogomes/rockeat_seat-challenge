@@ -7,4 +7,8 @@ routes.get("/", function (req, res){
     return res.render("layout")
 })
 
+routes.get("/teacher", function (req, res){
+    return res.render("teacher")
+})
+
 module.exports = routes
