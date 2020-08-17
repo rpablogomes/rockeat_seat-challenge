@@ -1,60 +1,83 @@
 * {
-    margin: none;
-    padding: none;
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
+  margin: none;
+  padding: none;
+  font-family: "Roboto", sans-serif;
+  /* text-align: center; */
 }
 /* Layout */
 header {
-    background-color: gray;
-    padding: 30px;
-    text-align: center;
-    margin-bottom: 20px;
+  background-color: gray;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 a {
-    text-align: center;
-    font-family: var(--font);
-    padding: 30px;
-    box-sizing: border-box;
+  text-align: center;
+  font-family: var(--font);
+  padding: 30px;
+  box-sizing: border-box;
 }
 
 a:hover {
-    color: green;
-    transition: 400ms;
+  color: green;
+  transition: 400ms;
 }
 
 /* teacher */
-.teacherCard{
-    width: 90%;
-    height: 150px;
-    display: grid;
-    grid-template-columns: 40% 60%;
-
+.teacherCard {
+  border: black solid;
+  overflow-y: auto;
+  border-radius: 10px;
+  width: 500px;
+  height: 200px;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  margin: auto;
+  box-shadow: 5px 5px 5px black; /*shadow */
+  animation-name: card;
+  animation-duration: 1700ms;
 }
 
-.imgTeachercard{
-    height: auto;
-    width: 100%;
+@keyframes card {
+  from {
+    transform: translateY(50px);
+    height: 20%;
+    width: 20%;
+    opacity: 0;
+  }
 }
 
-.details{
-    height: 150px;
+.imgTeachercard {
+  width: 100%;
+  height: 100%;
 }
 
-.details div :first-child{
-    font-size: 5px;
-    color: #aaa;
+.details {
+  display: grid;
+  padding: 7px 5px;
 }
 
-.details div :last-child{
-    font-size: 10px;
+.details h1 {
+  font-size: 15px;
+  margin: 0 0 10px 0;
 }
 
-.details div{
-    border-bottom: #aaa solid 1px;
+.details div div:nth-child(1) {
+  text-align: left;
+  font-size: 9px;
+  color: #aaa;
 }
 
-.details :last-child{
-    border-bottom: none
+.details div div:nth-child(2) {
+  text-align: left;
+  font-size: 13px;
+}
+
+.details div :last-child {
+  border-bottom: #aaa solid 1px;
+}
+
+.details :last-child :last-child {
+  border-bottom: none;
 }
