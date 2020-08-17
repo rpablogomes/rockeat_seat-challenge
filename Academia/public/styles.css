@@ -24,54 +24,62 @@ a:hover {
   transition: 400ms;
 }
 
-/* teacher */
+/* teachers'card */
 .teacherCard {
+  margin: auto;
+
   border: black solid;
-  overflow-y: auto;
   border-radius: 10px;
-  width: 500px;
-  height: 200px;
+  overflow-y: hidden;
+  box-shadow: 5px 5px 5px black; /*shadow */
+
   display: grid;
   grid-template-columns: 40% 60%;
-  margin: auto;
-  box-shadow: 5px 5px 5px black; /*shadow */
+
   animation-name: card;
-  animation-duration: 1700ms;
+  animation-duration: 2700ms;
+  animation-fill-mode: forwards;
 }
 
 @keyframes card {
   from {
     transform: translateY(50px);
-    height: 20%;
-    width: 20%;
+    height: 10px;
+    width: 5px;
     opacity: 0;
   }
+  to {
+    width: 500px;
+    height: 230px;
+  }
 }
+/* Avatar */
 
 .imgTeachercard {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
 }
 
+/* details */
 .details {
   display: grid;
-  padding: 7px 5px;
+  padding: 7px 10px;
 }
 
 .details h1 {
   font-size: 15px;
-  margin: 0 0 10px 0;
+  margin: 0 0 5px 0;
 }
 
 .details div div:nth-child(1) {
   text-align: left;
-  font-size: 9px;
+  font-size: 7px;
   color: #aaa;
 }
 
 .details div div:nth-child(2) {
   text-align: left;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .details div :last-child {
