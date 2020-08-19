@@ -1,0 +1,12 @@
+{
+  "teachers": [
+    {
+      "avatar_url": "https://upload.wikimedia.org/wikipedia/commons/8/82/Zinedine_Zidane_by_Tasnim_01.jpg",
+      "name": "Zinedine Zidane",
+      "birthday": "1972-06-23",
+      "degree": "undergraduaded",
+      "type_of_class": "presential",
+      "classes": "Soccer"
+    }
+  ]
+}

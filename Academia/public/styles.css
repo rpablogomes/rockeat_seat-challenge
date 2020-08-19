@@ -49,8 +49,8 @@ a:hover {
     opacity: 0;
   }
   to {
-    width: 500px;
-    height: 230px;
+    width: 700px;
+    height: 350px;
   }
 }
 /* Avatar */
@@ -88,4 +88,14 @@ a:hover {
 
 .details :last-child :last-child {
   border-bottom: none;
+}
+
+.register{
+  border: none;
+  shape-outside: none;
+  width: 100%;
+}
+
+.registerTypeOfClass{
+  width: auto;
 }
