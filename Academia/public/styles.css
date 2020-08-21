@@ -56,14 +56,19 @@ a:hover {
 /* Avatar */
 
 .imgTeachercard {
-  width: auto;
-  height: auto;
+  width: 280px;
+  height: 350px;
 }
 
 /* details */
 .details {
-  display: grid;
   padding: 7px 10px;
+  display: inherit;
+}
+
+.details div{
+  /* display: block; */
+  margin: auto 0  ;
 }
 
 .details h1 {
@@ -98,4 +103,13 @@ a:hover {
 
 .registerTypeOfClass{
   width: auto;
+}
+
+.classes{
+  background-color: rgb(240, 236, 236); 
+  display: inline-block;
+  margin: 5px auto;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
 }

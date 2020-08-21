@@ -1,7 +1,9 @@
 const fs = require("fs");
 const data = require("./data.json");
 const { timeStamp } = require("console");
-const getAge = require("./utils").age;
+const getAge = require("./utils").getAge;
+const getClasses = require("./utils").getClasses;
+const getSince = require("./utils").getSince
 
 //post
 exports.post = function (req, res) {
@@ -13,19 +15,12 @@ exports.post = function (req, res) {
       return res.send("Fill all the fields");
     }
   }
+// Construct Object to Push into data
+  let { avatar_url, name, degree, type_of_class, classes } = req.body;
 
-  //
-  //id
   const id = data.teachers.length + 1;
-
-  const {
-    avatar_url,
-    name,
-    birthday,
-    degree,
-    type_of_class,
-    classes,
-  } = req.body;
+  const since = Date.now();
+  const birthday = Date.parse(req.body.birthday);
 
   data.teachers.push({
     id,
@@ -35,6 +30,7 @@ exports.post = function (req, res) {
     degree,
     type_of_class,
     classes,
+    since,
   });
 
   fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
@@ -44,6 +40,7 @@ exports.post = function (req, res) {
   });
 };
 
+//Construction
 exports.show = function (req, res) {
   //validation
   const idToCheck = req.params.id;
@@ -55,11 +52,10 @@ exports.show = function (req, res) {
     return res.send("Not found");
   }
 
-  //Object to send to front-end
-
+  
   // Creating age based on birthday
-
-  const {
+  
+  let {
     id,
     avatar_url,
     name,
@@ -67,10 +63,15 @@ exports.show = function (req, res) {
     birthday,
     type_of_class,
     classes,
+    since
   } = foundTeacher;
-
+  
   const age = getAge(birthday);
+  let newClasses = getClasses(classes)
+  let newSince = getSince(since);
 
+  
+  //Object to send to front-end
   const teacherToShow = {
     id,
     avatar_url,
@@ -78,9 +79,24 @@ exports.show = function (req, res) {
     age,
     degree,
     type_of_class,
-    classes,
+    classes: newClasses,
+    since: newSince
   };
 
   console.log(teacherToShow);
   return res.render("teacher", { teacherToShow });
 };
+
+exports.edit = function (req, res) {
+  const teacherToEdit = {
+    "id": 1,
+    "avatar_url": "https://upload.wikimedia.org/wikipedia/commons/8/82/Zinedine_Zidane_by_Tasnim_01.jpg",
+    "name": "Zinedine Zidane",
+    "birthday": 78105600000,
+    "degree": "undergraduaded",
+    "type_of_class": "presential",
+    "classes": "Soccer, strategy, leadership",
+    "since": 1598029804080
+  }
+  return res.render ("edit", { teacherToEdit })
+}

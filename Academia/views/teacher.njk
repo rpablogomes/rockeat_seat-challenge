@@ -4,7 +4,7 @@
 
     <div class="teacherCard">
         <section>
-            <img class="imgTeachercard" src="https://source.unsplash.com/collection/489203/280x350">
+            <img class="imgTeachercard" src="{{teacherToShow.avatar_url}}" >
         </section>
 
         <section class="details">
@@ -27,12 +27,17 @@
             </div>
             <div>
                 <div>Classes:</div>
-                <div>{{teacherToShow.classes}}</div>
+                <div>
+                    {% for class in teacherToShow.classes %}
+                        <span class="classes">{{class}}</span>
+                    {% endfor %}
+                </div>
             </div>
             <div>
                 <div>Since:</div>
-                <div>2015</div>
+                <div>{{teacherToShow.since}}</div>
             </div>
+            <button onclick=window.location.href="/teacher-edit/{{teacherToShow.id}}">Edit</button>
 
         </section>
     </div>

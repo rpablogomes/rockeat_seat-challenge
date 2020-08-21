@@ -1,0 +1,51 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+    <form class="teacherCard" method="POST" action="/teacher">
+        <section>
+            <img class="imgTeachercard" src="https://source.unsplash.com/collection/489203/280x350">
+        </section>
+
+        <section class="details">
+            <h1>Register</h1>
+            <div>
+                <div>Avatar URL:</div>
+                <input class="register" type="url" name="avatar_url" value="{{teacherToEdit.avatar_url}}">
+            </div>
+            <div>
+                <div>Name:</div>
+                <input class="register" name="name" type="text" value="{{teacherToEdit.name}}">
+            </div>
+            <div>
+                <div>Birthday</div>
+                <input class="register" name="birthday" type="date" value="2014-02-09">
+            </div>
+            <div>
+                <div>Bachelor:</div>
+                <select id="select" class="register" name="degree">
+
+                    <option value="undergraduaded" {% if teacherToEdit.degree == "undergraduaded" %} selected {% endif %}>Undergraduaded</option>
+                    <option value="graduate" {% if teacherToEdit.degree == "graduate" %} selected {% endif %}>Graduate</option>
+                    <option value="master" {% if teacherToEdit.degree == "master" %} selected {% endif %}>Master</option>
+                    <option value="doctor" {% if teacherToEdit.degree == "doctor" %} selected {% endif %}>Doctor</option>
+                </select>
+            </div>
+            <div>
+                <div>Type of Class:</div>
+                <div>
+                    <span><input class="registerTypeOfClass" name="type_of_class" type="radio" value="presential" >Presential</span>
+                    <span><input class="registerTypeOfClass" name="type_of_class" type="radio" value="online" >Online</span>
+
+                </div>
+            </div>
+            <div>
+                <div>Classes:</div>
+                <input class="register" name="classes" type="text" value="{{teacherToEdit.classes}}">
+            </div>
+            <button type="submit">Submit</button>
+
+        </section>
+    </form>
+
+{% endblock %}
