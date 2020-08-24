@@ -43,3 +43,11 @@ exports.getSince = function (since) {
   console.log(UTFsince);
   return UTFsince;
 };
+
+exports.date = function (birthday) {
+  const year = new Date(birthday).getFullYear();
+  const month = `0${new Date(birthday).getMonth() + 1}`;
+  const date = `0${new Date(birthday).getDate()}`;
+
+  return `${year}-${month.slice(-2)}-${date.slice(-2)}`;
+};

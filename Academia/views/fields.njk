@@ -1,0 +1,36 @@
+<div>
+    <div>Avatar URL:</div>
+    <input class="register" type="url" name="avatar_url" placeholder="http://" value="{{teacher.avatar_url}}">
+</div>
+<div>
+    <div>Name:</div>
+    <input class="register" name="name" type="text" value="{{teacher.name}}">
+</div>
+<div>
+    <div>Birthday</div>
+    <input class="register" name="birthday" type="date" value="{{teacher.birthday}}">
+</div>
+<div>
+    <div>Bachelor:</div>
+    <select id="select" class="register" name="degree">
+        <option value="" hidden {% if teacher.degree == "" %} selected {% endif %}></option>
+        <option value="undergraduaded" {% if teacher.degree == "undergraduated" %} selected {% endif %}>Undergraduated</option>
+        <option value="graduate" {% if teacher.degree == "graduate" %} selected {% endif %}>Graduate</option>
+        <option value="master" {% if teacher.degree == "master" %} selected {% endif %}>Master</option>
+        <option value="doctor" {% if teacher.degree == "doctor" %} selected {% endif %}>Doctor</option>
+
+    </select>
+</div>
+<div>
+    <div>Type of Class:</div>
+    <div>
+        <span><input class="registerTypeOfClass" name="type_of_class" type="radio" value="presential" {% if teacher.type_of_class == "presential" %} checked {% endif %}>Presential</span>
+        <span><input class="registerTypeOfClass" name="type_of_class" type="radio" value="online" {% if teacher.type_of_class == "online" %} checked {% endif %}>Online</span>
+
+    </div>
+</div>
+<div>
+    <div>Classes:</div>
+    <input class="register" name="classes" type="text" value="{{teacher.classes}}">
+</div>
+<button type="submit">Submit</button>

@@ -3,7 +3,8 @@ const data = require("./data.json");
 const { timeStamp } = require("console");
 const getAge = require("./utils").getAge;
 const getClasses = require("./utils").getClasses;
-const getSince = require("./utils").getSince
+const getSince = require("./utils").getSince;
+const date = require("./utils").date;
 
 //post
 exports.post = function (req, res) {
@@ -15,7 +16,7 @@ exports.post = function (req, res) {
       return res.send("Fill all the fields");
     }
   }
-// Construct Object to Push into data
+  // Construct Object to Push into data
   let { avatar_url, name, degree, type_of_class, classes } = req.body;
 
   const id = data.teachers.length + 1;
@@ -52,9 +53,8 @@ exports.show = function (req, res) {
     return res.send("Not found");
   }
 
-  
   // Creating age based on birthday
-  
+
   let {
     id,
     avatar_url,
@@ -63,16 +63,15 @@ exports.show = function (req, res) {
     birthday,
     type_of_class,
     classes,
-    since
+    since,
   } = foundTeacher;
-  
+
   const age = getAge(birthday);
-  let newClasses = getClasses(classes)
+  let newClasses = getClasses(classes);
   let newSince = getSince(since);
 
-  
   //Object to send to front-end
-  const teacherToShow = {
+  const teacher = {
     id,
     avatar_url,
     name,
@@ -80,23 +79,32 @@ exports.show = function (req, res) {
     degree,
     type_of_class,
     classes: newClasses,
-    since: newSince
+    since: newSince,
   };
 
-  console.log(teacherToShow);
-  return res.render("teacher", { teacherToShow });
+  return res.render("teacher", { teacher });
 };
 
 exports.edit = function (req, res) {
-  const teacherToEdit = {
-    "id": 1,
-    "avatar_url": "https://upload.wikimedia.org/wikipedia/commons/8/82/Zinedine_Zidane_by_Tasnim_01.jpg",
-    "name": "Zinedine Zidane",
-    "birthday": 78105600000,
-    "degree": "undergraduaded",
-    "type_of_class": "presential",
-    "classes": "Soccer, strategy, leadership",
-    "since": 1598029804080
-  }
-  return res.render ("edit", { teacherToEdit })
-}
+  const idToCheck = req.params.id;
+
+  const foundTeacher = data.teachers.find((teacher) => {
+    return teacher.id == idToCheck;
+  });
+
+  let { id, avatar_url, name, degree, type_of_class, classes } = foundTeacher;
+
+  const birthday = date(foundTeacher.birthday);
+
+  const teacher = {
+    id,
+    avatar_url,
+    name,
+    birthday,
+    degree,
+    type_of_class,
+    classes,
+  };
+
+  return res.render("edit", { teacher });
+};

@@ -6,45 +6,9 @@
         <section>
             <img class="imgTeachercard" src="https://source.unsplash.com/collection/489203/280x350">
         </section>
-
         <section class="details">
             <h1>Register</h1>
-            <div>
-                <div>Avatar URL:</div>
-                <input class="register" type="url" name="avatar_url" placeholder="http://">
-            </div>
-            <div>
-                <div>Name:</div>
-                <input class="register" name="name" type="text">
-            </div>
-            <div>
-                <div>Birthday</div>
-                <input class="register" name="birthday" type="date">
-            </div>
-            <div>
-                <div>Bachelor:</div>
-                <select class="register" name="degree">
-                    <option value="undergraduaded">Undergraduaded</option>
-                    <option value="graduate">Graduate</option>
-                    <option value="master">Master</option>
-                    <option value="doctor">Doctor</option>
-                </select>
-            </div>
-            <div>
-                <div>Type of Class:</div>
-                <div>
-                    <span><input class="registerTypeOfClass" name="type_of_class" type="radio" value="presential">Presential</span>
-
-                    <span><input class="registerTypeOfClass" name="type_of_class" type="radio" value="online">Online</span>
-
-                </div>
-            </div>
-            <div>
-                <div>Classes:</div>
-                <input class="register" name="classes" type="text">
-            </div>
-            <button type="submit">Submit</button>
-
+            {% include "fields.njk" %}
         </section>
     </form>
 

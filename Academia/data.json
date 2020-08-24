@@ -9,6 +9,26 @@
       "type_of_class": "presential",
       "classes": "Soccer, strategy, leadership",
       "since": 1598029804080
+    },
+    {
+      "id": 2,
+      "avatar_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Ronaldinho_Ga%C3%BAcho_em_junho_de_2019.jpg/1200px-Ronaldinho_Ga%C3%BAcho_em_junho_de_2019.jpg",
+      "name": "Ronaldinho Gaúcho",
+      "birthday": 322444800000,
+      "degree": "undergraduated",
+      "type_of_class": "presential",
+      "classes": "Soccer",
+      "since": 1598296948489
+    },
+    {
+      "id": 3,
+      "avatar_url": "https://readtiger.com/img/wkp/en/Thierry_Henry_Arsenal_U19s_Vs_Olympiacos_(cropped).jpg",
+      "name": "Thierry Henry",
+      "birthday": 240624000000,
+      "degree": "graduate",
+      "type_of_class": "online",
+      "classes": "Soccer",
+      "since": 1598297155265
     }
   ]
 }
