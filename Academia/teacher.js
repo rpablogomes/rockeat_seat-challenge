@@ -136,5 +136,21 @@ exports.put = function (req, res) {
 };
 
 exports.delete = function(req, res){
-  console.log("ok")
+  const { id } = req.body
+  const filteredTeacher = data.teachers.filter((teacher) => {
+    if(teacher.id != id){
+      return teacher
+    }
+  })
+  console.log(filteredTeacher)
+  data.teachers = filteredTeacher
+
+  fs.writeFile("./data.json", JSON.stringify(data, null, 2), function(err){
+    if(err){ 
+      return res.send("Error")
+    }
+
+
+    return res.redirect("/")
+  })
 }

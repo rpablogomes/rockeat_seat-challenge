@@ -66,7 +66,7 @@ a:hover {
   display: grid;
 }
 
-.details form  {
+.details > *  {
   display: grid;
   height: auto;
 }
@@ -76,23 +76,19 @@ a:hover {
   margin: 1 0;
 }
 
-.details div div:nth-child(1) {
+.details > * div:nth-child(1) {
   text-align: left;
   font-size: 50%;
   color: #aaa;
 }
 
-.details div div:nth-child(2) {
+.details > * div:nth-child(2) {
   text-align: left;
   font-size: 100%;
 }
 
 .details div :last-child {
   border-bottom: #aaa solid 1px;
-}
-
-.details :last-child :last-child {
-  border-bottom: none;
 }
 
 .register{
@@ -114,26 +110,22 @@ a:hover {
   border-radius: 5px;
 }
 
+.buttons{
+  display: inline-flex;
+  gap: 10%;
+}
+
 .button{
-  height: 35px;
+  height: 100%;
   width: 100%;
-  margin: 0;
   border-radius: 5px;
-  margin: auto 0;
-  border-bottom: none
-}
-
-/* edit page */
-.details form div:nth-child(1) {
-  text-align: left;
-  font-size: 50%;
-  color: #aaa;
-}
-
-.details form div:nth-child(2) {
-  text-align: left;
   font-size: 100%;
 }
 
-
-
+#delete{
+  height: 100%;
+  width: 100%;
+  background-color: rgb(192, 53, 53);
+  border-radius: 5px;
+  font-size: 100%;
+}
