@@ -108,3 +108,33 @@ exports.edit = function (req, res) {
 
   return res.render("edit", { teacher });
 };
+
+exports.put = function (req, res) {
+  const { id, name, degree, type_of_class, classes, since } = req.body;
+  const birthday = Date.parse(req.body.birthday)
+
+  let index = 0
+
+  const foundTeacher = data.teachers.find((teacher, foundIndex) => {
+    index = foundIndex
+    return teacher.id == id;
+  })
+
+  if (!foundTeacher) {
+    return res.send("Not found");
+  }
+
+  const teacher = {
+    ...foundTeacher,
+    ...req.body,
+    birthday
+  }
+
+  data.teachers[index] = teacher
+
+  return res.redirect(`/teacher/${id}`)
+};
+
+exports.delete = function(req, res){
+  console.log("ok")
+}

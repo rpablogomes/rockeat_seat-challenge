@@ -63,28 +63,28 @@ a:hover {
 /* details */
 .details {
   padding: 7px 10px;
-  display: inherit;
+  display: grid;
 }
 
-.details div{
-  /* display: block; */
-  margin: auto 0  ;
+.details form  {
+  display: grid;
+  height: auto;
 }
 
 .details h1 {
-  font-size: 15px;
-  margin: 0 0 5px 0;
+  font-size: 25px;
+  margin: 1 0;
 }
 
 .details div div:nth-child(1) {
   text-align: left;
-  font-size: 7px;
+  font-size: 50%;
   color: #aaa;
 }
 
 .details div div:nth-child(2) {
   text-align: left;
-  font-size: 12px;
+  font-size: 100%;
 }
 
 .details div :last-child {
@@ -113,3 +113,27 @@ a:hover {
   padding: 5px 10px;
   border-radius: 5px;
 }
+
+.button{
+  height: 35px;
+  width: 100%;
+  margin: 0;
+  border-radius: 5px;
+  margin: auto 0;
+  border-bottom: none
+}
+
+/* edit page */
+.details form div:nth-child(1) {
+  text-align: left;
+  font-size: 50%;
+  color: #aaa;
+}
+
+.details form div:nth-child(2) {
+  text-align: left;
+  font-size: 100%;
+}
+
+
+

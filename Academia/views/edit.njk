@@ -2,14 +2,28 @@
 
 {% block content %}
 
-    <form class="teacherCard" method="POST" action="/teacher">
+    <div class="teacherCard">
         <section>
             <img class="imgTeachercard" src="{{teacher.avatar_url}}">
         </section>
         <section class="details">
-            <h1>Edit</h1>
-            {% include "fields.njk" %}
+
+            <form  method="POST" action="/teacher?_method=PUT">
+                <h1>Edit</h1>
+
+                {% include "fields.njk" %}
+                <input 
+            type="hidden" 
+            name="id"
+            value="{{teacher.id}}"/>
+            </form>
+
+            <form >
+                <input hidden name="id" value="{{teacher.id}}" method="POST" action="/teacher?_method=DELETE">
+                <button id="delete" class="button" type="submit">Delete</button>
+            </form>
+
         </section>
-    </form>
+    </div>
 
 {% endblock %}

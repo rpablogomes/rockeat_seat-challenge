@@ -36,11 +36,8 @@ exports.getSince = function (since) {
   const month = newSince.getMonth();
   const date = newSince.getDate();
 
-  console.log(date, month, year);
-
   const UTFsince = `${date}/ ${month}/ ${year}`;
 
-  console.log(UTFsince);
   return UTFsince;
 };
 

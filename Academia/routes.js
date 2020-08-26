@@ -3,18 +3,29 @@ const routes = express.Router();
 const teachers = require("./teacher");
 // const { Router } = require("express");
 
+//layout
 routes.get("/", function (req, res) {
   return res.render("layout");
 });
 
-routes.get("/teacher-register", function (req, res) {
+//Register Page
+routes.get("/teacher/register", function (req, res) {
   return res.render("register");
 });
 
+//post
+routes.post("/teacher", teachers.post);
+
+//show
 routes.get("/teacher/:id", teachers.show);
 
-routes.get("/teacher-edit/:id", teachers.edit)
+//edit
+routes.get("/teacher/:id/edit", teachers.edit)
 
-routes.post("/teacher", teachers.post);
+//put
+routes.put("/teacher", teachers.put)
+
+//delete
+routes.delete("/teacher", teachers.delete)
 
 module.exports = routes;
