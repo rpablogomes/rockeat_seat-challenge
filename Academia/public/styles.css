@@ -15,7 +15,7 @@ header {
 a {
   text-align: center;
   font-family: var(--font);
-  padding: 30px;
+  margin: 30px;
   box-sizing: border-box;
 }
 
@@ -24,8 +24,93 @@ a:hover {
   transition: 400ms;
 }
 
+/* teachers'list */
+
+.table {
+  margin: auto;
+  padding: 30px;
+
+  border: black solid;
+  border-radius: 10px;
+  box-sizing: border-box;
+  overflow-y: hidden;
+  box-shadow: 5px 5px 5px black; /*shadow */
+
+  display: block;
+
+  animation-name: table;
+  animation-duration: 2700ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes table {
+  from {
+    transform: translateY(50px);
+    height: 1px;
+    width: 1px;
+    opacity: 0;
+  }
+  to {
+    width: 700px;
+    height: 350px;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.teacherOnTable{
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  align-items: center;
+
+}
+
+.DIVseeButton {
+  text-align: center;
+  color: white;
+}
+
+#seeButton {
+  background-color: rgb(172, 94, 218);
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+table thead th {
+  text-align: left;
+}
+
+.test{
+  background-color: red;
+}
+
+td,
+th {
+  margin: none;
+  padding: 10px;
+  border-bottom: #aaa solid 1px;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+table thead tr :last-child {
+  text-align: center;
+}
+
+.imgTable {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
 /* teachers'card */
-.teacherCard {
+.Card {
   margin: auto;
 
   border: black solid;
@@ -66,7 +151,7 @@ a:hover {
   display: grid;
 }
 
-.details > *  {
+.details > * {
   display: grid;
   height: auto;
 }
@@ -91,18 +176,18 @@ a:hover {
   border-bottom: #aaa solid 1px;
 }
 
-.register{
+.register {
   border: none;
   shape-outside: none;
   width: 100%;
 }
 
-.registerTypeOfClass{
+.registerTypeOfClass {
   width: auto;
 }
 
-.classes{
-  background-color: rgb(240, 236, 236); 
+.classes {
+  background-color: rgb(240, 236, 236);
   display: inline-block;
   margin: 5px auto;
   font-size: 12px;
@@ -110,19 +195,19 @@ a:hover {
   border-radius: 5px;
 }
 
-.buttons{
+.buttons {
   display: inline-flex;
   gap: 10%;
 }
 
-.button{
+.button {
   height: 100%;
   width: 100%;
   border-radius: 5px;
   font-size: 100%;
 }
 
-#delete{
+#delete {
   height: 100%;
   width: 100%;
   background-color: rgb(192, 53, 53);

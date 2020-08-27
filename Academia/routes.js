@@ -8,6 +8,9 @@ routes.get("/", function (req, res) {
   return res.render("layout");
 });
 
+//Teachers' list
+routes.get("/teachers", teachers.teachers)
+
 //Register Page
 routes.get("/teacher/register", function (req, res) {
   return res.render("register");
