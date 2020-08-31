@@ -1,0 +1,39 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+    <div class="table" >
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Classes</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td >
+                            <div class="studentOnTable">
+                                <img class="imgTable" src="{{student.avatar_url}}">
+                                <div>{{student.name}}</div>
+                            </div>    
+                        </td>
+                        <td>
+                            {% for classes in student.classes%}
+                                <div class="classes">{{classes}}</div>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <div class="DIVseeButton">
+                                <a id="seeButton" href="/student/{{student.id}}">See</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+{% endblock %}

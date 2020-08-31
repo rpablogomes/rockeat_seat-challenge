@@ -1,6 +1,8 @@
 const express = require("express");
 const routes = express.Router();
-const teachers = require("./teacher");
+const teachers = require("./constrolers/teacher");
+const students = require("./constrolers/students");
+
 // const { Router } = require("express");
 
 //layout
@@ -13,7 +15,7 @@ routes.get("/teachers", teachers.teachers)
 
 //Register Page
 routes.get("/teacher/register", function (req, res) {
-  return res.render("register");
+  return res.render("teachers/register");
 });
 
 //post
@@ -30,5 +32,30 @@ routes.put("/teacher", teachers.put)
 
 //delete
 routes.delete("/teacher", teachers.delete)
+
+//STUDENTS
+
+//students' list
+routes.get("/students", students.students)
+
+//Register Page
+routes.get("/student/register", function (req, res) {
+  return res.render("students/register");
+});
+
+//post
+routes.post("/student", students.post);
+
+//show
+routes.get("/student/:id", students.show);
+
+//edit
+routes.get("/student/:id/edit", students.edit)
+
+//put
+routes.put("/student", students.put)
+
+//delete
+routes.delete("/student", students.delete)
 
 module.exports = routes;

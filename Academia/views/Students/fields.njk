@@ -1,0 +1,39 @@
+<div>
+    <div>Avatar URL:</div>
+    <input class="register" type="url" name="avatar_url" placeholder="http://" value="{{student.avatar_url}}">
+</div>
+<div>
+    <div>Name:</div>
+    <input class="register" name="name" type="text" value="{{student.name}}">
+</div>
+<div>
+    <div>Birthday</div>
+    <input class="register" name="birthday" type="date" value="{{student.birthday}}">
+</div>
+<div>
+    <div>Email:</div>
+    <input class="register" name="name" type="email" value="{{student.email}}">
+</div>
+<div>
+    <div>School Year:</div>
+
+        <select id="select" class="register" name="degree">
+            <option value="" hidden {% if teacher.degree == "" %} selected {% endif %}></option>
+            <option value="5º ano" {% if teacher.degree == "5º ano" %} selected {% endif %}>5º ano</option>
+            <option value="6º ano" {% if teacher.degree == "6º ano" %} selected {% endif %}>6º ano</option>
+            <option value="7º ano" {% if teacher.degree == "7º ano" %} selected {% endif %}>7º ano</option>
+            <option value="8º ano" {% if teacher.degree == "8º ano" %} selected {% endif %}>8º ano</option>
+            <option value="1º ano" {% if teacher.degree == "1º ano" %} selected {% endif %}>1º ano</option>
+            <option value="2º ano" {% if teacher.degree == "2º ano" %} selected {% endif %}>2º ano</option>
+            <option value="3º ano" {% if teacher.degree == "3º ano" %} selected {% endif %}>3º ano</option>
+
+        </select>
+
+
+</div>
+<div>
+    <div>Workload:</div>
+    <input class="register" name="classes" type="number" value="{{student.classes}}">
+</div>
+<div class="buttons">
+    <button class="button" type="submit">Submit</button>

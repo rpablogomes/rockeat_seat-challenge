@@ -1,33 +1,33 @@
 const fs = require("fs");
-const data = require("./data.json");
+const data = require("../data.json");
 const { timeStamp } = require("console");
 const { render } = require("nunjucks");
-const getAge = require("./utils").getAge;
-const getClasses = require("./utils").getClasses;
-const getSince = require("./utils").getSince;
-const date = require("./utils").date;
+const getAge = require("../utils").getAge;
+const getClasses = require("../utils").getClasses;
+const getSince = require("../utils").getSince;
+const date = require("../utils").date;
 
-//Teachers' list
+//students' list
 
-exports.teachers = function (req, res) {
+exports.students = function (req, res) {
 
-  teachers = []
+  students = []
   
   
-  for(let i of data.teachers){
+  for(let i of data.students){
 
     let { id, avatar_url, name, classes } = i
     
     let classesInArray = getClasses(classes)
 
-    const teacherToPush = {
+    const studentToPush = {
       id, avatar_url, name, classes : classesInArray
     }
 
-    teachers.push(teacherToPush)
+    students.push(studentToPush)
 
   }
-  return res.render("teachers", { teachers });
+  return res.render("students/students", { students });
 };
 
 //post
@@ -43,11 +43,11 @@ exports.post = function (req, res) {
   // Construct Object to Push into data
   let { avatar_url, name, degree, type_of_class, classes } = req.body;
 
-  const id = data.teachers.length + 1;
+  const id = data.students.length + 1;
   const since = Date.now();
   const birthday = Date.parse(req.body.birthday);
 
-  data.teachers.push({
+  data.students.push({
     id,
     avatar_url,
     name,
@@ -61,7 +61,7 @@ exports.post = function (req, res) {
   fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
     if (err) return res.send("write file error");
 
-    return res.redirect("/teacher");
+    return res.redirect(`student/${id}`);
   });
 };
 
@@ -69,11 +69,11 @@ exports.post = function (req, res) {
 exports.show = function (req, res) {
   //validation
   const idToCheck = req.params.id;
-  const foundTeacher = data.teachers.find((teacher) => {
-    return teacher.id == idToCheck;
+  const foundstudent = data.students.find((student) => {
+    return student.id == idToCheck;
   });
 
-  if (!foundTeacher) {
+  if (!foundstudent) {
     return res.send("Not found");
   }
 
@@ -88,14 +88,14 @@ exports.show = function (req, res) {
     type_of_class,
     classes,
     since,
-  } = foundTeacher;
+  } = foundstudent;
 
   const age = getAge(birthday);
   let newClasses = getClasses(classes);
   let newSince = getSince(since);
 
   //Object to send to front-end
-  const teacher = {
+  const student = {
     id,
     avatar_url,
     name,
@@ -106,21 +106,21 @@ exports.show = function (req, res) {
     since: newSince,
   };
 
-  return res.render("teacher", { teacher });
+  return res.render("students/student", { student });
 };
 
 exports.edit = function (req, res) {
   const idToCheck = req.params.id;
 
-  const foundTeacher = data.teachers.find((teacher) => {
-    return teacher.id == idToCheck;
+  const foundstudent = data.students.find((student) => {
+    return student.id == idToCheck;
   });
 
-  let { id, avatar_url, name, degree, type_of_class, classes } = foundTeacher;
+  let { id, avatar_url, name, degree, type_of_class, classes } = foundstudent;
 
-  const birthday = date(foundTeacher.birthday);
+  const birthday = date(foundstudent.birthday);
 
-  const teacher = {
+  const student = {
     id,
     avatar_url,
     name,
@@ -130,7 +130,7 @@ exports.edit = function (req, res) {
     classes,
   };
 
-  return res.render("edit", { teacher });
+  return res.render("students/edit", { student });
 };
 
 exports.put = function (req, res) {
@@ -139,37 +139,43 @@ exports.put = function (req, res) {
 
   let index = 0;
 
-  const foundTeacher = data.teachers.find((teacher, foundIndex) => {
+  const foundstudent = data.students.find((student, foundIndex) => {
     index = foundIndex;
-    return teacher.id == id;
+    return student.id == id;
   });
 
-  if (!foundTeacher) {
+  
+  
+  if (!foundstudent) {
     return res.send("Not found");
   }
-
-  const teacher = {
-    ...foundTeacher,
+  
+  const student = {
+    ...foundstudent,
     ...req.body,
     birthday,
   };
+  
+  data.students[index] = student;
 
-  data.teachers[index] = teacher;
+  fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
+    if (err) return res.send("write file error");
+  })
 
-  return res.redirect(`/teacher/${id}`);
+  return res.redirect(`/student/${id}`);
 };
 
 exports.delete = function (req, res) {
   const { id } = req.body;
-  const filteredTeacher = data.teachers.filter((teacher) => {
-    if (teacher.id != id) {
-      return teacher;
+  const filteredstudent = data.students.filter((student) => {
+    if (student.id != id) {
+      return student;
     }
   });
-  console.log(filteredTeacher);
-  data.teachers = filteredTeacher;
+  console.log(filteredstudent);
+  data.students = filteredstudent;
 
-  fs.writeFile("./data.json", JSON.stringify(data, null, 2), function (err) {
+  fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
     if (err) {
       return res.send("Error");
     }

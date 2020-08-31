@@ -214,3 +214,7 @@ table thead tr :last-child {
   border-radius: 5px;
   font-size: 100%;
 }
+
+.active{
+  font-weight: bold;
+}
