@@ -10,22 +10,21 @@ const date = require("../utils").date;
 //Teachers' list
 
 exports.teachers = function (req, res) {
+  teachers = [];
 
-  teachers = []
-  
-  
-  for(let i of data.teachers){
+  for (let i of data.teachers) {
+    let { id, avatar_url, name, classes } = i;
 
-    let { id, avatar_url, name, classes } = i
-    
-    let classesInArray = getClasses(classes)
+    let classesInArray = getClasses(classes);
 
     const teacherToPush = {
-      id, avatar_url, name, classes : classesInArray
-    }
+      id,
+      avatar_url,
+      name,
+      classes: classesInArray,
+    };
 
-    teachers.push(teacherToPush)
-
+    teachers.push(teacherToPush);
   }
   return res.render("teachers/teachers", { teachers });
 };
@@ -43,7 +42,17 @@ exports.post = function (req, res) {
   // Construct Object to Push into data
   let { avatar_url, name, degree, type_of_class, classes } = req.body;
 
-  const id = data.teachers.length + 1;
+  const CheckHighestid = () => {
+    let highestID = 0;
+    for (let e of data.teachers) {
+      if (e.id > highestID) {
+        highestID = e.id;
+      }
+    }
+    return (highestID + 1)
+  };
+
+  const id = Number(CheckHighestid())
   const since = Date.now();
   const birthday = Date.parse(req.body.birthday);
 
@@ -136,7 +145,7 @@ exports.edit = function (req, res) {
 };
 
 exports.put = function (req, res) {
-  const  id  = Number(req.body.id);
+  const id = Number(req.body.id);
   const birthday = Date.parse(req.body.birthday);
 
   let index = 0;
@@ -145,7 +154,6 @@ exports.put = function (req, res) {
     index = foundIndex;
     return teacher.id == id;
   });
-
 
   if (!foundTeacher) {
     return res.send("Not found");
@@ -158,11 +166,11 @@ exports.put = function (req, res) {
     birthday,
   };
 
-  data.teachers[index] = teacher
+  data.teachers[index] = teacher;
 
   fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
     if (err) return res.send("write file error");
-  })
+  });
 
   return res.redirect(`/teacher/${id}`);
 };

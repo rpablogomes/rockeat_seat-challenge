@@ -88,9 +88,13 @@ table thead th {
   background-color: red;
 }
 
+td{
+  padding: 10px;
+  border-bottom: #aaa solid 1px;
+} 
 td,
-th {
-  margin: none;
+th{
+  text-align: center;
   padding: 10px;
   border-bottom: #aaa solid 1px;
 }

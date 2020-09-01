@@ -2,12 +2,14 @@
 
 {% block content %}
     <div class="table" >
+        <button onclick="location.href='/student/register'" >New Student</button>
         <table>
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Classes</th>
-                    <th>Action</th>
+                    <th><div>Name</div></th>
+                    <th><div>Email</div></th>
+                    <th><div>School Year</div></th>
+                    <th><div>Action</div></th>
                 </tr>
             </thead>
             <tbody>
@@ -20,9 +22,13 @@
                             </div>    
                         </td>
                         <td>
-                            {% for classes in student.classes%}
-                                <div class="classes">{{classes}}</div>
-                            {% endfor %}
+                                <div >{{student.email}}</div>
+
+                        </td>
+                        <td>
+
+                                <div >{{student.school_year}}</div>
+
                         </td>
                         <td>
                             <div class="DIVseeButton">

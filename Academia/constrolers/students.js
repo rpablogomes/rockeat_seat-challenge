@@ -10,22 +10,19 @@ const date = require("../utils").date;
 //students' list
 
 exports.students = function (req, res) {
+  students = [];
 
-  students = []
-  
-  
-  for(let i of data.students){
-
-    let { id, avatar_url, name, classes } = i
-    
-    let classesInArray = getClasses(classes)
+  for (let i of data.students) {
+    let { id, avatar_url, name, email, school_year } = i;
 
     const studentToPush = {
-      id, avatar_url, name, classes : classesInArray
-    }
+      id,
+      avatar_url,
+      email,
+      school_year
+    };
 
-    students.push(studentToPush)
-
+    students.push(studentToPush);
   }
   return res.render("students/students", { students });
 };
@@ -41,21 +38,32 @@ exports.post = function (req, res) {
     }
   }
   // Construct Object to Push into data
-  let { avatar_url, name, degree, type_of_class, classes } = req.body;
+  let { avatar_url, name, email, school_year, workload } = req.body;
 
-  const id = data.students.length + 1;
-  const since = Date.now();
+  const CheckHighestid = () => {
+    let highestID = 0;
+    for (let e of data.students) {
+      if (e.id > highestID) {
+        highestID = e.id;
+      }
+    }
+    return highestID + 1;
+  };
+
+  const id = Number(CheckHighestid());
+
+  console.log(id);
+
   const birthday = Date.parse(req.body.birthday);
 
   data.students.push({
     id,
     avatar_url,
     name,
+    email,
     birthday,
-    degree,
-    type_of_class,
-    classes,
-    since,
+    school_year,
+    workload,
   });
 
   fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
@@ -69,11 +77,11 @@ exports.post = function (req, res) {
 exports.show = function (req, res) {
   //validation
   const idToCheck = req.params.id;
-  const foundstudent = data.students.find((student) => {
+  const foundStudent = data.students.find((student) => {
     return student.id == idToCheck;
   });
 
-  if (!foundstudent) {
+  if (!foundStudent) {
     return res.send("Not found");
   }
 
@@ -83,16 +91,13 @@ exports.show = function (req, res) {
     id,
     avatar_url,
     name,
-    degree,
+    email,
     birthday,
-    type_of_class,
-    classes,
-    since,
-  } = foundstudent;
+    school_year,
+    workload,
+  } = foundStudent;
 
   const age = getAge(birthday);
-  let newClasses = getClasses(classes);
-  let newSince = getSince(since);
 
   //Object to send to front-end
   const student = {
@@ -100,10 +105,9 @@ exports.show = function (req, res) {
     avatar_url,
     name,
     age,
-    degree,
-    type_of_class,
-    classes: newClasses,
-    since: newSince,
+    email,
+    school_year,
+    workload,
   };
 
   return res.render("students/student", { student });
@@ -112,22 +116,22 @@ exports.show = function (req, res) {
 exports.edit = function (req, res) {
   const idToCheck = req.params.id;
 
-  const foundstudent = data.students.find((student) => {
+  const foundStudent = data.students.find((student) => {
     return student.id == idToCheck;
   });
 
-  let { id, avatar_url, name, degree, type_of_class, classes } = foundstudent;
+  let { id, avatar_url, name, email, school_year, workload } = foundStudent;
 
-  const birthday = date(foundstudent.birthday);
+  const birthday = date(foundStudent.birthday);
 
   const student = {
     id,
     avatar_url,
     name,
     birthday,
-    degree,
-    type_of_class,
-    classes,
+    email,
+    school_year,
+    workload,
   };
 
   return res.render("students/edit", { student });
@@ -139,28 +143,26 @@ exports.put = function (req, res) {
 
   let index = 0;
 
-  const foundstudent = data.students.find((student, foundIndex) => {
+  const foundStudent = data.students.find((student, foundIndex) => {
     index = foundIndex;
     return student.id == id;
   });
 
-  
-  
-  if (!foundstudent) {
+  if (!foundStudent) {
     return res.send("Not found");
   }
-  
+
   const student = {
-    ...foundstudent,
+    ...foundStudent,
     ...req.body,
     birthday,
   };
-  
+
   data.students[index] = student;
 
   fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
     if (err) return res.send("write file error");
-  })
+  });
 
   return res.redirect(`/student/${id}`);
 };

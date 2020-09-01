@@ -18,29 +18,22 @@
                 <div>{{student.age}}</div>
             </div>
             <div>
-                <div>Bachelor:</div>
-                <div>{{student.degree}}</div>
+                <div>Email:</div>
+                <div>{{student.email}}</div>
             </div>
             <div>
-                <div>Type of class:</div>
-                <div>{{student.type_of_class}}</div>
+                <div>School Year:</div>
+                <div>{{student.school_year}}</div>
             </div>
             <div>
-                <div>Classes:</div>
-                <div>
-                    {% for class in student.classes %}
-                        <span class="classes">{{class}}</span>
-                    {% endfor %}
-                </div>
+                <div>Workload:</div>
+                <div>{{student.workload}}</div>
             </div>
-            <div>
-                <div>Since:</div>
-                <div>{{student.since}}</div>
-            </div>
+
             <div class="buttons">
                 <button class="button" onclick=window.location.href="/student/{{student.id}}/edit">Edit</button>
 
-                <form class="button" action="/student?_method=DELETE" method="POST">
+                <form id="submitDelete" class="button" action="/student?_method=DELETE" method="POST">
                     <input hidden name="id" value="{{student.id}}" >
                     <button id="delete" type="submit">Delete</button>
                 </form>
