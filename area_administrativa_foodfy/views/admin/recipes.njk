@@ -1,0 +1,22 @@
+{% extends "admin/admin_layout.njk" %}
+
+{% block content %}
+
+    <h1>Gerenciar receitas</h1>
+    <div class="cards">
+    {% for receipt in receipes %}
+        <div class="card">
+            <div>
+                <img class="image" src={{receipt.image}}>
+            </div>
+            <div class="secondFractionOfCard">
+                <div class="foodName">{{receipt.title}}</div>
+                <div class="authorName">{{receipt.author}}</div>
+                <div >
+                    <a class="link" href="http://google.com">visualizar</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
