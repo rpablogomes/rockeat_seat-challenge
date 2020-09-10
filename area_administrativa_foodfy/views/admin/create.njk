@@ -1,0 +1,42 @@
+{% extends "admin/admin_layout.njk" %}
+
+{% block content %}
+
+    <div class="receiptTop">
+        <h1>Criando receita</h1>
+        <button class="button">Salvar receita</button>
+    </div>
+
+    <div>
+        <div class="createText">Imagem da receita</div>
+        <input class="createInput" type="text" name="image" value="" placeholder="http://">
+    </div>
+
+    <div>
+        <div class="createText">Ingredientes</div>
+        <div id="ingredients">
+            <div class="ingredient">
+                <input class="createInput" type="text" name="ingredients[]" value="" placeholder="Ingredientes"/>
+            </div>
+        </div>
+
+        <a type="button" class="createLink add-ingredient">Adicionar novo ingrediente</a>
+    </div>
+
+    <div>
+        <div class="createText">Modo de preparo</div>
+        <div id="steps">
+            <div class="step">
+                <input class="createInput" type="text" name="steps[]" value="" placeholder="Passos"/>
+            </div>
+        </div>
+
+        <a type="button" class="createLink add-step">Adicionar Novo Passo</a>
+    </div>
+
+    <div>
+        <div class="createText">Modo de preparo</div>
+        <input class="LASTcreateInput" type="text" name="information" value="" placeholder="Informação">
+    </div>
+
+{% endblock %}
