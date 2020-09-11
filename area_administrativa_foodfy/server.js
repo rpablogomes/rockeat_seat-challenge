@@ -5,6 +5,10 @@ const server = express()
 const data = require("./data")
 const recipes = require("./recipes")
 const e = require("express")
+const methodOverride = require("method-override")
+
+server.use(express.urlencoded({ extended: true}))
+server.use(methodOverride('_method'))
 
 server.use(express.static("public"))
 

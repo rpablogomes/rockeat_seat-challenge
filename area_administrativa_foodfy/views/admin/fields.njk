@@ -1,0 +1,43 @@
+<div>
+        <div class="createText">Imagem da receita</div>
+        <input class="createInput" type="text" name="image" value="{{receipt.image}}" placeholder="http://">
+    </div>
+
+    <div>
+        <div class="createText">Nome</div>
+        <input class="createInput" type="text" name="title" value="{{receipt.title}}" placeholder="name">
+    </div>
+
+    <div>
+        <div class="createText">Autor</div>
+        <input class="createInput" type="text" name="author" value="{{receipt.author}}" placeholder="author">
+    </div>
+
+    <div>
+        <div class="createText">Ingredientes</div>
+        <div id="ingredients">
+            <div class="ingredient">
+                <input class="createInput" type="text" name="ingredients[]" value="{{receipt.ingredients}}" placeholder="Ingredientes"/>
+            </div>
+        </div>
+
+        <a type="button" class="createLink add-ingredient">Adicionar novo ingrediente</a>
+    </div>
+
+    <div>
+        <div class="createText">Modo de preparo</div>
+        <div id="steps">
+            <div class="step">
+                <input class="createInput" type="text" name="steps[]" value="{{receipt.preparation}}" placeholder="Passos"/>
+            </div>
+        </div>
+
+        <a type="button" class="createLink add-step">Adicionar Novo Passo</a>
+    </div>
+
+    <div>
+        <div class="createText">Informações Adicionais</div>
+        <input class="LASTcreateInput" type="text" name="information" value="{{receipt.information}}" placeholder="Informações">
+    </div>
+
+    <input hidden name="id" value="{{receipt.id}}">
