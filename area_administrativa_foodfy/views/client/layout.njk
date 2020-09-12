@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Foodfy</title>
-        <link rel="stylesheet" type="text/css" href="/styles.css">
-    </head>
 
-    <body>
-        <main id="content">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodfy</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
 
-            <header>
-                <img id="logo" src=midias/logo.png alt="img">
-                <a class="menu" href="/about">Sobre</a>
-                <a class="menu" href="/receipts">Receitas</a>
-            </header>
+<body>
+    <main id="content">
 
-            {% block content %}{% endblock %}
+        <header>
+            <img id="logo" src=midias/logo.png alt="img">
+            <a class="menu" href="/about">Sobre</a>
+            <a class="menu" href="/receipts">Receitas</a>
+        </header>
 
-        </main>
+        {% block content %}{% endblock %}
 
-        <footer id="bottom">
-            <span id="bottomText">Todos direitos reservados Foodfy</span>
-        </footer>
-        <script src="/script.js" type="text/javascript"></script>
-    </body>
+    </main>
+
+    <footer id="bottom">
+        <span id="bottomText">Todos direitos reservados Foodfy</span>
+    </footer>
+    <script src="/script.js" type="text/javascript"></script>
+</body>
 
 </html>

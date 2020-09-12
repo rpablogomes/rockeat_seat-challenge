@@ -11,7 +11,7 @@ document.querySelector("#visibilityLinksINGREDIENTS")
         document.querySelector("#showINGREDIENTS").toggleAttribute("hidden")
         document.querySelector("#hideINGREDIENTS").toggleAttribute("hidden")
         document.querySelector("#contentINGREDIENTS").toggleAttribute("hidden")
-})
+    })
 
 // STEPS FUNCTION
 document.querySelector("#visibilityLinksSTEPS")
@@ -19,7 +19,7 @@ document.querySelector("#visibilityLinksSTEPS")
         document.querySelector("#showSTEPS").toggleAttribute("hidden")
         document.querySelector("#hideSTEPS").toggleAttribute("hidden")
         document.querySelector("#contentSTEPS").toggleAttribute("hidden")
-})
+    })
 
 // INFORMATION FUNCTION
 document.getElementById("visibilityLinksINFORMATION")
@@ -27,4 +27,4 @@ document.getElementById("visibilityLinksINFORMATION")
         document.querySelector("#showINFORMATION").toggleAttribute("hidden")
         document.querySelector("#hideINFORMATION").toggleAttribute("hidden")
         document.querySelector("#contentINFORMATION").toggleAttribute("hidden")
-})
+    })

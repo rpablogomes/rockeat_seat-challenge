@@ -1,17 +1,26 @@
 {% extends "admin/admin_layout.njk" %}
 
 {% block content %}
-  <div class="EditreceiptTop">
-    <h1>Criando receita</h1>
-    <form method="POST" action="/admin/recipes?_method=DELETE">
-      <input hidden name="id" value="{{receipt.id}}">
-      <button class="Deletebutton">Deletar</button>
-    </form>
-    <form method="POST" action="/admin/recipes?_method=PUT">
-      <button type="submit" class="button">Salvar receita</button>
-    </div>
+    <div class="EditReceiptTop">
 
-    {% include "./fields.njk" %}
-  </form>
+        <h1>Criando receita</h1>
+
+        <form method="POST" action="/admin/recipes?_method=DELETE">
+
+            <input hidden="hidden" name="id" value="{{receipt.id}}">
+            <button class="Deletebutton">Deletar</button>
+
+        </form>
+
+        <form method="POST" action="/admin/recipes?_method=PUT">
+
+            <button type="submit" class="button">Salvar receita</button>
+
+        </div>
+
+        {% include "./fields.njk" %}
+
+        <input hidden="hidden" name="id" value="{{receipt.id}}">
+    </form>
 
 {% endblock %}

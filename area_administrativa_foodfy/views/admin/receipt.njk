@@ -28,10 +28,13 @@
 
     <h4 class="receiptTitle">Modo de Preparo</h4>
 
-    <div class="receiptText">{{receipt.preparation}}</div>
+    {% for steps in receipt.preparation%}
+        <div class="receiptText">-
+            {{steps}}</div>
+    {% endfor %}
 
     <h4 class="receiptTitle">Informações Adicionais</h4>
 
-    <div class="receiptText">{{receipt.information}}</div>
+    <div class="receiptText lastText">{{receipt.information}}</div>
 
 {% endblock %}

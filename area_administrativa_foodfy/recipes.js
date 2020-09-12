@@ -19,15 +19,15 @@ exports.show = function (req, res) {
 
 exports.edit = function (req, res) {
     const idToCheck = req.params.id;
-    
-      const foundReceipt = data.recipes.find((receipt) => {
+
+    const foundReceipt = data.recipes.find((receipt) => {
         return receipt.id == idToCheck;
-      });
-    
-      let { id, image, title, author, ingredients, preparation, information } = foundReceipt
-    
-    
-      const receipt = {
+    });
+
+    let { id, image, title, author, ingredients, preparation, information } = foundReceipt
+
+
+    const receipt = {
         id,
         image,
         title,
@@ -35,14 +35,15 @@ exports.edit = function (req, res) {
         ingredients,
         preparation,
         information
-      };
-    
-      return res.render("admin/edit", { receipt });
-    }
+    };
+
+    return res.render("admin/edit", { receipt });
+}
 
 exports.post = function (req, res) {
     const keys = Object.keys(req.body);
 
+    console.log(req.body)
     //validation
     for (key of keys) {
         if (req.body[key] == "") {
@@ -50,7 +51,7 @@ exports.post = function (req, res) {
         }
     }
     // Construct Object to Push into data
-    let { image, name, author, ingredients, steps, information } = req.body;
+    let { image, title, author, ingredients, preparation, information } = req.body;
 
     const CheckHighestid = () => {
         let highestID = 0;
@@ -67,10 +68,10 @@ exports.post = function (req, res) {
     data.recipes.push({
         id,
         image,
-        name,
+        title,
         author,
         ingredients,
-        steps,
+        preparation,
         information
     });
 
@@ -82,55 +83,55 @@ exports.post = function (req, res) {
 };
 
 exports.put = function (req, res) {
-const id = Number(req.body.id);
-console.log(id)
+    const id = Number(req.body.id);
+    console.log(id)
 
-  let index = 0;
+    let index = 0;
 
- 
-  const foundReceipt = data.recipes.find((receipt, foundIndex) => {
-    index = foundIndex;
-    return receipt.id == id;
-  });
 
-  if (!foundReceipt) {
-    return res.send("Not found");
-  }
+    const foundReceipt = data.recipes.find((receipt, foundIndex) => {
+        index = foundIndex;
+        return receipt.id == id;
+    });
 
-  const receipt = {
-    ...foundReceipt,
-    ...req.body,
-    id
-  };
+    if (!foundReceipt) {
+        return res.send("Not found");
+    }
 
-  
-  data.recipes[index] = receipt;
+    const receipt = {
+        ...foundReceipt,
+        ...req.body,
+        id
+    };
 
-  console.log(receipt)
 
-  fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
-    if (err) return res.send("write file error");
-  });
+    data.recipes[index] = receipt;
 
-  return res.redirect(`/admin/recipes/${id}`);
+    console.log(receipt)
+
+    fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
+        if (err) return res.send("write file error");
+    });
+
+    return res.redirect(`/admin/recipes/${id}`);
 };
 
-exports.delete = function (req,res) {
+exports.delete = function (req, res) {
     console.log(res.body)
     const { id } = req.body;
     const filteredreceipt = data.recipes.filter((receipt) => {
-      if (receipt.id != id) {
-        return receipt;
-      }
+        if (receipt.id != id) {
+            return receipt;
+        }
     });
     console.log(filteredreceipt);
     data.recipes = filteredreceipt;
-  
+
     fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
-      if (err) {
-        return res.send("Error");
-      }
-  
-      return res.redirect("/admin/recipes");
+        if (err) {
+            return res.send("Error");
+        }
+
+        return res.redirect("/admin/recipes");
     });
-  };
+};

@@ -8,6 +8,10 @@ main {
     margin: 0 16.4%;
 }
 
+#content {
+    min-width: 700px;
+}
+
 header {
     margin: 0 0 30px 0;
     padding: 0 0 0 16.4%;
@@ -39,8 +43,6 @@ h1 {
     font-size: 24px;
     color: #111111;
     margin: 55px 0 24px 0;
-   
-
 }
 
 h2 {
@@ -96,6 +98,7 @@ a {
 }
 
 .receiptImg {
+    height: auto;
     width: 100%;
     border-radius: 15px;
 }
@@ -121,6 +124,10 @@ li {
     font-size: 18px;
     color: #444444;
     line-height: 28px;
+}
+
+.lastText {
+    margin: 0 0 50px;
 }
 
 .button {
@@ -177,9 +184,9 @@ li {
     margin: 0 0 30px 0
 }
 
-.EditreceiptTop {
+.EditReceiptTop {
     display: grid;
-    grid-template-columns: 70% 13% 17%;
+    grid-template-columns: 1fr 95px 140px;
     width: 100%;
     margin: 0 0 1px
 }

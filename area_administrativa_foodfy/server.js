@@ -7,7 +7,7 @@ const recipes = require("./recipes")
 const e = require("express")
 const methodOverride = require("method-override")
 
-server.use(express.urlencoded({ extended: true}))
+server.use(express.urlencoded({ extended: true }))
 server.use(methodOverride('_method'))
 
 server.use(express.static("public"))
@@ -27,7 +27,7 @@ server.listen(5000, function () {
 // routes
 
 server.get("/", function (req, res) {
-    return res.render("client/index", { foods : data })
+    return res.render("client/index", { foods: data })
 })
 
 server.get("/about", function (req, res) {
@@ -43,10 +43,10 @@ server.get("/receipts/:index", function (req, res) {
     const recipeIndex = req.params.index;
 
     if (recipeIndex < data.length) {
-        res.render("receipt", {receipt : data[`${recipeIndex}`]});
+        res.render("receipt", { receipt: data[`${recipeIndex}`] });
     } else {
         res.render("not-found")
-      }
+    }
 })
 
 //ADMIN
