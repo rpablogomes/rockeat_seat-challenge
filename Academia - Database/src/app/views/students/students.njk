@@ -1,0 +1,45 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+    <div class="table" >
+        <button onclick="location.href='/student/register'" >New Student</button>
+        <table>
+            <thead>
+                <tr>
+                    <th><div>Name</div></th>
+                    <th><div>Email</div></th>
+                    <th><div>School Year</div></th>
+                    <th><div>Action</div></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td >
+                            <div class="studentOnTable">
+                                <img class="imgTable" src="{{student.avatar_url}}">
+                                <div>{{student.name}}</div>
+                            </div>    
+                        </td>
+                        <td>
+                                <div >{{student.email}}</div>
+
+                        </td>
+                        <td>
+
+                                <div >{{student.school_year}}</div>
+
+                        </td>
+                        <td>
+                            <div class="DIVseeButton">
+                                <a id="seeButton" href="/student/{{student.id}}">See</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+{% endblock %}

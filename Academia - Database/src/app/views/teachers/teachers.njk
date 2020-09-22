@@ -1,0 +1,41 @@
+{% extends "../layout.njk" %}
+
+{% block content %}
+    <div class="table" >
+        <button onclick="location.href='/teacher/register'">New Teacher</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th><div>Name</div></th>
+                    <th><div>Classes</div></th>
+                    <th><div>Action</div></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for teacher in teachers %}
+                    <tr>
+                        <td >
+                            <div class="teacherOnTable">
+                                <img class="imgTable" src="{{teacher.avatar_url}}">
+                                <div>{{teacher.name}}</div>
+                            </div>    
+                        </td>
+                        <td>
+                            {% for classes in teacher.subjects_taught %}
+                                <div class="classes">{{classes}}</div>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <div class="DIVseeButton">
+                                <a id="seeButton" href="/teacher/{{teacher.id}}">See</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+{% endblock %}

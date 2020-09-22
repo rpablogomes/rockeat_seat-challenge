@@ -1,0 +1,224 @@
+* {
+  margin: none;
+  padding: none;
+  font-family: "Roboto", sans-serif;
+  /* text-align: center; */
+}
+/* Layout */
+header {
+  background-color: gray;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+a {
+  text-align: center;
+  font-family: var(--font);
+  margin: 30px;
+  box-sizing: border-box;
+}
+
+a:hover {
+  color: green;
+  transition: 400ms;
+}
+
+/* teachers'list */
+
+.table {
+  margin: auto;
+  padding: 30px;
+
+  border: black solid;
+  border-radius: 10px;
+  box-sizing: border-box;
+  overflow-y: hidden;
+  box-shadow: 5px 5px 5px black; /*shadow */
+
+  display: block;
+
+  animation-name: table;
+  animation-duration: 2700ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes table {
+  from {
+    transform: translateY(50px);
+    height: 1px;
+    width: 1px;
+    opacity: 0;
+  }
+  to {
+    width: 700px;
+    height: 350px;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.teacherOnTable{
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  align-items: center;
+
+}
+
+.DIVseeButton {
+  text-align: center;
+  color: white;
+}
+
+#seeButton {
+  background-color: rgb(172, 94, 218);
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+table thead th {
+  text-align: left;
+}
+
+.test{
+  background-color: red;
+}
+
+td{
+  padding: 10px;
+  border-bottom: #aaa solid 1px;
+} 
+td,
+th{
+  text-align: center;
+  padding: 10px;
+  border-bottom: #aaa solid 1px;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+table thead tr :last-child {
+  text-align: center;
+}
+
+.imgTable {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+/* teachers'card */
+.Card {
+  margin: auto;
+
+  border: black solid;
+  border-radius: 10px;
+  overflow-y: hidden;
+  box-shadow: 5px 5px 5px black; /*shadow */
+
+  display: grid;
+  grid-template-columns: 40% 60%;
+
+  animation-name: card;
+  animation-duration: 2700ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes card {
+  from {
+    transform: translateY(50px);
+    height: 10px;
+    width: 5px;
+    opacity: 0;
+  }
+  to {
+    width: 700px;
+    height: 350px;
+  }
+}
+/* Avatar */
+
+.imgTeachercard {
+  width: 280px;
+  height: 350px;
+}
+
+/* details */
+.details {
+  padding: 7px 10px;
+  display: grid;
+}
+
+.details > * {
+  display: grid;
+  height: auto;
+}
+
+.details h1 {
+  font-size: 25px;
+  margin: 1 0;
+}
+
+.details > * div:nth-child(1) {
+  text-align: left;
+  font-size: 50%;
+  color: #aaa;
+}
+
+.details > * div:nth-child(2) {
+  text-align: left;
+  font-size: 100%;
+}
+
+.details div :last-child {
+  border-bottom: #aaa solid 1px;
+}
+
+.register {
+  border: none;
+  shape-outside: none;
+  width: 100%;
+}
+
+.registerTypeOfClass {
+  width: auto;
+}
+
+.classes {
+  background-color: rgb(240, 236, 236);
+  display: inline-block;
+  margin: 5px auto;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.buttons {
+  display: inline-flex;
+  gap: 10%;
+}
+
+.button {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 100%;
+}
+
+#delete {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(192, 53, 53);
+  border-radius: 5px;
+  font-size: 100%;
+}
+
+.active{
+  font-weight: bold;
+}

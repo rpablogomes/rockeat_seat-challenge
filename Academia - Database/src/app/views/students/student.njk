@@ -1,0 +1,45 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+    <div class="Card">
+        <section>
+            <img class="imgTeachercard" src="{{student.avatar_url}}">
+        </section>
+
+        <section class="details">
+            <h1>Details</h1>
+            <div>
+                <div>Name:</div>
+                <div>{{student.name}}</div>
+            </div>
+            <div>
+                <div>Age:</div>
+                <div>{{student.age}}</div>
+            </div>
+            <div>
+                <div>Email:</div>
+                <div>{{student.email}}</div>
+            </div>
+            <div>
+                <div>School Year:</div>
+                <div>{{student.school_year}}</div>
+            </div>
+            <div>
+                <div>Workload:</div>
+                <div>{{student.workload}}</div>
+            </div>
+
+            <div class="buttons">
+                <button class="button" onclick="window.location.href=" /student/{{student.id}} /edit"">Edit</button>
+
+                <form id="submitDelete" class="button" action="/student?_method=DELETE" method="POST">
+                    <input hidden="hidden" name="id" value="{{student.id}}">
+                    <button id="delete" type="submit">Delete</button>
+                </form>
+            </div>
+
+        </section>
+    </div>
+
+{% endblock %}
