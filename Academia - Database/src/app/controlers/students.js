@@ -1,166 +1,68 @@
-const getAge = require("../../lib/utils").getAge;
-const getArray = require("../../lib/utils").getArray;
-const getSince = require("../../lib/utils").getSince;
+const Student = require("../models/student")
 const date = require("../../lib/utils").date;
-const db = require("../../config/db")
+const getAge = require("../../lib/utils").getAge;
 
-//students' list
-exports.students = function (req, res) {
+module.exports = {
 
-  db.query('SELECT * FROM students', function (err, results) {
+    index(req, res) {
+        Student.all((students) => {
+            return res.render("students/students", { students })
+        })
+    },
 
-    if (err) return res.send = ("Database error!!!")
+    create(req, res) {
+        const keys = Object.keys(req.body);
 
-    return res.render("students/students", { students: results.rows });
-  });
-};
+        //validation
+        for (key of keys) {
+            if (req.body[key] == "") {
+                return res.send("Fill all the fields");
+            }
+        }
 
-//post
-exports.post = function (req, res) {
-  const keys = Object.keys(req.body);
+        Student.create(req.body.id, (student) => {
+            res.redirect(`/student/${student.id}`)
+        })
+    },
 
+    show(req, res) {
+        //validation
+        Student.find(req.params, (student) => {
+            
+            const foundStudent = {
+                ...student,
+                age: getAge(student.birth_date)
+            }
 
-  //validation
-  for (key of keys) {
-    if (req.body[key] == "") {
-      return res.send("Fill all the fields");
+            return res.render("students/student", { student : foundStudent });
+        })
+    },
+
+    edit(req, res) {
+
+        Student.find(req.params, (student) => {
+
+            const foundStudent = {
+                ...student,
+                birth_date: date(student.birth_date)
+            } 
+            
+            return res.render("students/edit", { student: foundStudent });
+        })
+    },
+
+    put(req, res) {
+
+        Student.update(req.body, () => {
+            return res.redirect(`student/${req.body.id}`);
+        })
+    },
+
+    delete(req, res) {
+        const { id } = req.body;
+
+        Student.delete(id, () => {
+            return res.redirect("/students");
+        })
     }
-  }
-
-  // Construct Object to Push to front-end
-  let { avatar_url, name, email, birth_date, school_year, workload } = req.body;
-
-  // const subjectsInArray = getArray(subjects_taught)
-  const birthday = date(birth_date);
-
-  console.log(birthday)
-
-  const query = `
-      INSERT INTO students (
-        avatar_url,
-        name,
-        email,
-        birth_date,
-        school_year,
-        workload
-      )
-      VALUES ($1, $2, $3, $4, $5, $6)
-      RETURNING id
-  `
-
-  const values = [
-    avatar_url,
-    name,
-    email,
-    birth_date,
-    school_year,
-    workload
-  ]
-
-  console.log(values)
-
-  db.query(query, values, function (err, results) {
-    console.log(err)
-    if (err) res.send("Database error!!!")
-    return res.redirect(`/student/${results.rows[0].id}`);
-  })
-};
-
-
-exports.show = function (req, res) {
-  //validation
-  const idToCheck = req.params.id;
-
-
-  db.query(`SELECT * FROM students WHERE id= ${idToCheck}`, function (err, results) {
-    if (results.rows == []) return res.send("Database error!!!")
-
-    const {
-      id,
-      avatar_url,
-      name,
-      email,
-      birth_date,
-      school_year,
-      workload
-    } = results.rows[0]
-
-    const student = {
-      id,
-      avatar_url,
-      name,
-      email,
-      age: getAge(birth_date),
-      school_year,
-      workload
-    }
-
-    return res.render("students/student", { student });
-  })
-};
-
-exports.edit = function (req, res) {
-
-  const idToCheck = req.params.id;
-
-  db.query(`SELECT * FROM students WHERE id= ${idToCheck}`, function (err, results) {
-
-    let birth_date = date(results.rows[0].birth_date).iso
-
-    const foundstudent = {
-      id,
-      avatar_url,
-      name,
-      email,
-      birth_date,
-      school_year,
-      workload
-    } = results.rows[0]
-
-    const student = {
-      ...foundstudent,
-      birth_date: date(birth_date)
-    }
-
-    return res.render("students/edit", { student });
-  })
-
-};
-
-exports.put = function (req, res) {
-  let { id, avatar_url, name, email, birth_date, school_year, workload } = req.body
-
-  const query =
-    `UPDATE students SET
-    avatar_url=($1),
-    name=($2),
-    email=($3),
-    birth_date=($4),
-    school_year=($5),
-    workload=($6)
-  WHERE id = $7`
-
-  const values = [
-    avatar_url,
-    name,
-    email,
-    birth_date,
-    school_year,
-    workload,
-    id
-  ]
-
-  db.query(query, values, function (err, results) {
-
-    if (err) return res.send("Database Error!")
-
-    return res.redirect(`student/${id}`);
-  })
-};
-
-exports.delete = function (req, res) {
-  const { id } = req.body;
-  db.query(`DELETE FROM students WHERE id = ${id}`)
-
-  return res.redirect("/students");
-};
+}

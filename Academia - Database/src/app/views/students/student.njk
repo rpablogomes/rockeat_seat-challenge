@@ -31,7 +31,7 @@
             </div>
 
             <div class="buttons">
-                <button class="button" onclick="window.location.href=" /student/{{student.id}} /edit"">Edit</button>
+                <button class="button" onclick=window.location.href="/student/{{student.id}}/edit">Edit</button>
 
                 <form id="submitDelete" class="button" action="/student?_method=DELETE" method="POST">
                     <input hidden="hidden" name="id" value="{{student.id}}">
