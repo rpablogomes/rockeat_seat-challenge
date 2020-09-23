@@ -49,7 +49,7 @@ module.exports = {
     find(id, callback) {
 
         db.query(`SELECT * FROM students WHERE id = ${id}`, function (err, results) {
-            if (results.rows == [] || err) return res.send("Database error!!!")
+            if (results.rows == [] || err) throw "Database error!!!"
 
             return callback(results.rows[0]);
         })
