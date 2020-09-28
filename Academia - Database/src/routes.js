@@ -38,9 +38,7 @@ routes.delete("/teacher", teachers.delete)
 routes.get("/students", students.index)
 
 //Register Page
-routes.get("/student/register", function (req, res) {
-  return res.render("students/register");
-});
+routes.get("/student/register", students.selectTeacher);
 
 //post
 routes.post("/student", students.create);

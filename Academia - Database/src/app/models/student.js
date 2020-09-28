@@ -11,6 +11,12 @@ module.exports = {
             }
         )
     },
+    selectTeacher(callback){
+        db.query('SELECT name, id FROM teachers ORDER BY name ASC', function (err, results){
+            callback(results.rows)
+        })
+    },
+
     create(data, callback) {
 
         // Construct Object to Push to Back-end

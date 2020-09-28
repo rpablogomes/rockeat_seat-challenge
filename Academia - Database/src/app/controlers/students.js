@@ -10,6 +10,13 @@ module.exports = {
         })
     },
 
+    selectTeacher(req, res){
+        Student.selectTeacher((teachers) => {
+            console.log(teachers)
+            return res.render("students/register", {teachers});
+          })
+    },
+
     create(req, res) {
         const keys = Object.keys(req.body);
 
