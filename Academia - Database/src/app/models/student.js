@@ -3,7 +3,13 @@ const db = require("../../config/db")
 module.exports = {
     all(callback) {
         db.query(
-            'SELECT * FROM students ORDER BY students ASC'
+            `SELECT students.id, students.avatar_url, students.name, students.email,  students.school_year, teachers.name as teacher_name 
+            
+            FROM students
+            
+            LEFT JOIN teachers ON (students.teacher_id = teachers.id)
+            
+            ORDER BY students ASC`
             , function (err, results) {
                 if (err) return res.send = ("Database error!!!")
 
@@ -16,7 +22,6 @@ module.exports = {
             callback(results.rows)
         })
     },
-
     create(data, callback) {
 
         // Construct Object to Push to Back-end
@@ -54,10 +59,25 @@ module.exports = {
     },
     find(id, callback) {
 
-        db.query(`SELECT * FROM students WHERE id = ${id}`, function (err, results) {
+        // if(teachers){
+        //     db.query("SELECT name, id FROM teachers ORDER BY name ASC",(err, results) => {
+        //         teachers(results.rows)
+
+        //     })
+        // }
+
+        db.query(`
+        SELECT students.id, students.avatar_url, students.name, students.birth_date, students.email, students.teacher_id, students.school_year, students.workload, teachers.name AS teacher_name
+
+        FROM students
+        
+        LEFT JOIN teachers ON (teachers.id = students.teacher_id)
+      
+      	WHERE students.id = ${id}`, (err, results) => {
+
             if (results.rows == [] || err) throw "Database error!!!"
 
-            return callback(results.rows[0]);
+            callback(results.rows[0]);
         })
     },
     update(data, callback) {

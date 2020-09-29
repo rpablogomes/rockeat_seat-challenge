@@ -33,8 +33,9 @@ module.exports = {
     },
 
     show(req, res) {
+
         //validation
-        Student.find(req.params, (student) => {
+        Student.find(req.params.id, (student) => {
             
             const foundStudent = {
                 ...student,
@@ -47,18 +48,21 @@ module.exports = {
 
     edit(req, res) {
 
-        Student.find(req.params, (student) => {
+        Student.find(req.params.id, (student) => {
 
             const foundStudent = {
                 ...student,
                 birth_date: date(student.birth_date)
             } 
             
-            return res.render("students/edit", { student: foundStudent });
+                return res.render("students/edit", { student: foundStudent }, { teachers });
+
         })
     },
 
     put(req, res) {
+
+        console.log(req)
 
         Student.update(req.body, () => {
             return res.redirect(`student/${req.body.id}`);

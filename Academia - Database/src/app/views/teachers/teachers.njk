@@ -1,15 +1,30 @@
 {% extends "../layout.njk" %}
 
 {% block content %}
-    <div class="table" >
-        <button onclick="location.href='/teacher/register'">New Teacher</button>
+    <div class="table">
 
+        <div class="header">
+            <button class="seeButton" onclick="location.href='/teacher/register'">New Teacher</button>
+            <form action="/teachers" method="GET">
+                <input type="text" name="filter" placeholder="Filtrar por nome">
+                <button class="seeButton" type="submit">Filtrar</button>
+            </form>
+        </div>
         <table>
             <thead>
                 <tr>
-                    <th><div>Name</div></th>
-                    <th><div>Classes</div></th>
-                    <th><div>Action</div></th>
+                    <th>
+                        <div>Name</div>
+                    </th>
+                    <th>
+                        <div>Classes</div>
+                    </th>
+                    <th>
+                        <div>Students</div>
+                    </th>
+                    <th>
+                        <div>Action</div>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -19,7 +34,7 @@
                             <div class="teacherOnTable">
                                 <img class="imgTable" src="{{teacher.avatar_url}}">
                                 <div>{{teacher.name}}</div>
-                            </div>    
+                            </div>
                         </td>
                         <td>
                             {% for classes in teacher.subjects_taught %}
@@ -27,8 +42,11 @@
                             {% endfor %}
                         </td>
                         <td>
+                            <div>{{teacher.total_students}}</div>
+                        </td>
+                        <td>
                             <div class="DIVseeButton">
-                                <a id="seeButton" href="/teacher/{{teacher.id}}">See</a>
+                                <a class="seeButton" href="/teacher/{{teacher.id}}">See</a>
                             </div>
                         </td>
                     </tr>

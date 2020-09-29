@@ -35,13 +35,13 @@
     <input class="register" name="workload" type="number" value="{{student.workload}}">
 </div>
 <div>
-<div>Teacher:</div>
-<select id="select" class="register" name="school_year">
-    <option value="" hidden="hidden" {% if student.school_year == "" %} selected="selected" {% endif %}></option>
-    {% for teacher in teachers %}
-        <option value="teacher.id" {% if student.school_year == "5º ano" %} selected="selected" {% endif %}>{{teacher.name}}</option>
-    {% endfor %}
-</select>
+    <div>Teacher:</div>
+    <select id="select" class="register" name="teacher_id">
+        <option value="" hidden="hidden" {% if student.teacher_name == "" %} selected="selected" {% endif %}></option>
+        {% for teacher in teachers %}
+            <option value="{{teacher.id}}" {% if student.teachers_name == "5º ano" %} selected="selected" {% endif %}>{{teacher.name}}</option>
+        {% endfor %}
+    </select>
 </div>
 
 <div class="buttons">

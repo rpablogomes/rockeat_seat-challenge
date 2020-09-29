@@ -7,10 +7,17 @@ const getSince = require("../../lib/utils").getSince;
 
 module.exports = {
   index(req, res) {
+    const { filter } = req.query;
 
-    teacher.all((teachers) => {
-      return res.render("teachers/teachers", { teachers });
-    });
+    if (filter) {
+      teacher.findBy(filter, (teachers) => {
+        return res.render("teachers/teachers", { teachers });
+      });
+    } else {
+      teacher.all((teachers) => {
+        return res.render("teachers/teachers", { teachers });
+      });
+    }
   },
 
   post(req, res) {
@@ -24,44 +31,41 @@ module.exports = {
 
       teacher.create(req.body, (id) => {
         return res.redirect(`/teacher/${id}`);
-      })
+      });
     }
   },
 
   show(req, res) {
-
     teacher.find(req.params.id, (teacher) => {
-
       const foundTeacher = {
         ...teacher,
-        age: getAge(teacher.birth_date)
-      }
+        age: getAge(teacher.birth_date),
+      };
 
       return res.render("teachers/teacher", { teacher: foundTeacher });
-    })
+    });
   },
 
   edit(req, res) {
     teacher.find(req.params.id, (teacher) => {
-
       const foundTeacher = {
         ...teacher,
-        birth_date: date(teacher.birth_date)
-      }
+        birth_date: date(teacher.birth_date),
+      };
 
       return res.render("teachers/edit", { teacher: foundTeacher });
-    })
+    });
   },
 
   put(req, res) {
     teacher.update(req.body, () => {
       return res.redirect(`teacher/${req.body.id}`);
-    })
+    });
   },
 
   delete(req, res) {
     teacher.delete(req.body.id, () => {
       return res.redirect("/teachers");
-    })
-  }
-}
+    });
+  },
+};

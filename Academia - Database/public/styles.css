@@ -73,7 +73,7 @@ table {
   color: white;
 }
 
-#seeButton {
+.seeButton {
   background-color: rgb(172, 94, 218);
   padding: 5px 10px;
   border-radius: 5px;
