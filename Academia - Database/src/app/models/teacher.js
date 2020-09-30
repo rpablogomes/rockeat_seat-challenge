@@ -7,13 +7,25 @@ const getSince = require("../../lib/utils").getSince;
 
 module.exports = {
   all(callback) {
-    db.query("SELECT * FROM teachers", function (err, results) {
+    db.query(`
+    SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
+        
+        FROM teachers
+        
+        LEFT JOIN students ON (students.teacher_id = teachers.id)
+        
+        GROUP BY teachers.id
+        
+        ORDER BY teachers.id ASC`, function (err, results) {
       if (err) return (res.send = "Database error!!!");
 
       callback(results.rows);
     });
   },
+
   findBy(filter, callback) {
+
+
     db.query(
       `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
         
@@ -26,15 +38,16 @@ module.exports = {
         GROUP BY teachers.id
         
         ORDER BY teachers.id ASC`,
+
       function (err, results) {
         if (err) return (res.send = "Database error!!!");
 
-        callback(results.rows);
+        callback(results.rows)
       }
-    );
+    ) 
   },
+
   create(data, callback) {
-    console.log(data, "ok");
 
     // Construct Object to Push to front-end
     let {

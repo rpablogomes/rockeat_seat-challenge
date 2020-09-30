@@ -24,8 +24,10 @@ module.exports = {
     },
     create(data, callback) {
 
+        console.log(data)
+
         // Construct Object to Push to Back-end
-        let { avatar_url, name, email, birth_date, school_year, workload } = data;
+        let { avatar_url, name, email, birth_date, school_year, workload, teacher_id } = data;
 
         const query = `
             INSERT INTO students (
@@ -34,9 +36,10 @@ module.exports = {
               email,
               birth_date,
               school_year,
-              workload
+              workload,
+              teacher_id
             )
-            VALUES ($1, $2, $3, $4, $5, $6)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING id
         `
 
@@ -46,25 +49,27 @@ module.exports = {
             email,
             birth_date,
             school_year,
-            workload
+            workload,
+            teacher_id
         ]
 
         console.log(values)
 
         db.query(query, values, function (err, results) {
-            if (err) res.send("Database error!!!")
+            if (err) throw "Database error!!!"
 
             callback(results.rows[0])
         })
     },
     find(id, callback) {
 
-        // if(teachers){
-        //     db.query("SELECT name, id FROM teachers ORDER BY name ASC",(err, results) => {
-        //         teachers(results.rows)
+        let teachers = []
 
-        //     })
-        // }
+        if(callback){
+            db.query("SELECT name, id FROM teachers ORDER BY name ASC",(err, results) => {
+                teachers = results.rows
+            })
+        }
 
         db.query(`
         SELECT students.id, students.avatar_url, students.name, students.birth_date, students.email, students.teacher_id, students.school_year, students.workload, teachers.name AS teacher_name
@@ -77,12 +82,12 @@ module.exports = {
 
             if (results.rows == [] || err) throw "Database error!!!"
 
-            callback(results.rows[0]);
+            callback({student: results.rows[0], teachers : teachers});
         })
     },
     update(data, callback) {
 
-        let { id, avatar_url, name, email, birth_date, school_year, workload } = data
+        let { id, avatar_url, name, email, birth_date, school_year, workload, teacher_id } = data
 
         const query =
             `UPDATE students SET
@@ -91,8 +96,9 @@ module.exports = {
         email=($3),
         birth_date=($4),
         school_year=($5),
-        workload=($6)
-      WHERE id = $7`
+        workload=($6),
+        teacher_id=($7)
+      WHERE id = $8`
 
         const values = [
             avatar_url,
@@ -101,12 +107,17 @@ module.exports = {
             birth_date,
             school_year,
             workload,
+            teacher_id,
             id
         ]
 
+        console.log(values)
+
         db.query(query, values, (err, results) => {
 
-            if (err) return res.send("Database Error!")
+            console.log(err)
+
+            if (err) throw "Database Error!"
 
             callback()
         })
@@ -115,7 +126,7 @@ module.exports = {
 
         db.query(`DELETE FROM students WHERE id = ${id}`, (err, results) => {
 
-            if (err) return res.send("Database Error!")
+            if (err) throw "Database Error!"
 
             callback()
         })
