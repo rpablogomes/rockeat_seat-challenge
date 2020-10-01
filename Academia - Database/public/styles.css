@@ -33,7 +33,7 @@ a:hover {
   border: black solid;
   border-radius: 10px;
   box-sizing: border-box;
-  overflow-y: hidden;
+  overflow-y: scroll;
   box-shadow: 5px 5px 5px black; /*shadow */
 
   display: block;
@@ -78,6 +78,8 @@ table {
   padding: 5px 10px;
   border-radius: 5px;
   text-decoration: none;
+  width: 150px;
+  height: 30px
 }
 
 table thead th {
@@ -221,4 +223,13 @@ table thead tr :last-child {
 
 .active{
   font-weight: bold;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.input{
+  height: 22px;
 }
