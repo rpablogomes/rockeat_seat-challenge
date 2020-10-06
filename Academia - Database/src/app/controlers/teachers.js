@@ -7,17 +7,17 @@ const getSince = require("../../lib/utils").getSince;
 
 module.exports = {
   index(req, res) {
-    const { filter } = req.query;
+    let { filter, page, limit } = req.query;
 
-    if (filter) {
-      teacher.findBy(filter, (teachers) => {
-        return res.render("teachers/teachers", { teachers });
-      });
-    } else {
-      teacher.all((teachers) => {
-        return res.render("teachers/teachers", { teachers });
-      });
-    }
+    page = page || 1
+    limit = limit || 2
+    let offset = limit * (page - 1)
+
+    teacher.paginate({filter, limit, offset}, function(teachers){
+      if(!teachers) return res.send('Not found')
+
+      return res.render("teachers/teachers", { teachers })
+    })
   },
 
   post(req, res) {

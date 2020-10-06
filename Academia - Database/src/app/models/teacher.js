@@ -7,7 +7,8 @@ const getSince = require("../../lib/utils").getSince;
 
 module.exports = {
   all(callback) {
-    db.query(`
+    db.query(
+      `
     SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
         
         FROM teachers
@@ -16,16 +17,50 @@ module.exports = {
         
         GROUP BY teachers.id
         
-        ORDER BY teachers.id ASC`, function (err, results) {
-      if (err) return (res.send = "Database error!!!");
+        ORDER BY teachers.id ASC`,
+      function (err, results) {
+        if (err) return (res.send = "Database error!!!");
 
-      callback(results.rows);
-    });
+        callback(results.rows);
+      }
+    );
   },
+  paginate(req, callback) {
+    let { filter, limit, offset } = req;
 
+
+    if (filter) {
+      query = `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
+        
+      FROM teachers
+      
+      LEFT JOIN students ON (students.teacher_id = teachers.id)
+      
+      WHERE teachers.name ILIKE '%${filter}%'
+      
+      GROUP BY teachers.id
+      
+      LIMIT ${limit} OFFSET ${offset}`;
+    } else {
+      query = `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
+        
+      FROM teachers
+      
+      LEFT JOIN students ON (students.teacher_id = teachers.id)
+      
+      GROUP BY teachers.id
+      
+      LIMIT ${limit} OFFSET ${offset}`
+    }
+
+    db.query(query, function (err, results){
+
+      if (err) throw "Database"
+
+      callback(results.rows)
+    })
+  },
   findBy(filter, callback) {
-
-
     db.query(
       `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
         
@@ -42,13 +77,11 @@ module.exports = {
       function (err, results) {
         if (err) return (res.send = "Database error!!!");
 
-        callback(results.rows)
+        callback(results.rows);
       }
-    ) 
+    );
   },
-
   create(data, callback) {
-
     // Construct Object to Push to front-end
     let {
       avatar_url,
