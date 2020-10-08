@@ -5,14 +5,25 @@ const getAge = require("../../lib/utils").getAge;
 
 module.exports = {
   index(req, res) {
-    Student.all((students) => {
-      return res.render("students/students", { students });
+    let { page, limit, selectedPage } = req.query;
+
+    student.count(callback => {
+      pagination = Math.ceil(callback.count / 3)
+    })
+
+    page = page || 1;
+    limit = limit || 3;
+    let offset = (page - 1) * limit;
+
+    student.paginate({ page, limit, offset }, function (students) {
+      if (!students) return res.send("Not found");
+
+      return res.render("students/students",  {students , pagination, page});
     });
   },
 
   selectTeacher(req, res) {
-    Student.selectTeacher((teachers) => {
-      console.log(teachers);
+    Student.selectTeacher(teachers => {
       return res.render("students/register", { teachers });
     });
   },

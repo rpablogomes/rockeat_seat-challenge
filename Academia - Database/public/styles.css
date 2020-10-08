@@ -51,7 +51,7 @@ a:hover {
   }
   to {
     width: 700px;
-    height: 350px;
+    height: 400px;
   }
 }
 
@@ -231,4 +231,8 @@ table thead tr :last-child {
 
 .input{
   height: 22px;
+}
+
+#pagination{
+  margin-top: 50px;
 }

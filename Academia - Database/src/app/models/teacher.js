@@ -28,37 +28,38 @@ module.exports = {
   paginate(req, callback) {
     let { filter, limit, offset } = req;
 
-
-    if (filter) {
-      query = `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
+    query = `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
         
-      FROM teachers
-      
-      LEFT JOIN students ON (students.teacher_id = teachers.id)
-      
+    FROM teachers
+    
+    LEFT JOIN students ON (students.teacher_id = teachers.id)`;
+
+    if (filter)
+      query += `
       WHERE teachers.name ILIKE '%${filter}%'
       
       GROUP BY teachers.id
       
       LIMIT ${limit} OFFSET ${offset}`;
-    } else {
-      query = `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
-        
-      FROM teachers
+    else
+      query += `GROUP BY teachers.id
       
-      LEFT JOIN students ON (students.teacher_id = teachers.id)
-      
-      GROUP BY teachers.id
-      
-      LIMIT ${limit} OFFSET ${offset}`
-    }
+      LIMIT ${limit} OFFSET ${offset}`;
 
-    db.query(query, function (err, results){
+    db.query(query, function (err, results) {
+      if (err) throw "Database";
 
+      callback(results.rows);
+    });
+  },
+  count(filter, callback) { 
+    db.query(
+    `SELECT COUNT(teachers) FROM teachers
+    WHERE teachers.name ILIKE '%${filter}%'`
+    , function (err, results) {
       if (err) throw "Database"
-
-      callback(results.rows)
-    })
+      callback(results.rows[0]);
+    });
   },
   findBy(filter, callback) {
     db.query(
