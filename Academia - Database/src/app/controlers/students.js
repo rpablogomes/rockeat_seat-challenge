@@ -58,8 +58,6 @@ module.exports = {
   edit(req, res) {
     Student.find(req.params.id, (callback) => {
 
-        console.log(callback);
-
       const foundStudent = {
         ...callback.student,
         birth_date: date(callback.student.birth_date),
@@ -72,7 +70,6 @@ module.exports = {
   },
 
   put(req, res) {
-    console.log(req.body);
 
     Student.update(req.body, () => {
       return res.redirect(`student/${req.body.id}`);

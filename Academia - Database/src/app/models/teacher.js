@@ -1,15 +1,13 @@
 const db = require("../../config/db");
 const date = require("../../lib/utils").date;
-
-const getAge = require("../../lib/utils").getAge;
 const getArray = require("../../lib/utils").getArray;
-const getSince = require("../../lib/utils").getSince;
+
 
 module.exports = {
   all(callback) {
     db.query(
       `
-    SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
+SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
         
         FROM teachers
         
@@ -164,8 +162,6 @@ module.exports = {
       getArray(subjects_taught),
       id,
     ];
-
-    console.log(values);
 
     db.query(query, values, (err, results) => {
       if (err) throw `Database Error! ${err}`;

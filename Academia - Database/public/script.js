@@ -8,14 +8,15 @@ if (document.getElementById("submitDelete")) addEventListener("submit", (event) 
 
 let totalPage = document.querySelector("#pagination").dataset.pagination;
 let selectedPage = document.querySelector("#pagination").dataset.page;
-const pages = [];
+let pages = [];
 
-if (totalPage <= 8) for (i = 1; i <= totalPage; i++) pages.push(i);
+
+if(totalPage <= 8) for(i = 1; i <= totalPage; i++) pages.push(i);
 else if (5 >= selectedPage) pages.push(1, 2, 3, 4, 5, 6, "...", totalPage);
 else if (5 < selectedPage && selectedPage + 3 < totalPage)
   pages.push(
     1,
-    2,
+    2,  
     "...",
     selectedPage - 1,
     selectedPage,
@@ -41,7 +42,5 @@ let elements = ``;
 for (let page of pages) 
 if (page == "...")  elements += `<span>...</span>` 
 else elements += `<a href="?page=${page}">${page}</a>`;
-
-console.log(elements)
 
 document.getElementById("pagination").innerHTML = elements;

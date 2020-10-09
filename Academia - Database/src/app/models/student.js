@@ -51,8 +51,6 @@ module.exports = {
     },
     create(data, callback) {
 
-        console.log(data)
-
         // Construct Object to Push to Back-end
         let { avatar_url, name, email, birth_date, school_year, workload, teacher_id } = data;
 
@@ -79,8 +77,6 @@ module.exports = {
             workload,
             teacher_id
         ]
-
-        console.log(values)
 
         db.query(query, values, function (err, results) {
             if (err) throw "Database error!!!"
@@ -138,11 +134,7 @@ module.exports = {
             id
         ]
 
-        console.log(values)
-
         db.query(query, values, (err, results) => {
-
-            console.log(err)
 
             if (err) throw "Database Error!"
 
