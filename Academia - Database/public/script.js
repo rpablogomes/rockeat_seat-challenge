@@ -6,10 +6,9 @@ if (document.getElementById("submitDelete")) addEventListener("submit", (event) 
     if (!confirmation) event.preventDefault();
   });
 
-let totalPage = document.querySelector("#pagination").dataset.pagination;
+let totalPage = document.querySelector("#pagination").dataset.totalpage
 let selectedPage = document.querySelector("#pagination").dataset.page;
 let pages = [];
-
 
 if(totalPage <= 8) for(i = 1; i <= totalPage; i++) pages.push(i);
 else if (5 >= selectedPage) pages.push(1, 2, 3, 4, 5, 6, "...", totalPage);

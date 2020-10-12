@@ -1,26 +1,12 @@
 const db = require("../../config/db")
 
 module.exports = {
-    all(callback) {
-        db.query(
-            `SELECT students.id, students.avatar_url, students.name, students.email,  students.school_year, teachers.name as teacher_name 
-            
-            FROM students
-            
-            LEFT JOIN teachers ON (students.teacher_id = teachers.id)
-            
-            ORDER BY students ASC`
-            , function (err, results) {
-                if (err) return res.send = ("Database error!!!")
-
-                callback(results.rows)
-            }
-        )
-    },
     paginate(req, callback) {
         let {limit, offset } = req;
     
-        query = `SELECT students.id, students.avatar_url, students.name, students.email,  students.school_year, teachers.name as teacher_name 
+        query = `SELECT students.id, students.avatar_url, students.name, students.email,  students.school_year, teachers.name as teacher_name,
+
+        (SELECT COUNT(*) FROM students) as pagination
             
         FROM students
         
@@ -28,20 +14,12 @@ module.exports = {
         
         ORDER BY students.id ASC
           
-          LIMIT ${limit} OFFSET ${offset}`;
+        LIMIT ${limit} OFFSET ${offset}`;
     
         db.query(query, function (err, results) {
           if (err) throw "Database";
     
           callback(results.rows);
-        });
-      },
-    count(callback) { 
-        db.query(
-        `SELECT COUNT(students) FROM students`
-        , function (err, results) {
-          if(err) throw "Database"
-          callback(results.rows[0]);
         });
       },
     selectTeacher(callback){

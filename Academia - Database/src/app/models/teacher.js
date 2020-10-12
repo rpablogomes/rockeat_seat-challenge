@@ -4,29 +4,15 @@ const getArray = require("../../lib/utils").getArray;
 
 
 module.exports = {
-  all(callback) {
-    db.query(
-      `
-SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
-        
-        FROM teachers
-        
-        LEFT JOIN students ON (students.teacher_id = teachers.id)
-        
-        GROUP BY teachers.id
-        
-        ORDER BY teachers.id ASC`,
-      function (err, results) {
-        if (err) return (res.send = "Database error!!!");
 
-        callback(results.rows);
-      }
-    );
-  },
   paginate(req, callback) {
     let { filter, limit, offset } = req;
 
-    query = `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
+    query = `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students,
+
+    (SELECT COUNT(*) FROM teachers
+ 
+    WHERE teachers.name ILIKE '%${filter}%') AS pagination
         
     FROM teachers
     
@@ -34,6 +20,7 @@ SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught
 
     if (filter)
       query += `
+
       WHERE teachers.name ILIKE '%${filter}%'
       
       GROUP BY teachers.id
@@ -50,15 +37,7 @@ SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught
       callback(results.rows);
     });
   },
-  count(filter, callback) { 
-    db.query(
-    `SELECT COUNT(teachers) FROM teachers
-    WHERE teachers.name ILIKE '%${filter}%'`
-    , function (err, results) {
-      if (err) throw "Database"
-      callback(results.rows[0]);
-    });
-  },
+
   findBy(filter, callback) {
     db.query(
       `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students

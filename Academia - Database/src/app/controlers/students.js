@@ -5,20 +5,23 @@ const getAge = require("../../lib/utils").getAge;
 
 module.exports = {
   index(req, res) {
-    let { page, limit, selectedPage } = req.query;
-
-    student.count(callback => {
-      pagination = Math.ceil(callback.count / 3)
-    })
+    let { page, limit } = req.query;
 
     page = page || 1;
     limit = limit || 3;
     let offset = (page - 1) * limit;
 
     student.paginate({ page, limit, offset }, function (students) {
-      if (!students) return res.send("Not found");
+      if (!students ) return res.send("Not found");
 
-      return res.render("students/students",  {students , pagination, page});
+      let pagination = students[0].pagination
+
+      let totalPage = Math.ceil(pagination / limit)
+
+      return res.render("students/students",  {
+        students, 
+        totalPage,
+        page});
     });
   },
 

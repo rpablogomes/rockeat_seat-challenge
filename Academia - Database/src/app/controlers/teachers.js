@@ -2,8 +2,6 @@ const teacher = require("../models/teacher");
 const date = require("../../lib/utils").date;
 const getAge = require("../../lib/utils").getAge;
 
-
-
 module.exports = {
   index(req, res) {
     let { filter, page, limit, selectedPage } = req.query;
@@ -13,17 +11,18 @@ module.exports = {
     limit = limit || 3;
     offset = (page - 1) * limit;
 
-    teacher.count(filter, (callback) => {
-      pagination = Math.ceil(callback.count / limit);
-    });
-
     teacher.paginate({ filter, page, limit, offset }, (teachers) => {
       if (!teachers) return res.send("Not found");
 
+      let pagination = teachers[0].pagination
+
+      let totalPage = Math.ceil(pagination / limit)
+
       return res.render("teachers/teachers", {
         teachers,
-        pagination: pagination,
+        totalPage,
         page,
+        filter
       });
     });
   },
