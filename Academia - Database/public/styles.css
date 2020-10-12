@@ -2,8 +2,8 @@
   margin: none;
   padding: none;
   font-family: "Roboto", sans-serif;
-  /* text-align: center; */
 }
+
 /* Layout */
 header {
   background-color: gray;
@@ -32,13 +32,14 @@ a:hover {
   border: black solid;
   border-radius: 10px;
   box-sizing: border-box;
-  overflow-y: scroll;
+  overflow-y: hidden;
   box-shadow: 5px 5px 5px black; /*shadow */
 
-  display: block;
+  display: grid;
+  grid-template-rows: 20% 60% 20%;
 
   animation-name: table;
-  animation-duration: 2700ms;
+  animation-duration: 1800ms;
   animation-fill-mode: forwards;
 }
 
@@ -56,15 +57,21 @@ a:hover {
 }
 
 table {
-  width: 100%;
+  display:grid;
+  grid-template-rows:15% 1fr;
   border-collapse: collapse;
+  width: 100%;
+}
+
+#pagination{
+  margin-top: 10px;
+  color: black
 }
 
 .teacherOnTable{
   display: grid;
   grid-template-columns: 50px 1fr;
   align-items: center;
-
 }
 
 .DIVseeButton {
@@ -89,6 +96,11 @@ table thead th {
   background-color: red;
 }
 
+td div,
+th div{
+ padding: none
+}
+
 td{
   padding: 10px;
   border-bottom: #aaa solid 1px;
@@ -96,8 +108,29 @@ td{
 td,
 th{
   text-align: center;
-  padding: 10px;
+  padding: none;
   border-bottom: #aaa solid 1px;
+}
+
+.trTeachers{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 30% 35% 15% 20%
+}
+
+.trStudents{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 20% 25% 20% 20% 15%
+}
+
+tbody{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  padding: auto
 }
 
 tbody tr:last-child td {
@@ -231,8 +264,4 @@ table thead tr :last-child {
 
 .input{
   height: 22px;
-}
-
-#pagination{
-  margin-top: 50px;
 }

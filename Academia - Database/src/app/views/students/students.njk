@@ -1,44 +1,52 @@
 {% extends "layout.njk" %}
 
 {% block content %}
-    <div class="table" >
-        <button onclick="location.href='/student/register'" >New Student</button>
+    <div class="table">
+        <div class="header">
+            <button class="seeButton" onclick="location.href='/student/register'">New Student</button>
+        </div>
+
         <table>
             <thead>
-                <tr>
-                    <th><div>Name</div></th>
-                    <th><div>Email</div></th>
-                    <th><div>School Year</div></th>
-                    <th><div>Teacher</div></th>
-                    <th><div>Action</div></th>
+                <tr class="trStudents">
+                    <th>
+                        <div>Name</div>
+                    </th>
+                    <th>
+                        <div>Email</div>
+                    </th>
+                    <th>
+                        <div>SchoolYear</div>
+                    </th>
+                    <th>
+                        <div>Teacher</div>
+                    </th>
+                    <th>
+                        <div>Action</div>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 {% for student in students %}
-                    <tr>
+                    <tr class="trStudents">
                         <td >
                             <div class="studentOnTable">
                                 <img class="imgTable" src="{{student.avatar_url}}">
                                 <div>{{student.name}}</div>
-                            </div>    
+                            </div>
                         </td>
                         <td>
-                                <div >{{student.email}}</div>
-
+                            <div >{{student.email}}</div>
                         </td>
                         <td>
-
-                                <div >{{student.school_year}}</div>
-
+                            <div >{{student.school_year}}</div>
                         </td>
                         <td>
-
-                                <div >{{student.teacher_name}}</div>
-
+                            <div >{{student.teacher_name}}</div>
                         </td>
                         <td>
                             <div class="DIVseeButton">
-                                <a id="seeButton" href="/student/{{student.id}}">See</a>
+                                <a class="seeButton" href="/student/{{student.id}}">See</a>
                             </div>
                         </td>
                     </tr>
@@ -47,11 +55,7 @@
 
         </table>
 
-        <div id="pagination"
-               data-totalpage = "{{totalPage}}"
-               data-page = "{{page}}"
-               data-filter = "{{filter}}">
-        </div>
+        <div id="pagination" data-totalpage="{{totalPage}}" data-page="{{page}}" data-filter="{{filter}}"></div>
     </div>
 
 {% endblock %}

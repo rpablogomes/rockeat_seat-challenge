@@ -15,7 +15,6 @@ module.exports = {
       if (!teachers) return res.send("Not found");
 
       let pagination = teachers[0].pagination
-
       let totalPage = Math.ceil(pagination / limit)
 
       return res.render("teachers/teachers", {

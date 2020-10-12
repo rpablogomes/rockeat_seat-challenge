@@ -10,9 +10,10 @@
                 <button class="seeButton" type="submit">Filtrar</button>
             </form>
         </div>
-        <table>
+
+        <table >
             <thead>
-                <tr>
+                <tr class="trTeachers">
                     <th>
                         <div>Name</div>
                     </th>
@@ -27,9 +28,10 @@
                     </th>
                 </tr>
             </thead>
+
             <tbody>
                 {% for teacher in teachers %}
-                    <tr>
+                    <tr class="trTeachers">
                         <td >
                             <div class="teacherOnTable">
                                 <img class="imgTable" src="{{teacher.avatar_url}}">
@@ -51,18 +53,12 @@
                         </td>
                     </tr>
 
-
                 {% endfor %}
             </tbody>
 
         </table>
 
-        <div id="pagination"
-               data-totalpage = "{{totalPage}}"
-               data-page = "{{page}}"
-               data-filter = "{{filter}}"
-               >
-        </div>
+        <div id="pagination" data-totalpage="{{totalPage}}" data-page="{{page}}" data-filter="{{filter}}"></div>
     </div>
 
 {% endblock %}
