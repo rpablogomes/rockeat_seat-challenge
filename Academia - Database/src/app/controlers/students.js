@@ -42,6 +42,7 @@ module.exports = {
     }
 
     Student.create(req.body, (student) => {
+
       res.redirect(`/student/${student.id}`);
     });
   },

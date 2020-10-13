@@ -1,4 +1,5 @@
 const teacher = require("../models/teacher");
+const getSince = require("../../lib/utils").getSince
 const date = require("../../lib/utils").date;
 const getAge = require("../../lib/utils").getAge;
 
@@ -46,6 +47,7 @@ module.exports = {
       const foundTeacher = {
         ...teacher,
         age: getAge(teacher.birth_date),
+        since: getSince(teacher.created_at)
       };
 
       return res.render("teachers/teacher", { teacher: foundTeacher });
