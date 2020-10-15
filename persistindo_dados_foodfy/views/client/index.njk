@@ -1,0 +1,31 @@
+{% extends "client/layout.njk" %}
+
+{% block content %}
+
+    <div id="presentation">
+        <div id="textOfPresentation">
+            <p id="first">As melhores receitas</p>
+            <p id="second">Aprenda a construir os melhores pratos com receitas criadas por profissionais do mundo inteiro.
+            </p>
+        </div>
+        <div id="imageOfPresentantion">
+            <img id="chef" src=/midias/chef.png alt="image">
+        </div>
+    </div>
+
+    <h2>Mais Acessadas</h2>
+
+    <div id="cards">
+
+        {% for food in foods %}
+            <div id="{{foods.indexOf(food)}}" class="card" href="/receipts">
+                <img class="foodImage" src={{food.image}} alt="image">
+                <span class="foodName">{{food.title}}<br/></span>
+                <span class="cooker">por
+                    {{food.author}}</span>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

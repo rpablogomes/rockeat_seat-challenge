@@ -1,0 +1,19 @@
+{% extends "client/layout.njk" %}
+
+{% block content%}
+    <div id="receipts">
+
+        {% for food in foods %}
+
+            <div class="card" id="{{foods.indexOf(food)}}">
+                <img class="foodImage" src={{food.image}} alt="image">
+                <span class="foodName">{{food.title}}<br/></span>
+                <span class="cooker">por
+                    {{food.author}}</span>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endblock%}
