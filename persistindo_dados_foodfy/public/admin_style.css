@@ -23,9 +23,18 @@ header {
 }
 
 #logo {
-    margin: 27px 0 27px 0;
+    margin: 27px 50px 27px 0;
     width: 90.6px;
     height: 26.9px;
+}
+
+.menu {
+    height: auto;
+    width: auto;
+    display: inline-flex;
+    margin: auto 30px auto 0;
+    text-decoration: none;
+    color: rgb(255, 253, 253);
 }
 
 .cards {

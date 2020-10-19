@@ -1,20 +1,20 @@
-const data = require("./data.json")
+const data = require("../../../data.json")
 const fs = require("fs");
 
 exports.index = function (req, res) {
-    res.render("admin/recipes", { recipes: data.recipes })
+    res.render("admin/recipes/recipes", { recipes: data.recipes })
 }
 
 exports.create = function (req, res) {
-    console.log(req.body)
-    return res.render("admin/create")
+
+    return res.render("admin/recipes/create")
 }
 
 exports.show = function (req, res) {
     const receipt = data.recipes.find(i =>
         i.id == req.params.id
     )
-    res.render("admin/receipt", { receipt })
+    res.render("admin/recipes/receipt", { receipt })
 }
 
 exports.edit = function (req, res) {
@@ -37,13 +37,12 @@ exports.edit = function (req, res) {
         information
     };
 
-    return res.render("admin/edit", { receipt });
+    return res.render("admin/recipes/edit", { receipt });
 }
 
 exports.post = function (req, res) {
     const keys = Object.keys(req.body);
 
-    console.log(req.body)
     //validation
     for (key of keys) {
         if (req.body[key] == "") {
@@ -84,7 +83,6 @@ exports.post = function (req, res) {
 
 exports.put = function (req, res) {
     const id = Number(req.body.id);
-    console.log(id)
 
     let index = 0;
 
@@ -107,7 +105,6 @@ exports.put = function (req, res) {
 
     data.recipes[index] = receipt;
 
-    console.log(receipt)
 
     fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
         if (err) return res.send("write file error");
@@ -117,14 +114,12 @@ exports.put = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    console.log(res.body)
     const { id } = req.body;
     const filteredreceipt = data.recipes.filter((receipt) => {
         if (receipt.id != id) {
             return receipt;
         }
     });
-    console.log(filteredreceipt);
     data.recipes = filteredreceipt;
 
     fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {

@@ -11,23 +11,29 @@
     width: 960px;
 }
 
+
 header {
     margin: 36.1px 0 30px 0;
+    width: 90.6px;
+    height: 26.9px;
     text-align: left;
-    display: flex;
-    width: 350px;
+    display: inline-flex;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.menu {
+    height: auto;
+    width: auto;
+    display: inline-flex;
+    margin: auto 30px auto 0;
+    text-decoration: none;
+    color: black;
 }
 
 #logo {
     width: 90.6px;
     height: 26.9px;
     margin-right: 122.4px;
-}
-
-.menu {
-    height: auto;
-    width: auto;
-    margin: auto 30px auto auto;
 }
 
 #bottom {

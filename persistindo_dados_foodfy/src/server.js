@@ -1,11 +1,11 @@
 const express = require("express")
 const nunjucks = require("nunjucks")
+const methodOverride = require("method-override")
 
 const server = express()
-const data = require("./data")
-const recipes = require("./recipes")
-const e = require("express")
-const methodOverride = require("method-override")
+
+const recipes = require("./app/controls/recipes")
+const client = require("./app/controls/client")
 
 server.use(express.urlencoded({ extended: true }))
 server.use(methodOverride('_method'))
@@ -14,7 +14,7 @@ server.use(express.static("public"))
 
 server.set("view engine", "njk")
 
-nunjucks.configure("views", {
+nunjucks.configure("src/app/views", {
     express: server,
     autoescape: false,
     noCache: true
@@ -26,25 +26,10 @@ server.listen(5000, function () {
 
 // routes
 
-server.get("/", function (req, res) {
-    console.log(data)
-    return res.render("client/index", { foods: data.recipes })
-})
-
-server.get("/about", function (req, res) {
-    return res.render("client/about")
-})
-
-server.get("/receipts", function (req, res) {
-    return res.render("client/receipts", { foods: data.recipes })
-})
-
-server.get("/receipts/:index", function (req, res) {
-    const recipeIndex = req.params.index;
-
-    if (recipeIndex < data.recipes.length) return res.render("client/receipt", { receipt: data.recipes[`${recipeIndex}`] });
-    else res.render("client/not-found")
-})
+server.get("/", client.index);
+server.get("/about", client.about);
+server.get("/receipts", client.recipes);
+server.get("/receipts/:index", client.receipt);
 
 //ADMIN
 
@@ -52,7 +37,6 @@ server.get("/admin/recipes", recipes.index); // Mostrar a lista de receitas
 server.get("/admin/recipes/create", recipes.create); // Mostrar formulário de nova receita
 server.get("/admin/recipes/:id", recipes.show); // Exibir detalhes de uma receita
 server.get("/admin/recipes/:id/edit", recipes.edit); // Mostrar formulário de edição de receita
-
 server.post("/admin/recipes", recipes.post); // Cadastrar nova receita
 server.put("/admin/recipes", recipes.put); // Editar uma receita
 server.delete("/admin/recipes", recipes.delete); // Deletar uma receita
