@@ -1,0 +1,21 @@
+{% extends "admin/admin_layout.njk" %}
+
+{% block content %}
+    <div>
+        <div class=""></div>
+        <div class=""></div>
+    </div>
+
+    <img src="">
+    <div class=""></div>
+    <div class=""></div>
+
+    <div class="">Receitas</div>
+    {% for recipes in receipts %}
+        <div class="card" id="{{foods.indexOf(food)}}">
+                <img class="foodImage" src={{food.image}} alt="image">
+                <div class="foodName">{{food.title}}<br/></div>
+                <div class="cooker">por {{food.author}}</div>
+        </div>
+    {% endfor %}
+{% endblock %}

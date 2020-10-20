@@ -1,4 +1,4 @@
-const data = require("../../../data.json")
+const db = require("../../config/db")
     
     exports.index = function (req, res) {
       return res.render("client/index", { foods: data.recipes })

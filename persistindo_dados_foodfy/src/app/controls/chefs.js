@@ -1,20 +1,19 @@
 const db = require("../../config/db")
-const fs = require("fs");
 
 exports.index = function (req, res) {
-    res.render("admin/recipes/recipes", { recipes: data.recipes })
+    res.render("admin/chefs/chefs", { recipes: data.recipes })
 };
 
 exports.create = function (req, res) {
 
-    return res.render("admin/recipes/create")
+    return res.render("admin/chefs/chef_create")
 };
 
 exports.show = function (req, res) {
     const receipt = data.recipes.find(i =>
         i.id == req.params.id
     )
-    res.render("admin/recipes/receipt", { receipt })
+    res.render("admin/chefs/chef", { receipt })
 };
 
 exports.edit = function (req, res) {
@@ -36,7 +35,7 @@ exports.edit = function (req, res) {
         information
     };
 
-    return res.render("admin/recipes/edit", { receipt });
+    return res.render("admin/chefs/chef_edit", { receipt });
 };
 
 exports.post = function (req, res) {
@@ -76,7 +75,7 @@ exports.post = function (req, res) {
     fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
         if (err) return res.send("write file error");
 
-        return res.redirect(`recipes/${id}`);
+        return res.redirect(`chefs/${id}`);
     });
 };
 
@@ -102,30 +101,30 @@ exports.put = function (req, res) {
     };
 
 
-    data.recipes[index] = receipt;
+    data.chefs[index] = receipt;
 
 
     fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
         if (err) return res.send("write file error");
     });
 
-    return res.redirect(`/admin/recipes/${id}`);
+    return res.redirect(`/admin/chefs/${id}`);
 };
 
 exports.delete = function (req, res) {
     const { id } = req.body;
-    const filteredreceipt = data.recipes.filter((receipt) => {
+    const filteredreceipt = data.chefs.filter((receipt) => {
         if (receipt.id != id) {
             return receipt;
         }
     });
-    data.recipes = filteredreceipt;
+    data.chefs = filteredreceipt;
 
     fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
         if (err) {
             return res.send("Error");
         }
 
-        return res.redirect("/admin/recipes");
+        return res.redirect("/admin/chefs");
     });
 };
