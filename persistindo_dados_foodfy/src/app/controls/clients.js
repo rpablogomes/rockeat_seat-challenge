@@ -1,17 +1,28 @@
-const db = require("../../config/db")
-    
-    exports.index = function (req, res) {
-      return res.render("client/index", { foods: data.recipes })
-    };
-    exports.about = function (req, res) {
-    return res.render("client/about")
-    };
-    exports.recipes = function (req, res) {
-    return res.render("client/receipts", { foods: data.recipes })
-    };
-    exports.receipt = function (req, res) {
-    const recipeIndex = req.params.index;
+const client = require('../models/client')
 
-    if (recipeIndex < data.recipes.length) return res.render("../views/client/receipt", { receipt: data.recipes[`${recipeIndex}`] });
-    else res.render("client/not-found")
-    };
+exports.index = function (req, res) {
+  client.index((callback) => {
+  return res.render("../views/client/index", callback)
+  }) 
+};
+exports.about = function (req, res) {
+  return res.render("client/about");
+};
+exports.recipes = function (req, res) {
+  client.recipes(req.id, (callback) => {
+  return res.render("client/receipts", callback);
+  })
+};
+exports.receipt = function (req, res) {
+
+  const index = req.params.index
+
+  client.recipe(index, (callback) => {
+
+    // if(index < data.recipes.length)
+    return res.render("../views/client/receipt", callback)
+    //   receipt: callback,
+    // });
+    // else res.render("client/not-found"))
+  })
+}

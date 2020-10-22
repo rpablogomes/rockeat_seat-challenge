@@ -2,6 +2,7 @@ const db = require("../../config/db")
 const fs = require("fs");
 
 exports.index = function (req, res) {
+    
     res.render("admin/recipes/recipes", { recipes: data.recipes })
 };
 
