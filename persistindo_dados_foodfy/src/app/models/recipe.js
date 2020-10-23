@@ -8,7 +8,7 @@ module.exports = {
     query = `SELECT chefs.id, chefs.name, chefs.avatar_url, chefs.subjects_taught, COUNT(students) AS total_students,
     (SELECT COUNT(*) FROM chefs
  
-    WHERE chefs.name ILIKE '%${filter}%') AS pagination
+    WHERE chefs.name ILIKE '%${filter}%' AS pagination
         
     FROM chefs
     

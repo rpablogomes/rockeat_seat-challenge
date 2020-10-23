@@ -1,16 +1,19 @@
 const db = require("../../config/db")
+const chef = require("../models/chef")
+const getSince = require("../lib/utils").getSince
 
 exports.index = function (req, res) {
-    res.render("admin/chefs/chefs", { recipes: data.recipes })
+    chef.index(callback => {
+    return res.render("admin/chefs/chefs", { callback })
+    })
 };
 
 exports.create = function (req, res) {
-
-    return res.render("admin/chefs/chef_create")
-};
+        res.render(`admin/chefs/chef_create`);
+      };
 
 exports.show = function (req, res) {
-    const receipt = data.recipes.find(i =>
+    const receipt = recipes.find(i =>
         i.id == req.params.id
     )
     res.render("admin/chefs/chef", { receipt })
