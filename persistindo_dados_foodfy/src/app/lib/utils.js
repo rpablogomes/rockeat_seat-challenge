@@ -1,5 +1,5 @@
-exports.getSince = function (since) {
-    let newSince = new Date(since);
+exports.getSince = function () {
+    let newSince = new Date();
   
     const year = newSince.getFullYear();
     const month = newSince.getMonth();

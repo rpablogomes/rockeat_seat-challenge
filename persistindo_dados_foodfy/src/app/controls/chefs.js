@@ -1,133 +1,115 @@
-const db = require("../../config/db")
-const chef = require("../models/chef")
-const getSince = require("../lib/utils").getSince
+const db = require("../../config/db");
+const chef = require("../models/chef");
+const getSince = require("../lib/utils").getSince;
 
 exports.index = function (req, res) {
-    chef.index(callback => {
-    return res.render("admin/chefs/chefs", { callback })
-    })
+  chef.index((callback) => {
+    return res.render("admin/chefs/chefs", { callback });
+  });
 };
 
 exports.create = function (req, res) {
-        res.render(`admin/chefs/chef_create`);
-      };
+  res.render(`admin/chefs/chef_create`);
+};
 
 exports.show = function (req, res) {
-    const receipt = recipes.find(i =>
-        i.id == req.params.id
-    )
-    res.render("admin/chefs/chef", { receipt })
+  chef.find(req.params.id, callback => {
+  res.render("admin/chefs/chef", { callback });
+})
 };
 
 exports.edit = function (req, res) {
-    const idToCheck = req.params.id;
+  const idToCheck = req.params.id;
 
-    const foundReceipt = data.recipes.find((receipt) => {
-        return receipt.id == idToCheck;
-    });
+  foundReceipt = chef.find(idToCheck, callback => {
+      foundReceipt = callback
+  });
 
-    let { id, image, title, author, ingredients, preparation, information } = foundReceipt
+  let {
+    id,
+    name,
+    avatar_url,
+    created_at
+  } = foundReceipt;
 
-    const receipt = {
-        id,
-        image,
-        title,
-        author,
-        ingredients,
-        preparation,
-        information
-    };
+  const receipt = {
+    id,
+    name,
+    avatar_url,
+    created_at
+  };
 
-    return res.render("admin/chefs/chef_edit", { receipt });
+
+  return res.render("admin/chefs/chef_edit", { receipt });
 };
 
 exports.post = function (req, res) {
-    const keys = Object.keys(req.body);
+  const keys = Object.keys(req.body);
 
-    //validation
-    for (key of keys) {
-        if (req.body[key] == "") {
-            return res.send("Fill all the fields");
-        }
+  //validation
+  for (key of keys) {
+    if (req.body[key] == "") {
+      return res.send("Fill all the fields");
     }
-    // Construct Object to Push into data
-    let { image, title, author, ingredients, preparation, information } = req.body;
+  }
 
-    const CheckHighestid = () => {
-        let highestID = 0;
-        for (let e of data.recipes) {
-            if (e.id > highestID) {
-                highestID = e.id;
-            }
-        }
-        return highestID + 1;
-    };
+  const values = [
+    req.body.name,
+    req.body.avatar_url,
+    getSince()
+  ]
 
-    const id = Number(CheckHighestid());
+  // Construct Object to Push into data
 
-    data.recipes.push({
-        id,
-        image,
-        title,
-        author,
-        ingredients,
-        preparation,
-        information
-    });
-
-    fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
-        if (err) return res.send("write file error");
-
+  chef.create(
+      values, id => {
         return res.redirect(`chefs/${id}`);
-    });
+    })
 };
 
 exports.put = function (req, res) {
-    const id = Number(req.body.id);
+  const id = Number(req.body.id);
 
-    let index = 0;
+  let index = 0;
 
+  const foundReceipt = data.recipes.find((receipt, foundIndex) => {
+    index = foundIndex;
+    return receipt.id == id;
+  });
 
-    const foundReceipt = data.recipes.find((receipt, foundIndex) => {
-        index = foundIndex;
-        return receipt.id == id;
-    });
+  if (!foundReceipt) {
+    return res.send("Not found");
+  }
 
-    if (!foundReceipt) {
-        return res.send("Not found");
-    }
+  const receipt = {
+    ...foundReceipt,
+    ...req.body,
+    id,
+  };
 
-    const receipt = {
-        ...foundReceipt,
-        ...req.body,
-        id
-    };
+  data.chefs[index] = receipt;
 
+  fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
+    if (err) return res.send("write file error");
+  });
 
-    data.chefs[index] = receipt;
-
-
-    fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
-        if (err) return res.send("write file error");
-    });
-
-    return res.redirect(`/admin/chefs/${id}`);
+  return res.redirect(`/admin/chefs/${id}`);
 };
 
 exports.delete = function (req, res) {
-    const { id } = req.body;
-    const filteredreceipt = data.chefs.filter((receipt) => {
-        if (receipt.id != id) {
-            return receipt;
-        }
-    });
-    data.chefs = filteredreceipt;
+  const { id } = req.body;
+  const filteredreceipt = data.chefs.filter((receipt) => {
+    if (receipt.id != id) {
+      return receipt;
+    }
+  });
+  data.chefs = filteredreceipt;
 
-    fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
-        if (err) {
-            return res.send("Error");
-        }
+  fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
+    if (err) {
+      return res.send("Error");
+    }
 
-        return res.redirect("/admin/chefs");
-    });
+    return res.redirect("/admin/chefs");
+  });
 };
