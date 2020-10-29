@@ -58,7 +58,7 @@ h2 {
     text-align: center;
     font-size: 36px;
     color: #111111;
-    margin: 50px 0 4px 0;
+    margin: 30px 0 4px 0;
 }
 
 h3 {
@@ -152,7 +152,7 @@ li {
     font-weight: bold
 }
 
-.receiptTop {
+.Top {
     display: grid;
     grid-template-columns: 80% 1fr;
     width: 100%;
@@ -211,4 +211,14 @@ li {
     margin: 55px 0 24px auto;
     text-align: center;
     font-weight: bold
+}
+
+.img-chef{
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    margin: 0 auto -30px
+}
+.chef{
+    text-align:center
 }

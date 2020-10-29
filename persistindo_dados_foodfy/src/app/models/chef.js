@@ -23,8 +23,6 @@ module.exports = {
 
     const values = data
 
-    console.log(values)
-
     const query = `
         INSERT INTO chefs (
           name,
@@ -40,29 +38,15 @@ module.exports = {
       console.log(err)
 
         if (err) throw "Database error!!!"
-        callback(results.rows[0])
+        callback(results.rows[0].id)
     })
 },
 
-//     const values = [
-//       avatar_url,
-//       name,
-//       date(birth_date),
-//       education_level,
-//       class_type,
-//       getArray(subjects_taught),
-//       date(Date.now()),
-//     ];
-
-//     db.query(query, values, (err, results) => {
-//       if (err) res.send("Database error!!!");
-
-//       callback();
-//     });
   find(id, callback){
     db.query(`SELECT * FROM chefs WHERE id = ${id}`, 
     function (err,results) {
       if(results.rows == [] || err) return callback.send("Database error!!!");
+      console.log(results.rows[0])
       callback(results.rows[0]);
     })
   },
@@ -103,11 +87,11 @@ module.exports = {
       callback();
     });
   },
-//   delete(id, callback) {
-//     db.query(`DELETE FROM chefs WHERE id = ${id}`, (err, results) => {
-//       if (err) return res.send("Database Error!");
+  delete(id, callback) {
+    db.query(`DELETE FROM chefs WHERE id = ${id}`, (err, results) => {
+      if (err) return res.send("Database Error!");
 
-//       callback();
-//     });
-//   },
+      callback();
+    });
+  }
 }

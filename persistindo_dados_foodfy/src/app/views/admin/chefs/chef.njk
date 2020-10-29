@@ -1,21 +1,26 @@
 {% extends "admin/admin_layout.njk" %}
 
 {% block content %}
-    <div>
-        <div class=""></div>
-        <div class=""></div>
+    <div class="Top">
+        <h1 class="">Chef:
+            {{chef.name}}</h1>
+        <button class="button">Editar Chef</button>
+    </div>
+    <div class="chef">
+        <img src="{{chef.avatar_url}}" class="img-chef">
+        <h2 class="">{{chef.name}}</h2>
+        <h3 class="">X receitas</h3>
     </div>
 
-    <img src="">
-    <div class=""></div>
-    <div class=""></div>
-
-    <div class="">Receitas</div>
-    {% for recipes in receipts %}
+    <h1 class="">Receitas</h1>
+    <div class="card">
+    {% for receipt in receipts %}
         <div class="card" id="{{foods.indexOf(food)}}">
-                <img class="foodImage" src={{food.image}} alt="image">
-                <div class="foodName">{{food.title}}<br/></div>
-                <div class="cooker">por {{food.author}}</div>
+            <img class="foodImage" src={{food.image}} alt="image">
+            <div class="foodName">{{food.title}}<br/></div>
+            <div class="cooker">por
+                {{food.author}}</div>
         </div>
+    </div>
     {% endfor %}
 {% endblock %}

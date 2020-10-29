@@ -34,15 +34,16 @@ server.get("/receipts/:index", clients.receipt);
 
 //ADMIN Routes
 
-server.get("/admin/recipes", chefs.index); // Mostrar a lista de receitas
-server.get("/admin/recipes/create", chefs.create); // Mostrar formulário de nova receita
-server.get("/admin/recipes/:id", chefs.show); // Exibir detalhes de uma receita
-server.get("/admin/recipes/:id/edit", chefs.edit); // Mostrar formulário de edição de receita
-server.post("/admin/recipes", chefs.post); // Cadastrar nova receita
-server.put("/admin/recipes", chefs.put); // Editar uma receita
-server.delete("/admin/recipes", chefs.delete); // Deletar uma receita
+server.get("/admin/recipes", recipes.index); // Mostrar a lista de receitas
+server.get("/admin/recipes/create", recipes.create); // Mostrar formulário de nova receita
+server.get("/admin/recipes/:id", recipes.show); // Exibir detalhes de uma receita
+server.get("/admin/recipes/:id/edit", recipes.edit); // Mostrar formulário de edição de receita
+server.post("/admin/recipes", recipes.post); // Cadastrar nova receita
+server.put("/admin/recipes", recipes.put); // Editar uma receita
+server.delete("/admin/recipes", recipes.delete); // Deletar uma receita
 
 //CHEFS routes
+
 server.get("/admin/chefs", chefs.index); // Mostrar a lista de receitas
 server.get("/admin/chef/create", chefs.create); // Mostrar formulário de nova receita
 server.get("/admin/chef/:id", chefs.show); // Exibir detalhes de uma receita

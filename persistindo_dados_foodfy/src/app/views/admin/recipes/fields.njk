@@ -10,8 +10,14 @@
 
 <div>
     <div class="createText">Autor</div>
-    <input class="createInput" type="text" name="author" value="{{receipt.author}}" placeholder="author">
-</div>
+
+    <select id="select" class="createInput" class="register" name="chef_id">
+        <option value="" hidden="hidden" {% if student.school_year == "" %} selected="selected" {% endif %}></option>
+        {% for chef in chefsList%}
+            <option  value="{{chef.id}}" {% if student.school_year == "3º ano" %} selected="selected" {% endif %}>{{chef.name}}</option>
+        {% endfor %}
+    </select>
+</div>                  
 
 <div>
     <div class="createText">Ingredientes</div>

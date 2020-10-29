@@ -5,8 +5,8 @@ module.exports = {
   paginate(req, callback) {
     let { filter, limit, offset } = req;
 
-    query = `SELECT chefs.id, chefs.name, chefs.avatar_url, chefs.subjects_taught, COUNT(students) AS total_students,
-    (SELECT COUNT(*) FROM chefs
+    query = `SELECT recipes.id, recipes.name, recipes.avatar_url, recipes.subjects_taught, COUNT(students) AS total_students,
+    (SELECT COUNT(*) FROM recipes
  
     WHERE chefs.name ILIKE '%${filter}%' AS pagination
         
@@ -32,7 +32,13 @@ module.exports = {
       callback(results.rows);
     });
   },
-
+  chefsList(chefsList){
+    db.query('SELECT id, name FROM chefs'
+      , function (err, results) {
+        console.log(results.rows)
+        chefsList(results.rows)
+      })
+  },
   findBy(filter, callback) {
     db.query(
       `SELECT chefs.id, chefs.name, chefs.avatar_url, chefs.subjects_taught, COUNT(students) AS total_students
@@ -54,56 +60,39 @@ module.exports = {
       }
     );
   },
-  create(data, callback) {
+  create(values, callback) {
     // Construct Object to Push to front-end
-    let {
-      avatar_url,
-      name,
-      birth_date,
-      education_level,
-      class_type,
-      subjects_taught,
-    } = data;
-
-    const birthday = Date.parse(birth_date);
 
     const query = `
-      INSERT INTO chefs (
-        avatar_url,
-        name,
-        birth_date,
-        education_level,
-        class_type,
-        subjects_taught,
-        created_at
-      )
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
-      RETURNING id
-  `;
+    INSERT INTO recipes (
+      chef_id,
+      image,
+      title,
+      ingredients,
+      preparation,
+      information,
+      created_at
+    )
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    RETURNING id
+`;
 
-    const values = [
-      avatar_url,
-      name,
-      date(birth_date),
-      education_level,
-      class_type,
-      getArray(subjects_taught),
-      date(Date.now()),
-    ];
 
+      console.log(values)
+      
     db.query(query, values, (err, results) => {
-      if (err) res.send("Database error!!!");
-
-      callback();
+      if(err) throw err
+      callback(results.rows[0].id);
     });
   },
   find(id, callback) {
-    db.query(`SELECT * FROM chefs WHERE id = ${id}`, function (
+    console.log(id)
+    db.query(`SELECT * FROM recipes
+    WHERE id = ${id}`, function (
       err,
       results
     ) {
       if (results.rows == [] || err) return res.send("Database error!!!");
-
       callback(results.rows[0]);
     });
   },

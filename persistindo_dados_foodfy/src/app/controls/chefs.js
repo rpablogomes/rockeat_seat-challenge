@@ -12,9 +12,34 @@ exports.create = function (req, res) {
   res.render(`admin/chefs/chef_create`);
 };
 
+exports.post = function (req, res) {
+  const keys = Object.keys(req.body);
+
+  //validation
+  for (key of keys) {
+    if (req.body[key] == "") {
+      return res.send("Fill all the fields");
+    }
+  }
+
+  const values = [
+    req.body.name,
+    req.body.avatar_url,
+    getSince()
+  ]
+
+  // Construct Object to Push into data
+
+  chef.create(
+      values, id => {
+        console.log(id.id)
+        return res.redirect(`chef/${id}`);
+    })
+};
+
 exports.show = function (req, res) {
   chef.find(req.params.id, callback => {
-  res.render("admin/chefs/chef", { callback });
+  res.render("admin/chefs/chef", { chef: callback });
 })
 };
 
@@ -41,30 +66,6 @@ exports.edit = function (req, res) {
 
 
   return res.render("admin/chefs/chef_edit", { receipt });
-};
-
-exports.post = function (req, res) {
-  const keys = Object.keys(req.body);
-
-  //validation
-  for (key of keys) {
-    if (req.body[key] == "") {
-      return res.send("Fill all the fields");
-    }
-  }
-
-  const values = [
-    req.body.name,
-    req.body.avatar_url,
-    getSince()
-  ]
-
-  // Construct Object to Push into data
-
-  chef.create(
-      values, id => {
-        return res.redirect(`chefs/${id}`);
-    })
 };
 
 exports.put = function (req, res) {
