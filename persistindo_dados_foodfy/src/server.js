@@ -36,9 +36,9 @@ server.get("/receipts/:index", clients.receipt);
 
 server.get("/admin/recipes", recipes.index); // Mostrar a lista de receitas
 server.get("/admin/recipes/create", recipes.create); // Mostrar formulário de nova receita
-server.get("/admin/recipes/:id", recipes.show); // Exibir detalhes de uma receita
-server.get("/admin/recipes/:id/edit", recipes.edit); // Mostrar formulário de edição de receita
 server.post("/admin/recipes", recipes.post); // Cadastrar nova receita
+server.get("/admin/recipes/:id", recipes.show); // Exibir detalhes de uma receita
+server.get("/admin/recipes/:id/edit", recipes.edit);// Mostrar formulário de edição de receita
 server.put("/admin/recipes", recipes.put); // Editar uma receita
 server.delete("/admin/recipes", recipes.delete); // Deletar uma receita
 
@@ -52,6 +52,6 @@ server.post("/admin/chef", chefs.post); // Cadastrar nova receita
 server.put("/admin/chef", chefs.put); // Editar uma receita
 server.delete("/admin/chef", chefs.delete); // Deletar uma receita
 
-// server.use(function(req, res) {
-//     res.status(404).render("not-found");
-// }) // Work on it this fuction later
+server.use(function(req, res) {
+    res.status(404).render("not-found");
+}) // Work on it this fuction later

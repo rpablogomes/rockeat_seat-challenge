@@ -2,7 +2,6 @@ const db = require("../../config/db");
 
 module.exports = {
   index(callback) {
-
     query = `SELECT chefs.id, chefs.name, chefs.avatar_url, COUNT(chef_id) AS total_recipes
 
     FROM chefs
@@ -17,11 +16,10 @@ module.exports = {
       callback(results.rows);
     });
   },
-
   create(data, callback) {
     // Construct Object to Push to front-end
 
-    const values = data
+    const values = data;
 
     const query = `
         INSERT INTO chefs (
@@ -31,54 +29,30 @@ module.exports = {
         )
         VALUES ($1, $2, $3)
         RETURNING id
-    `
+    `;
 
     db.query(query, values, function (err, results) {
-
-      console.log(err)
-
-        if (err) throw "Database error!!!"
-        callback(results.rows[0].id)
-    })
-},
-
-  find(id, callback){
-    db.query(`SELECT * FROM chefs WHERE id = ${id}`, 
-    function (err,results) {
-      if(results.rows == [] || err) return callback.send("Database error!!!");
-      console.log(results.rows[0])
-      callback(results.rows[0]);
-    })
+      if (err) throw "Database error!!!";
+      callback(results.rows[0].id);
+    });
   },
-
+  find(id, callback) {
+    db.query(`SELECT * FROM chefs WHERE id = ${id}`, function (err, results) {
+      if (results.rows == [] || err) return callback.send("Database error!!!");
+      callback(results.rows[0]);
+    });
+  },
   update(data, callback) {
-    let {
-      id,
-      avatar_url,
-      name,
-      birth_date,
-      education_level,
-      class_type,
-      subjects_taught,
-    } = data;
-
-    const query = `UPDATE chefs SET
+    const query = `
+            UPDATE chefs SET
             avatar_url=($1),
-            name=($2),
-            birth_date=($3),
-            education_level=($4),
-            class_type=($5),
-            subjects_taught=($6)
-      WHERE id = $7`;
+            name=($2)
+            WHERE id = $3`;
 
     const values = [
-      avatar_url,
-      name,
-      birth_date,
-      education_level,
-      class_type,
-      getArray(subjects_taught),
-      id,
+      (avatar_url = data.avatar_url),
+      (name = data.name),
+      (id = data.id),
     ];
 
     db.query(query, values, (err, results) => {
@@ -93,5 +67,5 @@ module.exports = {
 
       callback();
     });
-  }
-}
+  },
+};

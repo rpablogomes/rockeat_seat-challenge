@@ -4,7 +4,7 @@
     <div class="Top">
         <h1 class="">Chef:
             {{chef.name}}</h1>
-        <button class="button">Editar Chef</button>
+        <button class="button" onclick="window.location.href='/admin/chef/{{chef.id}}/edit'">Editar Chef</button>
     </div>
     <div class="chef">
         <img src="{{chef.avatar_url}}" class="img-chef">

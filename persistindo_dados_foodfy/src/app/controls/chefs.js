@@ -1,5 +1,6 @@
 const db = require("../../config/db");
 const chef = require("../models/chef");
+const { recipe } = require("../models/client");
 const getSince = require("../lib/utils").getSince;
 
 exports.index = function (req, res) {
@@ -22,95 +23,54 @@ exports.post = function (req, res) {
     }
   }
 
-  const values = [
-    req.body.name,
-    req.body.avatar_url,
-    getSince()
-  ]
+  const values = [req.body.name, req.body.avatar_url, getSince()];
 
   // Construct Object to Push into data
 
-  chef.create(
-      values, id => {
-        console.log(id.id)
-        return res.redirect(`chef/${id}`);
-    })
+  chef.create(values, (id) => {
+    return res.redirect(`chef/${id}`);
+  });
 };
 
 exports.show = function (req, res) {
-  chef.find(req.params.id, callback => {
-  res.render("admin/chefs/chef", { chef: callback });
-})
+  chef.find(req.params.id, (callback) => {
+    res.render("admin/chefs/chef", { chef: callback });
+  });
 };
 
 exports.edit = function (req, res) {
   const idToCheck = req.params.id;
 
-  foundReceipt = chef.find(idToCheck, callback => {
-      foundReceipt = callback
+  foundReceipt = chef.find(idToCheck, (callback) => {
+    
+    let { id, name, avatar_url } = callback;
+    
+    const chef = {
+      id,
+      name,
+      avatar_url,
+    };
+    
+    return res.render("admin/chefs/chef_edit", { chef });
   });
-
-  let {
-    id,
-    name,
-    avatar_url,
-    created_at
-  } = foundReceipt;
-
-  const receipt = {
-    id,
-    name,
-    avatar_url,
-    created_at
-  };
-
-
-  return res.render("admin/chefs/chef_edit", { receipt });
 };
 
 exports.put = function (req, res) {
-  const id = Number(req.body.id);
-
-  let index = 0;
-
-  const foundReceipt = data.recipes.find((receipt, foundIndex) => {
-    index = foundIndex;
-    return receipt.id == id;
-  });
-
-  if (!foundReceipt) {
-    return res.send("Not found");
-  }
-
-  const receipt = {
-    ...foundReceipt,
+  const chefToUpdate = {
     ...req.body,
-    id,
   };
 
-  data.chefs[index] = receipt;
+  const {id} = req.body
 
-  fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
-    if (err) return res.send("write file error");
-  });
-
-  return res.redirect(`/admin/chefs/${id}`);
+  chef.update(chefToUpdate, callback =>{
+    return res.redirect(`/admin/chef/${id}`);
+  })
 };
 
 exports.delete = function (req, res) {
-  const { id } = req.body;
-  const filteredreceipt = data.chefs.filter((receipt) => {
-    if (receipt.id != id) {
-      return receipt;
-    }
-  });
-  data.chefs = filteredreceipt;
+  const { id }  = req.body;
 
-  fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
-    if (err) {
-      return res.send("Error");
-    }
-
+  chef.delete(id, callback => {
     return res.redirect("/admin/chefs");
-  });
+  })
 };

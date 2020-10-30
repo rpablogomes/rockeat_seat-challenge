@@ -3,8 +3,9 @@ const recipe = require("../models/recipe");
 const getSince = require("../lib/utils").getSince;
 
 exports.index = function (req, res) {
-  recipe.paginate(callback);
-  res.render("admin/recipes/recipes", { callback });
+  recipe.index(callback => {
+    res.render("admin/recipes/recipes", { recipes : callback });
+  });
 };
 
 exports.create = function (req, res) {
@@ -56,79 +57,35 @@ exports.show = function (req, res) {
 };
 
 exports.edit = function (req, res) {
-
-  let {
-    id,
-    image,
-    title,
-    author,
-    ingredients,
-    preparation,
-    information,
-  } = foundReceipt
-
-  const receipt = {
-    id,
-    image,
-    title,
-    author,
-    ingredients,
-    preparation,
-    information,
-  };
-  
-  recipe.find(idToCheck, callback => {
-    foundReceipt = callback
-})
-
+  const id = req.params.id;
   recipe.find(id, (receipt) => {
-    return res.render("admin/recipes/edit", { receipt });
+    recipe.chefsList((chefsList) => {
+      return res.render("admin/recipes/edit", { receipt, chefsList });
+    });
   });
 };
 
 exports.put = function (req, res) {
-  const id = Number(req.body.id);
 
-  let index = 0;
+  const editedRecipe = [
+    req.body.chef_id,
+    req.body.image,
+    req.body.title,
+    req.body.ingredients,
+    req.body.preparation,
+    req.body.information,
+    req.body.id
+  ]
 
-  const foundReceipt = data.recipes.find((receipt, foundIndex) => {
-    index = foundIndex;
-    return receipt.id == id;
+  recipe.update(editedRecipe, callback => {
+    return res.redirect(`/admin/recipes/${req.body.id}`);
   });
 
-  if (!foundReceipt) {
-    return res.send("Not found");
-  }
-
-  const receipt = {
-    ...foundReceipt,
-    ...req.body,
-    id,
-  };
-
-  data.recipes[index] = receipt;
-
-  fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
-    if (err) return res.send("write file error");
-  });
-
-  return res.redirect(`/admin/recipes/${id}`);
 };
 
 exports.delete = function (req, res) {
   const { id } = req.body;
-  const filteredreceipt = data.recipes.filter((receipt) => {
-    if (receipt.id != id) {
-      return receipt;
-    }
-  });
-  data.recipes = filteredreceipt;
-
-  fs.writeFile("data.json", JSON.stringify(data, null, 2), function (err) {
-    if (err) {
-      return res.send("Error");
-    }
-
+  recipe.delete(id, callback => {
     return res.redirect("/admin/recipes");
   });
 };
