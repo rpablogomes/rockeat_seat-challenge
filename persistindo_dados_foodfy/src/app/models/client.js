@@ -14,12 +14,11 @@ module.exports = {
         `,
       (error, results) => {
         if (error) throw "Database error!";
-
         callback(results.rows);
       }
     );
   },
-  recipes(id, callback) {
+  recipes(callback) {
     db.query(
       `
       SELECT recipes.id, recipes.image, recipes.title, chefs.name as chefs_name
@@ -36,22 +35,23 @@ module.exports = {
         callback(results.rows);
       }
     );
-  },
+  }, 
   recipe(id, callback) {
+
     db.query(
       `
-    SELECT recipes.id, recipes.image, recipes.title, chefs.name as chefs_name
+    SELECT *
                 
     FROM recipes
             
     LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
 
-    WHERE recipes.id = '${id}'
+    WHERE recipes.id = ${id}
 
     ORDER BY recipes.id ASC`,
-      (error, results) => {
-        if(error) throw "Database"
-        callback(results.rows);
+      (err, results) => {
+        if(err) throw "Database"
+        callback(results.rows[0]);
       }
     );
   },

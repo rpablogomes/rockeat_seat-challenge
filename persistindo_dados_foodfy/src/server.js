@@ -30,7 +30,7 @@ server.listen(5000, function () {
 server.get("/", clients.index);
 server.get("/about", clients.about);
 server.get("/receipts", clients.recipes);
-server.get("/receipts/:index", clients.receipt);
+server.get("/receipts/:id", clients.receipt);
 
 //ADMIN Routes
 

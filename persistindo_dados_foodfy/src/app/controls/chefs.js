@@ -1,6 +1,5 @@
 const db = require("../../config/db");
 const chef = require("../models/chef");
-const { recipe } = require("../models/client");
 const getSince = require("../lib/utils").getSince;
 
 exports.index = function (req, res) {

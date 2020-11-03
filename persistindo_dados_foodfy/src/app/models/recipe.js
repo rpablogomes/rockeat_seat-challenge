@@ -3,7 +3,7 @@ const db = require("../../config/db");
 module.exports = {
 
   index(callback) {
-
+    
     query = `SELECT recipes.id, image, title, chefs.name as chef_name 
 
     FROM recipes
@@ -13,8 +13,7 @@ module.exports = {
     ORDER BY chefs ASC
     `
 
-    db.query(query, function (err, results) {
-
+    db.query(query, (err, results) => {
       if (err) throw "Database";
 
       callback(results.rows);

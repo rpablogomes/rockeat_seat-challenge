@@ -3,13 +3,12 @@
 {% block content%}
     <div id="receipts">
 
-        {% for food in foods %}
+        {% for recipe in recipes %}
 
-            <div class="card" id="{{foods.indexOf(food)}}">
-                <img class="foodImage" src={{food.image}} alt="image">
-                <span class="foodName">{{food.title}}<br/></span>
-                <span class="cooker">por
-                    {{food.author}}</span>
+            <div class="card" onclick="window.location.href='/receipts/{{receipt.id}}/edit'">
+                <img class="foodImage" src={{recipe.image}} alt="image">
+                <span class="foodName">{{recipe.title}}<br/></span>
+                <span class="cooker">por {{recipe.chefs_name}}</span>
             </div>
 
         {% endfor %}

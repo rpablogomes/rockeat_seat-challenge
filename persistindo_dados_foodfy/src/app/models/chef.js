@@ -12,7 +12,6 @@ module.exports = {
 
     db.query(query, function (err, results) {
       if (err) throw "Database";
-
       callback(results.rows);
     });
   },
