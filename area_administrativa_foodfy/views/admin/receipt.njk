@@ -1,0 +1,40 @@
+{% extends "admin/admin_layout.njk" %}
+
+{% block content %}
+
+    <div class="receiptTop">
+
+        <h1>Receita:
+            {{receipt.title}}</h1>
+
+        <button class="button" onclick="window.location.href='/admin/recipes/{{receipt.id}}/edit'">Editar receita</button>
+    </div>
+
+    <div>
+        <img class="receiptImg" src="{{receipt.image}}">
+    </div>
+
+    <h2>{{receipt.title}}</h2>
+    <h3>{{receipt.author}}</h3>
+
+    <h4 class="receiptTitle">Ingredientes</h4>
+
+    {% for ingredient in receipt.ingredients%}
+        <div class="receiptText">
+            -
+            {{ingredient}};
+        </div>
+    {% endfor %}
+
+    <h4 class="receiptTitle">Modo de Preparo</h4>
+
+    {% for steps in receipt.preparation%}
+        <div class="receiptText">-
+            {{steps}}</div>
+    {% endfor %}
+
+    <h4 class="receiptTitle">Informações Adicionais</h4>
+
+    <div class="receiptText lastText">{{receipt.information}}</div>
+
+{% endblock %}

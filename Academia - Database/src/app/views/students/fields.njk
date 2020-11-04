@@ -1,0 +1,48 @@
+<div>
+    <div>Avatar URL:</div>
+    <input class="register" type="url" name="avatar_url" placeholder="http://" value="{{student.avatar_url}}">
+</div>
+<div>
+    <div>Name:</div>
+    <input class="register" name="name" type="text" value="{{student.name}}">
+</div>
+<div>
+    <div>Birthday</div>
+    <input class="register" name="birth_date" type="date" value="{{student.birth_date}}">
+</div>
+<div>
+    <div>Email:</div>
+    <input class="register" name="email" type="email" value="{{student.email}}">
+</div>
+<div>
+    <div>School Year:</div>
+
+    <select id="select" class="register" name="school_year">
+        <option value="" hidden="hidden" {% if student.school_year == "" %} selected="selected" {% endif %}></option>
+        <option value="5º ano" {% if student.school_year == "5º ano" %} selected="selected" {% endif %}>5º ano</option>
+        <option value="6º ano" {% if student.school_year == "6º ano" %} selected="selected" {% endif %}>6º ano</option>
+        <option value="7º ano" {% if student.school_year == "7º ano" %} selected="selected" {% endif %}>7º ano</option>
+        <option value="8º ano" {% if student.school_year == "8º ano" %} selected="selected" {% endif %}>8º ano</option>
+        <option value="1º ano" {% if student.school_year == "1º ano" %} selected="selected" {% endif %}>1º ano</option>
+        <option value="2º ano" {% if student.school_year == "2º ano" %} selected="selected" {% endif %}>2º ano</option>
+        <option value="3º ano" {% if student.school_year == "3º ano" %} selected="selected" {% endif %}>3º ano</option>
+
+    </select>
+
+</div>
+<div>
+    <div>Workload:</div>
+    <input class="register" name="workload" type="number" value="{{student.workload}}">
+</div>
+<div>
+    <div>Teachers:</div>
+    <select id="select" class="register" name="teacher_id">
+        <option value="" hidden="hidden"></option>
+        {% for teacher in teachers %}
+            <option value={{teacher.id}} {% if teacher.id == student.teacher_id%} selected="selected" {% endif %}>{{teacher.name}}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="buttons">
+    <button class="button" type="submit">Submit</button>

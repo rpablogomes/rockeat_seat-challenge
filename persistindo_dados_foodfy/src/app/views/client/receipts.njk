@@ -1,0 +1,18 @@
+{% extends "client/layout.njk" %}
+
+{% block content%}
+    <div id="receipts">
+
+        {% for recipe in recipes %}
+
+            <div class="card" onclick="window.location.href='/receipts/{{receipt.id}}/edit'">
+                <img class="foodImage" src={{recipe.image}} alt="image">
+                <span class="foodName">{{recipe.title}}<br/></span>
+                <span class="cooker">por {{recipe.chefs_name}}</span>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endblock%}

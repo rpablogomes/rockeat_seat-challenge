@@ -1,9 +1,8 @@
 const express = require("express");
 const routes = express.Router();
-const teachers = require("./controlers/teacher");
-const students = require("./controlers/students");
+const teachers = require("./app/controlers/teachers");
+const students = require("./app/controlers/students");
 
-// const { Router } = require("express");
 
 //layout
 routes.get("/", function (req, res) {
@@ -11,7 +10,7 @@ routes.get("/", function (req, res) {
 });
 
 //Teachers' list
-routes.get("/teachers", teachers.teachers)
+routes.get("/teachers", teachers.index)
 
 //Register Page
 routes.get("/teacher/register", function (req, res) {
@@ -36,15 +35,13 @@ routes.delete("/teacher", teachers.delete)
 //STUDENTS
 
 //students' list
-routes.get("/students", students.students)
+routes.get("/students", students.index)
 
 //Register Page
-routes.get("/student/register", function (req, res) {
-  return res.render("students/register");
-});
+routes.get("/student/register", students.selectTeacher);
 
 //post
-routes.post("/student", students.post);
+routes.post("/student", students.create);
 
 //show
 routes.get("/student/:id", students.show);

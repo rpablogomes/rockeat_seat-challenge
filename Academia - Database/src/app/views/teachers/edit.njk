@@ -4,18 +4,18 @@
 
     <div class="Card">
         <section>
-            <img class="imgTeachercard" src="{{student.avatar_url}}">
+            <img class="imgTeachercard" src="{{teacher.avatar_url}}">
         </section>
         <section class="details">
 
-            <form method="POST" action="/student?_method=PUT">
+            <form  method="POST" action="/teacher?_method=PUT">
                 <h1>Edit</h1>
 
                 {% include "./fields.njk" %}
                 <input 
             type="hidden" 
             name="id"
-            value="{{student.id}}"/>
+            value="{{teacher.id}}"/>
             </form>
 
             </div>
