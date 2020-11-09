@@ -9,26 +9,18 @@
     <div class="chef">
         <img src="{{chef.avatar_url}}" class="img-chef">
         <h2 class="">{{chef.name}}</h2>
-        <h3 class="">{{chef.total_recipes}}
-            receitas</h3>
+        <h3 class="">X receitas</h3>
     </div>
 
-    <h1>Receitas</h1>
-
-    <div class="cardsChef">
-
-        {% for recipe in recipes %}
-            <div class="cardChef">
-                <div>
-                    <img class="foodImageChef" src={{recipe.image}} alt="image">
-                </div>
-                <div>
-                    <div class="foodNameChef">{{recipe.title}}<br/></div>
-                    <div class="cookerChef">por
-                        {{chef.name}}</div>
-                    <a href="/admin/recipes/{{recipe.id}}">visualizar</a>
-                </div>
-            </div>
-        {% endfor %}
+    <h1 class="">Receitas</h1>
+    <div class="card">
+    {% for receipt in receipts %}
+        <div class="card" id="{{foods.indexOf(food)}}">
+            <img class="foodImage" src={{food.image}} alt="image">
+            <div class="foodName">{{food.title}}<br/></div>
+            <div class="cooker">por
+                {{food.author}}</div>
+        </div>
     </div>
+    {% endfor %}
 {% endblock %}

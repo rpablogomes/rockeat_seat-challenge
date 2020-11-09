@@ -19,9 +19,4 @@ exports.receipt = function (req, res) {
   client.recipe(id, callback => {
     return res.render("../views/client/receipt", { receipt : callback})
   })
-};
-exports.chefs = function (req, res) {
-  client.chefs(callback => {
-  return res.render("client/chefs", {chefs: callback});
-  })
-};
+}

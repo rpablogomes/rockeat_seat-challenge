@@ -31,8 +31,6 @@ server.get("/", clients.index);
 server.get("/about", clients.about);
 server.get("/receipts", clients.recipes);
 server.get("/receipts/:id", clients.receipt);
-server.get("/chefs", clients.chefs);
-server.get("/chefs/:id", clients.chefs);
 
 //ADMIN Routes
 

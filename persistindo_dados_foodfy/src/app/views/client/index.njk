@@ -19,9 +19,9 @@
 
         {% for recipe in recipes %}
             <div class="card">
-                <img class="foodImageChef" src={{recipe.image}} alt="image">
-                <span class="foodNameChef">{{recipe.title}}<br/></span>
-                <span class="cookerChef">por {{recipe.chefs_name}}</span>
+                <img class="foodImage" src={{recipe.image}} alt="image">
+                <span class="foodName">{{recipe.title}}<br/></span>
+                <span class="cooker">por {{recipe.chefs_name}}</span>
             </div>
         {% endfor %}
 
