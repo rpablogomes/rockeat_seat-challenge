@@ -36,9 +36,26 @@ module.exports = {
     });
   },
   find(id, callback) {
-    db.query(`SELECT * FROM chefs WHERE id = ${id}`, function (err, results) {
-      if (results.rows == [] || err) return callback.send("Database error!!!");
-      callback(results.rows[0]);
+    db.query(
+      `SELECT chefs.id, chefs.avatar_url, chefs.name, COUNT (chef_id) AS total_recipes
+
+    FROM chefs
+    
+    LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
+    
+    WHERE chefs.id = ${id}
+    
+    GROUP BY chefs.id`,
+      function (err, results) {
+        if (results.rows == [] || err)
+          return callback.send("Database error!!!");
+        callback(results.rows[0]);
+      }
+    );
+  },
+  receiptByChef(id, callback) {
+    db.query(`SELECT * FROM recipes WHERE chef_id = ${id}`, (err, results) => {
+      callback(results.rows);
     });
   },
   update(data, callback) {

@@ -55,4 +55,18 @@ module.exports = {
       }
     );
   },
+  chefs(callback) {
+    query = `SELECT chefs.id, chefs.name, chefs.avatar_url, COUNT(chef_id) AS total_recipes
+
+    FROM chefs
+
+    LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
+
+    GROUP BY chefs.id, chefs.name, chefs.avatar_url`;
+
+    db.query(query, function (err, results) {
+      if (err) throw "Database";
+      callback(results.rows);
+    });
+  }
 };
