@@ -1,10 +1,7 @@
-{% extends "admin/admin_layout.njk" %}
+{% extends "client/layout.njk" %}
 
 {% block content %}
-
-    <h1>Chefs</h1>
-
-    <div class="Chefs">
+    <div class="cardChefs">
         {% for chef in chefs %}
             <div class="cardChef">
                 <div>
@@ -12,10 +9,9 @@
                 </div>
                 <div>
                     <div class="nameChef">{{chef.name}}</div>
-                    <a href="/admin/chef/{{chef.id}}">visualizar</a>
+                    <div class="totalChef">{{chef.total_recipes}} visualizar</div>
                 </div>
             </div>
-            {% endfor %}
-        </div>
-
-    {% endblock %}
+        {% endfor %}
+    </div>
+{% endblock %}

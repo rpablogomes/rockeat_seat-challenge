@@ -4,7 +4,7 @@ const getSince = require("../lib/utils").getSince;
 
 exports.index = function (req, res) {
   chef.index((callback) => {
-    return res.render("admin/chefs/chefs", { callback });
+    return res.render("admin/chefs/chefs", { chefs : callback });
   });
 };
 
@@ -33,7 +33,10 @@ exports.post = function (req, res) {
 
 exports.show = function (req, res) {
   chef.find(req.params.id, (callback) => {
-    res.render("admin/chefs/chef", { chef: callback });
+    chef.receiptByChef(req.params.id, recipes => {
+      console.log(callback, recipes)
+      res.render("admin/chefs/chef", { chef: callback , recipes });
+    })
   });
 };
 
