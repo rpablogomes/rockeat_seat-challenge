@@ -1,30 +1,23 @@
 const teacher = require("../models/teacher");
-const getSince = require("../../lib/utils").getSince
+
 const date = require("../../lib/utils").date;
 const getAge = require("../../lib/utils").getAge;
+const getArray = require("../../lib/utils").getArray;
+const getSince = require("../../lib/utils").getSince;
 
 module.exports = {
   index(req, res) {
-    let { filter, page, limit, selectedPage } = req.query;
+    const { filter } = req.query;
 
-    filter = filter || "";
-    page = page || 1;
-    limit = limit || 3;
-    offset = (page - 1) * limit;
-
-    teacher.paginate({ filter, page, limit, offset }, (teachers) => {
-      if (!teachers) return res.send("Not found");
-
-      let pagination = teachers[0].pagination
-      let totalPage = Math.ceil(pagination / limit)
-
-      return res.render("teachers/teachers", {
-        teachers,
-        totalPage,
-        page,
-        filter
+    if (filter) {
+      teacher.findBy(filter, (teachers) => {
+        return res.render("teachers/teachers", { teachers });
       });
-    });
+    } else {
+      teacher.all((teachers) => {
+        return res.render("teachers/teachers", { teachers });
+      });
+    }
   },
 
   post(req, res) {
@@ -47,7 +40,6 @@ module.exports = {
       const foundTeacher = {
         ...teacher,
         age: getAge(teacher.birth_date),
-        since: getSince(teacher.created_at)
       };
 
       return res.render("teachers/teacher", { teacher: foundTeacher });

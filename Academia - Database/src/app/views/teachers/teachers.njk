@@ -4,16 +4,15 @@
     <div class="table">
 
         <div class="header">
-            <button class="newTeacherOrStudentButton" onclick="location.href='/teacher/register'">New Teacher</button>
-            <form class="form" action="/teachers" method="GET">
+            <button class="seeButton" onclick="location.href='/teacher/register'">New Teacher</button>
+            <form action="/teachers" method="GET">
                 <input class="input" type="text" name="filter" placeholder="Filtrar por nome">
                 <button class="seeButton" type="submit">Filtrar</button>
             </form>
         </div>
-
-        <table >
+        <table>
             <thead>
-                <tr class="trTeachers">
+                <tr>
                     <th>
                         <div>Name</div>
                     </th>
@@ -28,10 +27,9 @@
                     </th>
                 </tr>
             </thead>
-
             <tbody>
                 {% for teacher in teachers %}
-                    <tr class="trTeachers">
+                    <tr>
                         <td >
                             <div class="teacherOnTable">
                                 <img class="imgTable" src="{{teacher.avatar_url}}">
@@ -52,13 +50,10 @@
                             </div>
                         </td>
                     </tr>
-
                 {% endfor %}
             </tbody>
 
         </table>
-
-        <div id="pagination" data-totalpage="{{totalPage}}" data-page="{{page}}" data-filter="{{filter}}"></div>
     </div>
 
 {% endblock %}

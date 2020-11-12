@@ -1,44 +1,31 @@
 const db = require("../../config/db");
 const date = require("../../lib/utils").date;
-const getArray = require("../../lib/utils").getArray;
 
+const getAge = require("../../lib/utils").getAge;
+const getArray = require("../../lib/utils").getArray;
+const getSince = require("../../lib/utils").getSince;
 
 module.exports = {
-
-  paginate(req, callback) {
-    let { filter, limit, offset } = req;
-
-    query = `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students,
-
-    (SELECT COUNT(*) FROM teachers
- 
-    WHERE teachers.name ILIKE '%${filter}%') AS pagination
+  all(callback) {
+    db.query(`
+    SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
         
-    FROM teachers
-    
-    LEFT JOIN students ON (students.teacher_id = teachers.id)`;
-
-    if (filter)
-      query += `
-
-      WHERE teachers.name ILIKE '%${filter}%'
-      
-      GROUP BY teachers.id
-      
-      LIMIT ${limit} OFFSET ${offset}`;
-    else
-      query += `GROUP BY teachers.id
-      
-      LIMIT ${limit} OFFSET ${offset}`;
-
-    db.query(query, function (err, results) {
-      if (err) throw "Database";
+        FROM teachers
+        
+        LEFT JOIN students ON (students.teacher_id = teachers.id)
+        
+        GROUP BY teachers.id
+        
+        ORDER BY teachers.id ASC`, function (err, results) {
+      if (err) return (res.send = "Database error!!!");
 
       callback(results.rows);
     });
   },
 
   findBy(filter, callback) {
+
+
     db.query(
       `SELECT teachers.id, teachers.name, teachers.avatar_url, teachers.subjects_taught, COUNT(students) AS total_students
         
@@ -55,11 +42,13 @@ module.exports = {
       function (err, results) {
         if (err) return (res.send = "Database error!!!");
 
-        callback(results.rows);
+        callback(results.rows)
       }
-    );
+    ) 
   },
+
   create(data, callback) {
+
     // Construct Object to Push to front-end
     let {
       avatar_url,
@@ -141,6 +130,8 @@ module.exports = {
       getArray(subjects_taught),
       id,
     ];
+
+    console.log(values);
 
     db.query(query, values, (err, results) => {
       if (err) throw `Database Error! ${err}`;
