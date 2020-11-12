@@ -6,10 +6,9 @@
         <h1>Criando receita</h1>
 
         <form method="POST" action="/admin/recipes?_method=DELETE">
-
+            <input  hidden="hidden" value="{{receipt.deletePossibility}}">
             <input hidden="hidden" name="id" value="{{receipt.id}}">
-            <button class="Deletebutton">Deletar</button>
-
+            <button  class="Deletebutton">Deletar</button>
         </form>
 
         <form method="POST" action="/admin/recipes?_method=PUT">

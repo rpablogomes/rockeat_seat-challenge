@@ -28,3 +28,5 @@ document.getElementById("visibilityLinksINFORMATION")
         document.querySelector("#hideINFORMATION").toggleAttribute("hidden")
         document.querySelector("#contentINFORMATION").toggleAttribute("hidden")
     })
+
+    console.log(document.querySelector("#pagination").dataset.filter)

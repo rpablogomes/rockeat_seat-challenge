@@ -69,10 +69,17 @@ module.exports = {
     });
   },
   find(id, callback) {
+
     db.query(`
-    SELECT * FROM recipes
+    SELECT recipes.id, chef_id, title, image, ingredients, preparation, information, chefs.name as chef_name 
+
+    FROM recipes
+                
+    LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
     
-    WHERE id = ${id}`, 
+    where recipes.id = '${id}'
+    
+    ORDER BY chefs ASC`, 
     (err, results) => {
       if (results.rows == [] || err) throw "Database error!!!"
       callback(results.rows[0]);

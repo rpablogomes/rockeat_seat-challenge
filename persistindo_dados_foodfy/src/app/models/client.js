@@ -18,7 +18,8 @@ module.exports = {
       }
     );
   },
-  recipes(callback) {
+  recipes(filter, callback) {
+
     db.query(
       `
       SELECT recipes.id, recipes.image, recipes.title, chefs.name as chefs_name
@@ -26,6 +27,8 @@ module.exports = {
       FROM recipes
       
       LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+      
+      WHERE title ILIKE '%${filter}%'
       
       ORDER BY recipes.id ASC
   `,

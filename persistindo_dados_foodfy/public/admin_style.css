@@ -175,7 +175,7 @@ li {
     color: #6558C3
 }
 
-.createInput {
+.createInput,.register {
     width: 100%;
     height: 49px;
     background: #FFFFFF;

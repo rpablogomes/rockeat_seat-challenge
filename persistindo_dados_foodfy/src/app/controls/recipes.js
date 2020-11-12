@@ -67,6 +67,8 @@ exports.edit = function (req, res) {
 
 exports.put = function (req, res) {
 
+  console.log(req.body);
+
   const editedRecipe = [
     req.body.chef_id,
     req.body.image,
@@ -80,7 +82,6 @@ exports.put = function (req, res) {
   recipe.update(editedRecipe, callback => {
     return res.redirect(`/admin/recipes/${req.body.id}`);
   });
-
 };
 
 exports.delete = function (req, res) {

@@ -9,7 +9,8 @@ exports.about = function (req, res) {
   return res.render("client/about");
 };
 exports.recipes = function (req, res) {
-  client.recipes(callback => {
+  filter = req.query.filter
+  client.recipes(filter, callback => {
   return res.render("client/receipts", {recipes: callback});
   })
 };

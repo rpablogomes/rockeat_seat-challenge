@@ -1,18 +1,31 @@
 {% extends "client/layout.njk" %}
 
 {% block content%}
-    <div id="receipts">
 
-        {% for recipe in recipes %}
 
-            <div class="card" onclick="window.location.href='/receipts/{{receipt.id}}/edit'">
-                <img class="foodImage" src={{recipe.image}} alt="image">
-                <span class="foodName">{{recipe.title}}<br/></span>
-                <span class="cooker">por {{recipe.chefs_name}}</span>
-            </div>
-
-        {% endfor %}
-
+    <div class="menu">
+        <form class="filterForm" action="/receipts" method="GET">
+            <input class="filterInput" type="text" name="filter" placeholder="Buscar uma receita">
+            <button class="filterButton" type="submit">Buscar</button>
+        </form>
     </div>
 
-    {% endblock%}
+</header>
+
+<div id="receipts">
+
+    {% for recipe in recipes %}
+
+
+        <a class="card" href='/receipts/{{recipe.id}}'>
+            <img class="foodImage" src={{recipe.image}} alt="image">
+            <span class="foodName">{{recipe.title}}<br/></span>
+            <span class="cooker">por
+                {{recipe.chefs_name}}</span>
+        </a>
+
+    {% endfor %}
+    <div id="pagination" data-totalpage="{{totalPage}}" data-page="{{page}}" data-filter="{{filter}}"></div>
+</div>
+
+{% endblock%}

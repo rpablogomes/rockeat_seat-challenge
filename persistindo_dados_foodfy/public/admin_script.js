@@ -1,34 +1,29 @@
 function addIngredient() {
-    console.log("ok")
-    const ingredients = document.querySelector("#ingredients");
-    const fieldContainer = document.querySelectorAll(".ingredient");
+  const ingredients = document.querySelector("#ingredients");
+  const fieldContainer = document.querySelectorAll(".ingredient");
 
-    const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+  const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
 
-    if (newField.children[0].value == "") return false;
+  if (newField.children[0].value == "") return false;
 
-    newField.children[0].value = "";
-    ingredients.appendChild(newField);
+  newField.children[0].setAttribute("value", "");
+  ingredients.appendChild(newField);
 }
 
 document
-    .querySelector(".add-ingredient")
-    .addEventListener("click", addIngredient);
+  .querySelector(".add-ingredient")
+  .addEventListener("click", addIngredient);
 
 function addStep() {
-    console.log("ok")
-    const steps = document.querySelector("#steps");
-    const fieldContainer = document.querySelectorAll(".step");
+  const steps = document.querySelector("#steps");
+  const fieldContainer = document.querySelectorAll(".step");
 
-    const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+  const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
 
-    if (newField.children[0].value == "") return false;
+  if (newField.children[0].value == "") return false;
 
-
-    newField.children[0].value = "";
-    steps.appendChild(newField);
+  newField.children[0].value = "";
+  steps.appendChild(newField);
 }
 
-document
-    .querySelector(".add-step")
-    .addEventListener("click", addStep);
+document.querySelector(".add-step").addEventListener("click", addStep);

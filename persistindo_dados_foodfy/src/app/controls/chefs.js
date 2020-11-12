@@ -44,6 +44,10 @@ exports.edit = function (req, res) {
   const idToCheck = req.params.id;
 
   foundReceipt = chef.find(idToCheck, (callback) => {
+
+    if(callback.total_recipes == 0) 
+    deletePossibility =  true 
+    else deletePossibility = false
     
     let { id, name, avatar_url } = callback;
     
@@ -51,7 +55,10 @@ exports.edit = function (req, res) {
       id,
       name,
       avatar_url,
+      deletePossibility
     };
+
+    console.log(chef)
     
     return res.render("admin/chefs/chef_edit", { chef });
   });
