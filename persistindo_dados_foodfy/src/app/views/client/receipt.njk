@@ -4,14 +4,15 @@
 
 </header>
 
-<img id="imgReceipt" src={{receipt.image} }="}">
+<img id="imgReceipt" src={{receipt.image}}>
 
 <p id="foodNameofReceipt">
     {{receipt.title}}
 </p>
+
 <p id="authorNameofReceipt">{{receipt.author}}</p>
 
-<p class="titlesOfReceipt">ingredientes
+<p class="titlesOfReceipt">Ingredientes
     <span id="visibilityLinksINGREDIENTS"><span id="showINGREDIENTS" class="hiddenLink">mostrar</span><span id="hideINGREDIENTS" class="hiddenLink" hidden="hidden">esconder</span></span>
 
     <ul id="contentINGREDIENTS" class="listOfReceipt" hidden="hidden">
@@ -29,7 +30,7 @@
         {% endfor %}
     </ul>
 
-    <p class="titlesOfReceipt">informações adicionais
+    <p class="titlesOfReceipt">Informações adicionais
         <span id="visibilityLinksINFORMATION"><span id="showINFORMATION" class="hiddenLink">mostrar</span><span id="hideINFORMATION" class="hiddenLink" hidden="hidden">esconder</span></span></p>
 
     <span id="contentINFORMATION" class="textOfReceipt" hidden="hidden">{{receipt.information}}</span>

@@ -1,28 +1,14 @@
 const db = require("../../config/db");
 
 module.exports = {
-  index(callback) {
-    db.query(
-      `
-            SELECT recipes.id, recipes.image, recipes.title, chefs.name as chefs_name
-                
-            FROM recipes
-            
-            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-            
-            ORDER BY recipes.id ASC
-        `,
-      (error, results) => {
-        if (error) throw "Database error!";
-        callback(results.rows);
-      }
-    );
-  },
-  recipes(filter, callback) {
+  recipes(data) {
+    let { filter, limit, offset, callback, notFound } = data;
 
     db.query(
       `
-      SELECT recipes.id, recipes.image, recipes.title, chefs.name as chefs_name
+      SELECT recipes.id, recipes.image, recipes.title, chefs.name as chefs_name,(
+        SELECT COUNT(recipes) AS total FROM recipes WHERE title ILIKE '%${filter}%'
+      )
           
       FROM recipes
       
@@ -31,16 +17,26 @@ module.exports = {
       WHERE title ILIKE '%${filter}%'
       
       ORDER BY recipes.id ASC
+
+      LIMIT ${limit} OFFSET ${offset}
   `,
       (error, results) => {
-        if (error) throw "Database Error!!!";
 
-        callback(results.rows);
+        if (!results.rows[0] || error) return notFound();
+
+        total = String(Math.ceil(results.rows[0].total / limit));
+
+        pagination = {
+          filter,
+          total,
+          page: String(Math.ceil((offset + 1) / limit)),
+        };
+
+        callback(results.rows, pagination);
       }
     );
-  }, 
+  },
   recipe(id, callback) {
-
     db.query(
       `
     SELECT *
@@ -53,7 +49,7 @@ module.exports = {
 
     ORDER BY recipes.id ASC`,
       (err, results) => {
-        if(err) throw "Database"
+        if (err) throw "Database";
         callback(results.rows[0]);
       }
     );
@@ -71,5 +67,5 @@ module.exports = {
       if (err) throw "Database";
       callback(results.rows);
     });
-  }
+  },
 };
