@@ -35,6 +35,7 @@ exports.recipes = function (req, res) {
     limit,
     offset,
     callback(recipes) {
+      console.log(pagination)
       return res.render("client/receipts", { recipes, pagination });
     },
     notFound() {

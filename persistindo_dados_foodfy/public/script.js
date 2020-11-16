@@ -97,21 +97,3 @@ function createPagination(pagination) {
 if (pagination) {
   createPagination(pagination);
 }
-
-const confirmDelete = location.pathname.includes("edit");
-if (confirmDelete) {
-  deleteOrNo();
-}
-
-function deleteOrNo() {
-  console.log("text");
-  const formDelete = document.querySelector("#form-delete");
-  formDelete.addEventListener("submit", function (event) {
-    const confirmation = confirm("Deseja Deletar?");
-    if (!confirmation) {
-      event.preventDefault();
-    } else {
-      return res.redirect("/");
-    }
-  });
-}

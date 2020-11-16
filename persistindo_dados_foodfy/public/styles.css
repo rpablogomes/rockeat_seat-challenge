@@ -255,3 +255,20 @@ h2 {
   font-size: 14px;
   color: #999999;
 }
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+#pagination a {
+  text-align: center;
+  text-decoration: none;
+  color: #6558c3;
+}
+
+#pagination a:hover {
+  font-weight: bold;
+  transition: 100ms;
+}

@@ -11,6 +11,10 @@
 
 </header>
 
+{% if pagination.filter %}
+<div class="paragraph">Buscando por: "{{pagination.filter}}"</div>
+{% endif %}
+
 <div id="receipts">
 
     {% for recipe in recipes %}
@@ -24,6 +28,7 @@
 
     {% endfor %}
 </div>
-
-<div id="pagination" data-total="{{pagination.total}}" data-page="{{pagination.page}}" data-filter="{{pagination.filter}}" onload="pagination()"></div>
+<div>
+    <div id="pagination" data-total="{{pagination.total}}" data-page="{{pagination.page}}" data-filter="{{pagination.filter}}" onload="pagination()"></div>
+</div>
 {% endblock %}
