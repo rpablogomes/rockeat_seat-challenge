@@ -5,14 +5,28 @@ const getAge = require("../../lib/utils").getAge;
 
 module.exports = {
   index(req, res) {
-    Student.all((students) => {
-      return res.render("students/students", { students });
+    let { page, limit } = req.query;
+
+    page = page || 1;
+    limit = limit || 3;
+    let offset = (page - 1) * limit;
+
+    student.paginate({ page, limit, offset }, function (students) {
+      if (!students ) return res.send("Not found");
+
+      let pagination = students[0].pagination
+
+      let totalPage = Math.ceil(pagination / limit)
+
+      return res.render("students/students",  {
+        students, 
+        totalPage,
+        page});
     });
   },
 
   selectTeacher(req, res) {
-    Student.selectTeacher((teachers) => {
-      console.log(teachers);
+    Student.selectTeacher(teachers => {
       return res.render("students/register", { teachers });
     });
   },
@@ -47,8 +61,6 @@ module.exports = {
   edit(req, res) {
     Student.find(req.params.id, (callback) => {
 
-        console.log(callback);
-
       const foundStudent = {
         ...callback.student,
         birth_date: date(callback.student.birth_date),
@@ -61,7 +73,6 @@ module.exports = {
   },
 
   put(req, res) {
-    console.log(req.body);
 
     Student.update(req.body, () => {
       return res.redirect(`student/${req.body.id}`);

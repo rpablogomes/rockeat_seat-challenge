@@ -14,7 +14,7 @@ exports.show = function (req, res) {
     const receipt = data.recipes.find(i =>
         i.id == req.params.id
     )
-    res.render("admin/receipt", { receipt })
+    res.render("admin/client/receipt", { receipt })
 }
 
 exports.edit = function (req, res) {

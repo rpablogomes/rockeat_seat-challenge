@@ -1,30 +1,33 @@
 const db = require("../../config/db")
 
 module.exports = {
-    all(callback) {
-        db.query(
-            `SELECT students.id, students.avatar_url, students.name, students.email,  students.school_year, teachers.name as teacher_name 
-            
-            FROM students
-            
-            LEFT JOIN teachers ON (students.teacher_id = teachers.id)
-            
-            ORDER BY students ASC`
-            , function (err, results) {
-                if (err) return res.send = ("Database error!!!")
+    paginate(req, callback) {
+        let {limit, offset } = req;
+    
+        query = `SELECT students.id, students.avatar_url, students.name, students.email,  students.school_year, teachers.name as teacher_name,
 
-                callback(results.rows)
-            }
-        )
-    },
+        (SELECT COUNT(*) FROM students) as pagination
+            
+        FROM students
+        
+        LEFT JOIN teachers ON (students.teacher_id = teachers.id)
+        
+        ORDER BY students.id ASC
+          
+        LIMIT ${limit} OFFSET ${offset}`;
+    
+        db.query(query, function (err, results) {
+          if (err) throw "Database";
+    
+          callback(results.rows);
+        });
+      },
     selectTeacher(callback){
         db.query('SELECT name, id FROM teachers ORDER BY name ASC', function (err, results){
             callback(results.rows)
         })
     },
     create(data, callback) {
-
-        console.log(data)
 
         // Construct Object to Push to Back-end
         let { avatar_url, name, email, birth_date, school_year, workload, teacher_id } = data;
@@ -52,8 +55,6 @@ module.exports = {
             workload,
             teacher_id
         ]
-
-        console.log(values)
 
         db.query(query, values, function (err, results) {
             if (err) throw "Database error!!!"
@@ -111,11 +112,7 @@ module.exports = {
             id
         ]
 
-        console.log(values)
-
         db.query(query, values, (err, results) => {
-
-            console.log(err)
 
             if (err) throw "Database Error!"
 

@@ -31,11 +31,11 @@ server.get("/", function (req, res) {
 })
 
 server.get("/about", function (req, res) {
-    return res.render("about")
+    return res.render("client/about")
 })
 
 server.get("/receipts", function (req, res) {
-    return res.render("receipts", { foods: data })
+    return res.render("client/receipts", { foods: data })
 })
 
 server.get("/receipts/:index", function (req, res) {
@@ -43,9 +43,9 @@ server.get("/receipts/:index", function (req, res) {
     const recipeIndex = req.params.index;
 
     if (recipeIndex < data.length) {
-        res.render("receipt", { receipt: data[`${recipeIndex}`] });
+        res.render("client/receipt", { receipt: data[`${recipeIndex}`] });
     } else {
-        res.render("not-found")
+        res.render("client/not-found")
     }
 })
 
