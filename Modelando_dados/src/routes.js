@@ -1,8 +1,12 @@
-const express = require("express")
-const routes = require.Router()
+const express = require("express");
+const routes = express.Router();
 
-server.get("/", function (req, res) {
-    return res.send("ok")
+
+
+//layout
+routes.get("/", function (req, res) {
+  return res.send("ok");
 });
 
-module.exports = routes
+
+module.exports = routes;
