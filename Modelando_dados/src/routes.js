@@ -9,9 +9,11 @@ routes.get("/", function(req, res) {
 });
 
 routes.get("/products/create", ProductsController.create);
+routes.post("/products", ProductsController.post)
 
+// Alias
 routes.get("/ads/create", function(req, res) {
   return res.redirect("/products/create");
 });
 
-module.exports = routes;
+module.exports = routes;   
