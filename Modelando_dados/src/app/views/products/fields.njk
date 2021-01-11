@@ -20,12 +20,12 @@
 
 <div class="item">
     <div>Descrição</div>
-    <div><textarea name="description">{{products.description}}</textarea></div>
+    <div><textarea name="description">{{product.description}}</textarea></div>
 </div>
 
 <div class="item">
     <div>Valor</div>
-    <div><input type="text" name="price" placeholder="Preço do Produto" value="{{product.price}}" {# faremos uma mascara de dinheiro #}>
+    <div><input type="text" name="price" placeholder="Preço do Produto" value="{{product.price}}" onkeydown="Mask.apply(this, 'formatBRL')">
     </div>
 
     {% if product.old_price %}
@@ -38,9 +38,9 @@
     <input type="number" name="quantity" placeholder="Estoque disponível" value="{{product.quantity}}">
 </div>
 
-{% if product.status %}
+{% if (product.status =="1") or (product.status == 0) %}
 <div class="item">
-    <div>Quantidade</div>
+    <div>Disponível?</div>
     <span>
         <input type="radio" name="status" value="1" {% if product.status == "1" %} checked {% endif %}> Sim
     </span>
