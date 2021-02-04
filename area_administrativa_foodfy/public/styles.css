@@ -184,3 +184,18 @@ h2 {
     cursor: pointer;
     visibility: none;
 }
+
+footer {
+    background-color: #999999;
+    color: #444444;
+    padding: 40px;
+    display: grid;
+    width: 100%;
+    left: 0;
+  bottom: 0;
+    position: fixed
+}
+
+footer div{
+    text-align: center
+}

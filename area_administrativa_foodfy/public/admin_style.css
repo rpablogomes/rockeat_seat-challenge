@@ -203,3 +203,18 @@ li {
     text-align: center;
     font-weight: bold
 }
+
+footer {
+    background-color: black;
+    color: #FFFFFF;
+    padding: 40px;
+    display: grid;
+    width: 100%;
+    left: 0;
+  bottom: 0;
+    position: fixed
+}
+
+footer div{
+    text-align: center
+}
