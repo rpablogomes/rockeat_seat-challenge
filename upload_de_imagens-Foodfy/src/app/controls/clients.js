@@ -36,7 +36,7 @@ exports.recipes = function (req, res) {
     offset,
     callback(recipes) {
       console.log(pagination)
-      return res.render("client/receipts", { recipes, pagination });
+      return res.render("client/recipes", { recipes, pagination });
     },
     notFound() {
       res.render("client/not-found");
@@ -45,11 +45,11 @@ exports.recipes = function (req, res) {
 
   client.recipes(params);
 };
-exports.receipt = function (req, res) {
+exports.recipe = function (req, res) {
   const id = req.params.id;
 
   client.recipe(id, (callback) => {
-    return res.render("../views/client/receipt", { receipt: callback });
+    return res.render("../views/client/recipe", { recipe: callback });
   });
 };
 exports.chefs = function (req, res) {

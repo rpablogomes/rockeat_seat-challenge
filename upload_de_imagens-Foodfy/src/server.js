@@ -30,8 +30,8 @@ server.listen(5000, function () {
 
 server.get("/", clients.index);
 server.get("/about", clients.about);
-server.get("/receipts", clients.recipes);
-server.get("/receipts/:id", clients.receipt);
+server.get("/recipes", clients.recipes);
+server.get("/recipes/:id", clients.recipe);
 server.get("/chefs", clients.chefs);
 server.get("/chefs/:id", clients.chefs);
 

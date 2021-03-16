@@ -50,8 +50,6 @@ module.exports = {
   async create(values, files, callback) {
     // Construct Object to Push to front-end
 
-    const recipeId = 0
-
     const query = `
     INSERT INTO recipes (
       chef_id,
@@ -65,18 +63,18 @@ module.exports = {
     RETURNING id
 `
 
-    await db.query(query, values, (err, results) => {
+    await db.query(query, values, async (err, results) => {
       if(err) throw err;
-      recipeId = results.rows[0].id
-    });
-
+      const recipeId = results.rows[0].id
+    
     if(files != 0) {
       const newFilesPromise = files.map(files =>
-        File.createFile(files))
+        File.createFile(files, recipeId))
         await Promise.all(newFilesPromise)
       }
 
       callback(recipeId);
+    });
   },
   find(id, callback) {
 

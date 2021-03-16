@@ -33,7 +33,7 @@ exports.post = function (req, res) {
 
 exports.show = function (req, res) {
   chef.find(req.params.id, (callback) => {
-    chef.receiptByChef(req.params.id, recipes => {
+    chef.recipeByChef(req.params.id, recipes => {
       console.log(callback, recipes)
       res.render("admin/chefs/chef", { chef: callback , recipes });
     })
@@ -43,7 +43,7 @@ exports.show = function (req, res) {
 exports.edit = function (req, res) {
   const idToCheck = req.params.id;
 
-  foundReceipt = chef.find(idToCheck, (callback) => {
+  foundrecipe = chef.find(idToCheck, (callback) => {
 
     if(callback.total_recipes == 0) 
     deletePossibility =  true 

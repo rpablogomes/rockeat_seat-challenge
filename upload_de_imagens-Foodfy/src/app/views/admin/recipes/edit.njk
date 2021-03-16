@@ -1,13 +1,13 @@
 {% extends "admin/admin_layout.njk" %}
 
 {% block content %}
-    <div class="EditReceiptTop">
+    <div class="EditrecipeTop">
 
         <h1>Criando receita</h1>
 
         <form method="POST" action="/admin/recipes?_method=DELETE">
-            <input  hidden="hidden" value="{{receipt.deletePossibility}}">
-            <input hidden="hidden" name="id" value="{{receipt.id}}">
+            <input  hidden="hidden" value="{{recipe.deletePossibility}}">
+            <input hidden="hidden" name="id" value="{{recipe.id}}">
             <button  class="Deletebutton">Deletar</button>
         </form>
 
@@ -19,7 +19,7 @@
 
         {% include "./fields.njk" %}
 
-        <input hidden="hidden" name="id" value="{{receipt.id}}">
+        <input hidden="hidden" name="id" value="{{recipe.id}}">
     </form>
 
 {% endblock %}

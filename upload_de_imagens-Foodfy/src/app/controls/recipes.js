@@ -58,9 +58,9 @@ exports.show = function (req, res) {
 
 exports.edit = function (req, res) {
   const id = req.params.id;
-  recipe.find(id, (receipt) => {
+  recipe.find(id, (recipeData) => {
     recipe.chefsList((chefsList) => {
-      return res.render("admin/recipes/edit", { receipt, chefsList });
+      return res.render("admin/recipes/edit", { recipeData, chefsList });
     });
   });
 };

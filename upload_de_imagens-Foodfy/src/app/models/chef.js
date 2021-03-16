@@ -53,7 +53,7 @@ module.exports = {
       }
     );
   },
-  receiptByChef(id, callback) {
+  recipeByChef(id, callback) {
     db.query(`SELECT * FROM recipes WHERE chef_id = ${id}`, (err, results) => {
       callback(results.rows);
     });
