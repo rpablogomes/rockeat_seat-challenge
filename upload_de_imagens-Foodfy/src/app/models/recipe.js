@@ -82,11 +82,11 @@ module.exports = {
     SELECT recipes.id, chef_id, title, ingredients, preparation, information, chefs.name as chef_name 
 
     FROM recipes
-                
+
     LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
-    
+
     where recipes.id = '${id}'
-    
+
     ORDER BY chefs ASC`, 
     (err, results) => {
       if (results.rows == [] || err) throw "Database error!!!"
@@ -116,4 +116,20 @@ module.exports = {
       callback();
     });
   },
+  files(id, files) {
+
+    db.query(`
+    SELECT path, name
+ 
+    FROM recipe_files
+       
+    JOIN files ON files.id = recipe_files.file_id
+    
+    WHERE recipe_id = '${id}'
+`, 
+    (err, results) => {
+      if (results.rows == [] || err) throw "Database error!!!"
+      return files(results.rows);
+    });
+  }
 };

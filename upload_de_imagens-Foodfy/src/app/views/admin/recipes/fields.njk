@@ -5,10 +5,10 @@
         <input class="imageInput" type="file" multiple accept="image/*" name="images" value="{{recipe.image}}" onchange="PhotosUpload.handleFileInput(event)"/>
         <i class="large material-icons">add</i>
     </div>
-        {% if files %}
-            {% for image in files%}
+    {% if images %}
+    {% for image in images %}
                 <div class="photo" id={{image.id}}>
-                    <img src="{{image.src}}" alt="{{image.name}}">
+                    <img src="{{image.path.slice(6)}}" alt="{{image.name}}">
                     <i class="material-icons"
                     onclick="PhotosUpload.removeOldPhoto(event)"
                     >

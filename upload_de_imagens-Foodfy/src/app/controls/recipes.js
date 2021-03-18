@@ -52,7 +52,11 @@ exports.post = function (req, res) {
 exports.show = function (req, res) {
   const id = req.params.id;
   recipe.find(id, (callback) => {
-    res.render("admin/recipes/receipt", { receipt: callback });
+    recipe.files(callback.id, (files) => {
+      const recipe = {...callback , images: files}
+      console.log(recipe)
+      res.render("admin/recipes/recipe",  {recipe} );
+    })  
   });
 };
 
@@ -60,14 +64,16 @@ exports.edit = function (req, res) {
   const id = req.params.id;
   recipe.find(id, (recipeData) => {
     recipe.chefsList((chefsList) => {
-      return res.render("admin/recipes/edit", { recipeData, chefsList });
+      recipe.files(id, (files) => {
+        console.log({images: files })
+        return res.render("admin/recipes/edit", { recipe: recipeData, chefsList, images: files });
+      })
     });
   });
 };
 
 exports.put = function (req, res) {
 
-  console.log(req.body);
 
   const editedRecipe = [
     req.body.chef_id,
