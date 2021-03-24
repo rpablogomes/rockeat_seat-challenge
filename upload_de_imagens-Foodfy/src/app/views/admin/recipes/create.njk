@@ -2,9 +2,9 @@
 
 {% block content %}
     <form method="POST" action="/admin/recipes" enctype="multipart/form-data">
-        <div class="receiptTop">
+        <div class="recipeTop">
             <h1>Criando receita</h1>
-            <button class="button" type="submit">Salvar receita</button>
+            <button class="button" type="submit" onclick="PhotosUpload.hasLimit(event)">Salvar receita</button>
         </div>
 
         {% include "./fields.njk" %}

@@ -9,6 +9,7 @@ function addIngredient() {
   newField.children[0].setAttribute("value", "");
   ingredients.appendChild(newField);
 }
+
 if(document.querySelector(".add-ingredient")){
 document
   .querySelector(".add-ingredient")
@@ -55,7 +56,6 @@ const PhotosUpload = {
   uploadLimit: 5,
   files: [],
 
-
   handleFileInput(event) {
 
       const { files: fileList } = event.target;
@@ -79,7 +79,8 @@ const PhotosUpload = {
     })
     PhotosUpload.input.files = PhotosUpload.getAllFiles()
   },
-  hasLimit(event){
+  hasLimit(event) {
+
     const { uploadLimit, input, preview } = PhotosUpload
     const { files:filesList } = input
 
@@ -87,7 +88,7 @@ const PhotosUpload = {
       alert(`Envie no máximo ${uploadLimit} fotos`)
       event.preventDefault();
       return true 
-    } 
+    }
 
     const photosDiv = []
     preview.childNodes.forEach(item => {

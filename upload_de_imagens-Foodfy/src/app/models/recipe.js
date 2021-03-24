@@ -5,7 +5,7 @@ module.exports = {
 
   index(callback) {
     
-    query = `SELECT recipes.id, image, title, chefs.name as chef_name 
+    query = `SELECT recipes.id, title, chefs.name as chef_name 
 
     FROM recipes
                 
@@ -97,14 +97,16 @@ module.exports = {
 
     const query = `UPDATE recipes SET
             chef_id=($1),
-            title=($3),
-            ingredients=($4),
-            preparation=($5),
-            information=($6)
-      WHERE id = $7`;
+            title=($2),
+            ingredients=($3),
+            preparation=($4),
+            information=($5)
+      WHERE id = $6`;
 
     db.query(query, editedRecipe, (err, results) => {
       if (err) throw `Database Error! ${err}`;
+
+      
 
       callback();
     });

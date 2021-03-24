@@ -1,7 +1,7 @@
 {% extends "admin/admin_layout.njk" %}
 
 {% block content %}
-    <div class="EditrecipeTop">
+    <div class="EditRecipeTop">
 
         <h1>Criando receita</h1>
 
@@ -11,7 +11,7 @@
             <button  class="Deletebutton">Deletar</button>
         </form>
 
-        <form method="POST" action="/admin/recipes?_method=PUT">
+        <form method="POST" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">
 
             <button type="submit" class="button">Salvar receita</button>
 

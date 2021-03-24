@@ -42,7 +42,7 @@ server.get("/admin/recipes/create", recipes.create); // Mostrar formulário de n
 server.post("/admin/recipes", multer.array("images", 6), recipes.post); // Cadastrar nova receita
 server.get("/admin/recipes/:id", recipes.show); // Exibir detalhes de uma receita
 server.get("/admin/recipes/:id/edit", recipes.edit);// Mostrar formulário de edição de receita
-server.put("/admin/recipes", recipes.put); // Editar uma receita
+server.put("/admin/recipes", multer.array("images", 6), recipes.put); // Editar uma receita
 server.delete("/admin/recipes", recipes.delete); // Deletar uma receita
 
 //CHEFS routes

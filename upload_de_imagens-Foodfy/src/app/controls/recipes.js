@@ -65,7 +65,6 @@ exports.edit = function (req, res) {
   recipe.find(id, (recipeData) => {
     recipe.chefsList((chefsList) => {
       recipe.files(id, (files) => {
-        console.log({images: files })
         return res.render("admin/recipes/edit", { recipe: recipeData, chefsList, images: files });
       })
     });
@@ -74,10 +73,16 @@ exports.edit = function (req, res) {
 
 exports.put = function (req, res) {
 
+  const keys = Object.keys(req.body);
+  const files = req.files
+
+  console.log("teste", keys, files)
+
+  
+  // Construct Object to Push into data
 
   const editedRecipe = [
     req.body.chef_id,
-    req.body.image,
     req.body.title,
     req.body.ingredients,
     req.body.preparation,
