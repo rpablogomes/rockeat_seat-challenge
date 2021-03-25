@@ -53,10 +53,9 @@ exports.show = function (req, res) {
   const id = req.params.id;
   recipe.find(id, (callback) => {
     recipe.files(callback.id, (files) => {
-      const recipe = {...callback , images: files}
-      console.log(recipe)
+      const recipe = {...callback, files}
       res.render("admin/recipes/recipe",  {recipe} );
-    })  
+    })
   });
 };
 
@@ -71,13 +70,9 @@ exports.edit = function (req, res) {
   });
 };
 
-exports.put = function (req, res) {
+exports.put = async function (req, res) {
 
   const keys = Object.keys(req.body);
-  const files = req.files
-
-  console.log("teste", keys, files)
-
   
   // Construct Object to Push into data
 
@@ -90,9 +85,20 @@ exports.put = function (req, res) {
     req.body.id
   ]
 
+if(req.body.removed_files){
+  recipe.deleteFiles(req.body.removed_files, callback => {
+    
+  })
+
+  const newFilesPromise = files.map(files => {
+    File.createFile(files, recipeId)
+    await Promise.all(newFilesPromise)
+  })
+}
+
   recipe.update(editedRecipe, callback => {
     return res.redirect(`/admin/recipes/${req.body.id}`);
-  });
+  })
 };
 
 exports.delete = function (req, res) {

@@ -4,17 +4,35 @@
 
     <div class="Top">
 
-        <h1>Receita:
-            {{recipe.title}}</h1>
+        <h1>Receita: {{recipe.title}}</h1>
 
         <button class="button" onclick="window.location.href='/admin/recipes/{{recipe.id}}/edit'">Editar receita</button>
     </div>
 
-    <div>
-    {% for image in images %}
-        <img class="recipeImg" src="{{image.path.slice(6)}}">
-    {% endfor %}
-    </div>
+
+    <div class="gallery">
+    <div class="highlight">
+
+    {# <div>
+        </div> #}
+                {% if not recipe.files[0] %}
+                    <img class="recipeImg" src="http://placehold.it/500x500?text=produto sem foto"/>
+                {% else %}
+                    <img class="recipeImg" src="{{recipe.files[0].path.slice(6)}}" alt="{{recipe.files[0].name}}" onclick="Lightbox.open()"/>
+                {% endif %}
+                <div class="lightbox-target">
+                     <img src="{{recipe.files[0].path.slice(6)}}" alt="{{recipe.files[0].name}}"/>
+                     <a class="lightbox-close" >
+                        <i class="material-icons" onclick="Lightbox.close()">close</i>
+                     </a>
+                </div>
+            </div>
+            <div class="gallery-preview">
+                {%for image in recipe.files %}
+                    <img src="{{image.path.slice(6)}}" alt="{{image.name}}" {% if loop.index[0] == 0 %} class="active" {% endif %} onclick="ImageGallery.setImage(event)"/>
+                {% endfor %}
+            </div>
+        </div>
 
     <h2>{{recipe.title}}</h2>
     <h3>por {{recipe.chef_name}}</h3>

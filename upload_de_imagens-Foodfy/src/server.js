@@ -1,7 +1,7 @@
 const express = require("express")
 const nunjucks = require("nunjucks")
 const methodOverride = require("method-override")
-const multer = require("./app/middleware/multer");
+const multer = require("./app/middleware/multer")
 
 const server = express()
 

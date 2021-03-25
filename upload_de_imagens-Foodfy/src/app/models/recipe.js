@@ -2,7 +2,6 @@ const db = require("../../config/db");
 const File = require("./file");
 
 module.exports = {
-
   index(callback) {
     
     query = `SELECT recipes.id, title, chefs.name as chef_name 
@@ -121,17 +120,27 @@ module.exports = {
   files(id, files) {
 
     db.query(`
-    SELECT path, name
- 
+    SELECT recipe_files.id, path, name
+
     FROM recipe_files
-       
-    JOIN files ON files.id = recipe_files.file_id
     
+    JOIN files ON files.id = recipe_files.file_id
+
     WHERE recipe_id = '${id}'
-`, 
+`,
     (err, results) => {
       if (results.rows == [] || err) throw "Database error!!!"
       return files(results.rows);
     });
-  }
+  },
+  deleteFiles(id, callback) {
+
+    db.query(
+      `DELETE FROM recipes_files WHERE id = ${id}`,
+    (err, results) => {
+      if (results.rows == [] || err) throw "Database error!!!"
+      console.log(results)
+      callback();
+    });
+  },
 };
