@@ -8,7 +8,7 @@
         {% for recipe in recipes %}
             <div class="card">
                 <div>
-                    <img class="image" src="{{recipe.image}}">
+                    <img class="image" src="{{recipe.image.slice(6)}}">
                 </div>
                 <div class="secondFractionOfCard">
                     <div class="foodName">{{recipe.title}}</div>

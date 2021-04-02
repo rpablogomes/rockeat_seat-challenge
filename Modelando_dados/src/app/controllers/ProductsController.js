@@ -32,8 +32,6 @@ module.exports = {
 
     req.body.price = req.body.price.replace(/\D/g, "");
 
-    console.log(req)
-
     let results = await Product.create(req.body);
     const productId = results.rows[0].id;
 

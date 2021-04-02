@@ -13,8 +13,6 @@
     <div class="gallery">
     <div class="highlight">
 
-    {# <div>
-        </div> #}
                 {% if not recipe.files[0] %}
                     <img class="recipeImg" src="http://placehold.it/500x500?text=produto sem foto"/>
                 {% else %}
@@ -22,7 +20,7 @@
                 {% endif %}
                 <div class="lightbox-target">
                      <img src="{{recipe.files[0].path.slice(6)}}" alt="{{recipe.files[0].name}}"/>
-                     <a class="lightbox-close" >
+                     <a class="lightbox-close">
                         <i class="material-icons" onclick="Lightbox.close()">close</i>
                      </a>
                 </div>

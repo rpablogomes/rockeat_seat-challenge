@@ -4,13 +4,17 @@ const File = require("./file");
 module.exports = {
   index(callback) {
     
-    query = `SELECT recipes.id, title, chefs.name as chef_name 
+    query = `SELECT recipes.id, title, chefs.name as chef_name, files.path as image
 
     FROM recipes
                 
     LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
     
-    ORDER BY chefs ASC
+    LEFT JOIN recipe_files ON (recipe_files.recipe_id = recipes.id)
+    
+    LEFT JOIN files ON (files.id = recipe_files.file_id)
+    
+    ORDER BY recipes.id ASC
     `
 
     db.query(query, (err, results) => {
@@ -24,7 +28,7 @@ module.exports = {
       , function (err, results) {
         chefsList(results.rows)
       })
-  },
+  }, /* ok */
   findBy(filter, callback) {
     db.query(
       `SELECT chefs.id, chefs.name, chefs.avatar_url, chefs.subjects_taught, COUNT(students) AS total_students
@@ -45,7 +49,7 @@ module.exports = {
         callback(results.rows);
       }
     );
-  },
+  }, 
   async create(values, files, callback) {
     // Construct Object to Push to front-end
 
@@ -62,19 +66,21 @@ module.exports = {
     RETURNING id
 `
 
-    await db.query(query, values, async (err, results) => {
+    db.query(query, values, async (err, results) => {
       if(err) throw err;
       const recipeId = results.rows[0].id
-    
+
     if(files != 0) {
-      const newFilesPromise = files.map(files =>
-        File.createFile(files, recipeId))
+
+      const newFilesPromise = files.map(async files => {
+        File.createFile(files, recipeId)
         await Promise.all(newFilesPromise)
-      }
+      })
+    }
 
       callback(recipeId);
-    });
-  },
+    })
+  }, /* ok */
   find(id, callback) {
 
     db.query(`
@@ -91,7 +97,7 @@ module.exports = {
       if (results.rows == [] || err) throw "Database error!!!"
       callback(results.rows[0]);
     });
-  },
+  }, /* ok */
   update(editedRecipe, callback) {
 
     const query = `UPDATE recipes SET
@@ -104,9 +110,6 @@ module.exports = {
 
     db.query(query, editedRecipe, (err, results) => {
       if (err) throw `Database Error! ${err}`;
-
-      
-
       callback();
     });
   },
