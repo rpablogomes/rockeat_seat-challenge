@@ -3,7 +3,6 @@ const File = require("./file");
 
 module.exports = {
   index(callback) {
-    
     query = `SELECT recipes.id, title, chefs.name as chef_name, files.path as image
 
     FROM recipes
@@ -15,7 +14,7 @@ module.exports = {
     LEFT JOIN files ON (files.id = recipe_files.file_id)
     
     ORDER BY recipes.id ASC
-    `
+    `;
 
     db.query(query, (err, results) => {
       if (err) throw "Database";
@@ -23,12 +22,11 @@ module.exports = {
       callback(results.rows);
     });
   },
-  chefsList(chefsList){
-    db.query('SELECT id, name FROM chefs'
-      , function (err, results) {
-        chefsList(results.rows)
-      })
-  }, /* ok */
+  chefsList(chefsList) {
+    db.query("SELECT id, name FROM chefs", function (err, results) {
+      chefsList(results.rows);
+    });
+  } /* ok */,
   findBy(filter, callback) {
     db.query(
       `SELECT chefs.id, chefs.name, chefs.avatar_url, chefs.subjects_taught, COUNT(students) AS total_students
@@ -49,7 +47,7 @@ module.exports = {
         callback(results.rows);
       }
     );
-  }, 
+  },
   async create(values, files, callback) {
     // Construct Object to Push to front-end
 
@@ -64,26 +62,24 @@ module.exports = {
     )
     VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING id
-`
+`;
 
-    db.query(query, values, async (err, results) => {
-      if(err) throw err;
-      const recipeId = results.rows[0].id
-
-    if(files != 0) {
-
-      const newFilesPromise = files.map(async files => {
-        File.createFile(files, recipeId)
-        await Promise.all(newFilesPromise)
-      })
-    }
-
-      callback(recipeId);
-    })
-  }, /* ok */
+     db.query(query, values, async (err, results) => {
+      if (err) throw err;
+      const recipeId = await results.rows[0].id;
+     
+      if (files != 0) {
+        const newFilesPromise = await files.map(async (files) => {
+          await File.createFile(files, recipeId);
+        });
+        await Promise.all(newFilesPromise);
+        callback(recipeId);
+      }
+    });
+  } /* ok */,
   find(id, callback) {
-
-    db.query(`
+    db.query(
+      `
     SELECT recipes.id, chef_id, title, ingredients, preparation, information, chefs.name as chef_name 
 
     FROM recipes
@@ -92,14 +88,14 @@ module.exports = {
 
     where recipes.id = '${id}'
 
-    ORDER BY chefs ASC`, 
-    (err, results) => {
-      if (results.rows == [] || err) throw "Database error!!!"
-      callback(results.rows[0]);
-    });
-  }, /* ok */
+    ORDER BY chefs ASC`,
+      (err, results) => {
+        if (results.rows == [] || err) throw "Database error!!!";
+        callback(results.rows[0]);
+      }
+    );
+  } /* ok */,
   update(editedRecipe, callback) {
-
     const query = `UPDATE recipes SET
             chef_id=($1),
             title=($2),
@@ -121,8 +117,8 @@ module.exports = {
     });
   },
   files(id, files) {
-
-    db.query(`
+    db.query(
+      `
     SELECT recipe_files.id, path, name
 
     FROM recipe_files
@@ -131,18 +127,16 @@ module.exports = {
 
     WHERE recipe_id = '${id}'
 `,
-    (err, results) => {
-      if (results.rows == [] || err) throw "Database error!!!"
-      return files(results.rows);
-    });
+      (err, results) => {
+        if (results.rows == [] || err) throw "Database error!!!";
+        return files(results.rows);
+      }
+    );
   },
   deleteFiles(id, callback) {
-
-    db.query(
-      `DELETE FROM recipes_files WHERE id = ${id}`,
-    (err, results) => {
-      if (results.rows == [] || err) throw "Database error!!!"
-      console.log(results)
+    db.query(`DELETE FROM recipes_files WHERE id = ${id}`, (err, results) => {
+      if (results.rows == [] || err) throw "Database error!!!";
+      console.log(results);
       callback();
     });
   },

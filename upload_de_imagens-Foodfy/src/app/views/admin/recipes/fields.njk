@@ -8,7 +8,7 @@
     {% if images %}
     {% for image in images %}
                 <div class="photo" id={{image.id}}>
-                    <img src="{{image.path.slice(6)}}" alt="{{image.name}}">
+                    <img src="midias/{{image.name}}" alt="{{image.name}}">
                     <i class="material-icons"
                     onclick="PhotosUpload.removeOldPhoto(event)"
                     >

@@ -39,13 +39,17 @@ module.exports = {
   }, /* ok */
   async delete(id) {
     try {
-      const results = await db.query(`SELECT * FROM files WHERE id= $1`, [id]);
-      const file = results.rows[0];
+
+      const recipes_files = await db.query(`SELECT file_id FROM recipe_files WHERE id = $1`, [id]);
+      const fileResults = await db.query(`SELECT * FROM files WHERE id = $1`, [recipes_files.rows[0].file_id]);
+      const file = fileResults.rows[0];
+
 
       fs.unlink(file.path, (err) => {
         if (err) throw err;
-        return db.query(`DELETE FROM files WHERE id = $1`, [id]);
-      });
+        return db.query(`DELETE FROM recipe_files WHERE file_id = $1 RETURNING file_id`, [file.id],
+        (err, results) => db.query(`DELETE FROM files WHERE id = $1 `, [results.rows[0].file_id]));
+      })
     } catch (err) {
       console.log(err);
     }

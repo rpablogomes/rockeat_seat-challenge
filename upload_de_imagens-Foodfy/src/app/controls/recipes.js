@@ -3,7 +3,9 @@ const recipe = require("../models/recipe");
 const getSince = require("../lib/utils").getSince;
 const File = require("../models/file")
 
-exports.index = function (req, res) {
+
+module.exports = {
+async index(req, res) {
   recipe.index(callback => {
     
     const recipes = callback.reduce((acc, current) => {
@@ -17,15 +19,15 @@ exports.index = function (req, res) {
 
     res.render("admin/recipes/recipes", { recipes });
   });
-}; /* ok */
+}, /* ok */
 
-exports.create = function (req, res) {
+async create(req, res) {
   recipe.chefsList((chefsList) => {
     return res.render("admin/recipes/create", { chefsList });
   });
-}; /* ok */
+}, /* ok */
 
-exports.post = function (req, res) {
+async post(req, res) {
   const keys = Object.keys(req.body);
 
   //validation
@@ -34,7 +36,7 @@ exports.post = function (req, res) {
       return res.send("Fill all the fields");
     }
   }
-  
+
   // Construct Object to Push into data
   let {
     chef_id,
@@ -58,9 +60,9 @@ exports.post = function (req, res) {
   recipe.create(values, files, (callback) => {
     return res.redirect(`recipes/${callback}`);
   });
-}; /* ok */
+}, /* ok */
 
-exports.show = function (req, res) {
+async show(req, res) {
   const id = req.params.id;
   recipe.find(id, (callback) => {
     recipe.files(callback.id, (files) => {
@@ -68,9 +70,9 @@ exports.show = function (req, res) {
       res.render("admin/recipes/recipe",  {recipe} );
     })
   });
-}; /* ok */
+}, /* ok */
 
-exports.edit = function (req, res) {
+async edit(req, res) {
 
   const id = req.params.id;
   
@@ -81,13 +83,11 @@ exports.edit = function (req, res) {
       })
     });
   });
-}; /* ok */
+}, /* ok */
 
-exports.put = async function (req, res) {
+async put(req, res) {
 
   const keys = Object.keys(req.body);
-
-  console.log(req)
 
   // Construct Object to Push into data
 
@@ -100,24 +100,31 @@ exports.put = async function (req, res) {
     req.body.id
   ]
 
-if(req.body.removed_files){
-  recipe.deleteFiles(req.body.removed_files, callback => {
-    
-  })}
+  if(req.body.removed_files){
+  const removedFiles = req.body.removed_files.split(',')
+  const lastIndex = removedFiles.length - 1
+  removedFiles.splice(lastIndex, 1)
 
-  const newFilesPromise = files.map(files => {
-    File.createFile(files, recipeId)
-    Promise.all(newFilesPromise)
-  })
+  const removedFilesPromise = removedFiles.map(id => {
+    File.delete(id)
+})
+  await Promise.all(removedFilesPromise)
+  }
+
+  // const newFilesPromise = files.map(files => {
+  //   File.createFile(files, recipeId)
+  //   Promise.all(newFilesPromise)
+  // })
 
   recipe.update(editedRecipe, callback => {
     return res.redirect(`/admin/recipes/${req.body.id}`);
   })
-}; 
+},
 
-exports.delete = function (req, res) {
+async delete(req, res) {
   const { id } = req.body;
   recipe.delete(id, callback => {
     return res.redirect("/admin/recipes");
   });
-};
+},
+}
