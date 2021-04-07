@@ -3,6 +3,7 @@ const fs = require("fs");
 
 module.exports = {
   async createFile(file, recipeId) {
+
     const values = [file.filename, file.path];
 
     const query = `
@@ -14,12 +15,12 @@ module.exports = {
       RETURNING id
   `;
 
-    db.query(query, values, (err, results) => {
+    db.query(query, values, async (err, results) => {
       if (err) throw err;
 
-      const fileId = results.rows[0].id;
+        const fileId = await results.rows[0].id;
 
-      const values2 = [recipeId, fileId];
+        const values2 = [recipeId, fileId];
 
       const query2 = `
     INSERT INTO recipe_files (

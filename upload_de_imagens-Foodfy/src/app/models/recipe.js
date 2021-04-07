@@ -95,7 +95,17 @@ module.exports = {
       }
     );
   } /* ok */,
-  update(editedRecipe, callback) {
+  async update(editedRecipe, files, id, callback) {
+
+    if (files != 0) {
+      const newFilesPromise = files.map(async (file) => {
+        console.log(file, id)
+        await File.createFile(file, id);
+      });
+      await Promise.all(newFilesPromise);
+      callback(id);
+    }
+
     const query = `UPDATE recipes SET
             chef_id=($1),
             title=($2),

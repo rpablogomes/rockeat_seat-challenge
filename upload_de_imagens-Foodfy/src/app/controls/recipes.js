@@ -3,7 +3,6 @@ const recipe = require("../models/recipe");
 const getSince = require("../lib/utils").getSince;
 const File = require("../models/file")
 
-
 module.exports = {
 async index(req, res) {
   recipe.index(callback => {
@@ -57,7 +56,7 @@ async post(req, res) {
   
   const files = req.files
   
-  recipe.create(values, files, (callback) => {
+  recipe.create(values, (callback) => {
     return res.redirect(`recipes/${callback}`);
   });
 }, /* ok */
@@ -89,6 +88,8 @@ async put(req, res) {
 
   const keys = Object.keys(req.body);
 
+  const files = req.files
+
   // Construct Object to Push into data
 
   const editedRecipe = [
@@ -111,12 +112,7 @@ async put(req, res) {
   await Promise.all(removedFilesPromise)
   }
 
-  // const newFilesPromise = files.map(files => {
-  //   File.createFile(files, recipeId)
-  //   Promise.all(newFilesPromise)
-  // })
-
-  recipe.update(editedRecipe, callback => {
+  recipe.update(editedRecipe, files, req.body.id, callback => {
     return res.redirect(`/admin/recipes/${req.body.id}`);
   })
 },
@@ -126,5 +122,5 @@ async delete(req, res) {
   recipe.delete(id, callback => {
     return res.redirect("/admin/recipes");
   });
-},
+}
 }
