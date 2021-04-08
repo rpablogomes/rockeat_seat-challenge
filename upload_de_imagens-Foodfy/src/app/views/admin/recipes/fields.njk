@@ -8,7 +8,7 @@
     {% if images %}
     {% for image in images %}
                 <div class="photo" id={{image.id}}>
-                    <img src="midias/{{image.name}}" alt="{{image.name}}">
+                    <img src="/midias/{{image.name}}" alt="{{image.name}}">
                     <i class="material-icons"
                     onclick="PhotosUpload.removeOldPhoto(event)"
                     >
@@ -80,5 +80,5 @@
 
 <div>
 <div class="createText">Informações Adicionais</div>
-<input class="LASTcreateInput" type="text" name="information" value="{{recipe.information}}" placeholder="Informações">
+<textarea class="LASTcreateInput" type="text" name="information"  placeholder="Informações">{{recipe.information}}</textarea>
 </div>

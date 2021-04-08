@@ -64,17 +64,17 @@ module.exports = {
     RETURNING id
 `;
 
-     db.query(query, values, async (err, results) => {
+    db.query(query, values, async (err, results) => {
       if (err) throw err;
       const recipeId = await results.rows[0].id;
-     
+
       if (files != 0) {
         const newFilesPromise = await files.map(async (files) => {
           await File.createFile(files, recipeId);
         });
         await Promise.all(newFilesPromise);
-        callback(recipeId);
       }
+      callback(recipeId);
     });
   } /* ok */,
   find(id, callback) {
@@ -95,15 +95,23 @@ module.exports = {
       }
     );
   } /* ok */,
-  async update(editedRecipe, files, id, callback) {
-
+  async update(editedRecipe, files, removed_files, id, callback) {
     if (files != 0) {
       const newFilesPromise = files.map(async (file) => {
-        console.log(file, id)
         await File.createFile(file, id);
       });
       await Promise.all(newFilesPromise);
-      callback(id);
+    }
+
+    if (removed_files) {
+      const removedFiles = removed_files.split(",");
+      const lastIndex = removedFiles.length - 1;
+      removedFiles.splice(lastIndex, 1);
+
+      const removedFilesPromise = removedFiles.map(async (id) => {
+        await File.delete(id);
+      });
+      await Promise.all(removedFilesPromise);
     }
 
     const query = `UPDATE recipes SET
