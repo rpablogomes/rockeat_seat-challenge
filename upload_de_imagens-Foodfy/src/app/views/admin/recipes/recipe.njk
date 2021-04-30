@@ -16,7 +16,7 @@
                 {% if not recipe.files[0] %}
                     <img class="recipeImg" src="http://placehold.it/500x500?text=produto sem foto"/>
                 {% else %}
-                    <img class="recipeImg" src="{{recipe.files[0].path.slice(6)}}" alt="{{recipe.files[0].name}}" onclick="Lightbox.open()"/>
+                    <img class="recipeImg" src="/midias/{{image.name}}" alt="{{recipe.files[0].name}}" onclick="Lightbox.open()"/>
                 {% endif %}
                 <div class="lightbox-target">
                      <img src="{{recipe.files[0].path.slice(6)}}" alt="{{recipe.files[0].name}}"/>

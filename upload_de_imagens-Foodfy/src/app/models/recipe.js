@@ -3,7 +3,7 @@ const File = require("./file");
 
 module.exports = {
   index(callback) {
-    query = `SELECT recipes.id, title, chefs.name as chef_name, files.path as image
+    query = `SELECT recipes.id, title, chefs.name as chef_name
 
     FROM recipes
                 
@@ -19,9 +19,11 @@ module.exports = {
     db.query(query, (err, results) => {
       if (err) throw "Database";
 
+      console.log(results.rows)
+
       callback(results.rows);
     });
-  },
+  }, /* ok */
   chefsList(chefsList) {
     db.query("SELECT id, name FROM chefs", function (err, results) {
       chefsList(results.rows);
@@ -96,14 +98,13 @@ module.exports = {
     );
   } /* ok */,
   async update(editedRecipe, files, removed_files, id, callback) {
-    if (files != 0) {
-      const newFilesPromise = files.map(async (file) => {
-        await File.createFile(file, id);
-      });
-      await Promise.all(newFilesPromise);
-    }
 
-    if (removed_files) {
+      if (files != 0) {
+      const newFilesPromise = files.map(file => {File.createFile(file, id)})
+      await Promise.all(newFilesPromise);
+      }
+
+      if (removed_files) {
       const removedFiles = removed_files.split(",");
       const lastIndex = removedFiles.length - 1;
       removedFiles.splice(lastIndex, 1);
@@ -112,7 +113,7 @@ module.exports = {
         await File.delete(id);
       });
       await Promise.all(removedFilesPromise);
-    }
+  }
 
     const query = `UPDATE recipes SET
             chef_id=($1),
@@ -126,13 +127,16 @@ module.exports = {
       if (err) throw `Database Error! ${err}`;
       callback();
     });
-  },
-  delete(id, callback) {
-    db.query(`DELETE FROM recipes WHERE id = ${id}`, (err, results) => {
-      if (err) throw "Database Error!";
+  } /* partial ok */,
+  async delete(id, callback) {
 
+    db.query(`DELETE FROM recipes WHERE id = ${id}`, (err, results) => {
+      db.query(`DELETE FROM recipe_files WHERE recipe_id = ${id} RETURNING file_id`, (err, results) => {
+        results.rows.map(file_id => {
+          db.query(`DELETE FROM files WHERE recipe_id = ${file_id.file_id}`, (err, results) => {
+      if (err) throw "Database Error!";
+    })})})})
       callback();
-    });
   },
   files(id, files) {
     db.query(

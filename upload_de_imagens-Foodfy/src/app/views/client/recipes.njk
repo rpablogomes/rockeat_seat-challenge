@@ -3,7 +3,7 @@
 {% block content%}
 
     <div class="menuLast">
-        <form class="filterForm" action="/receipts" method="GET">
+        <form class="filterForm" action="/recipes" method="GET">
             <input class="filterInput" type="text" name="filter" placeholder="Buscar uma receita">
             <button class="filterButton" type="submit">Buscar</button>
         </form>
@@ -19,7 +19,7 @@
 
     {% for recipe in recipes %}
 
-        <a class="card" href='/receipts/{{recipe.id}}'>
+        <a class="card" href='/recipes/{{recipe.id}}'>
             <img class="foodImage" src={{recipe.image}} alt="image">
             <span class="foodName">{{recipe.title}}<br/></span>
             <span class="cooker">por

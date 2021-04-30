@@ -98,7 +98,7 @@ module.exports = {
     recipe.update(editedRecipe, files, req.body.removed_files,req.body.id, (callback) => {
       return res.redirect(`/admin/recipes/${req.body.id}`);
     });
-  },
+  }, /* partil ok */
 
   async delete(req, res) {
     const { id } = req.body;

@@ -13,6 +13,7 @@ exports.index = function (req, res) {
     limit,
     offset,
     callback(recipes) {
+      console.log(recipes)
       res.render("../views/client/index", { recipes });
     },
   };
