@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+
+
+<html>
+
+    <head>
+
+        {% include "parts/styles.njk" %}
+
+    
+        {% block head %}
+            <title>
+                Launchstore
+            </title>
+        {% endblock %}
+    </head>
+
+    <body>
+
+        {% include "parts/messages.njk" %}
+
+        {% include "parts/header.njk" %}
+
+        {% block content %}{% endblock %}
+
+        {% include "parts/footer.njk" %}
+
+    </body>
+
+</html>
