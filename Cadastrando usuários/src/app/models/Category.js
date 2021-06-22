@@ -1,7 +1,9 @@
-const db = require("../../config/db")
+const db = require('../../config/db')
 
 module.exports = {
-    All(){
-        return db.query("SELECT * FROM categories")
+    all() {
+        return db.query(`
+            SELECT * FROM categories
+        `)
     }
 }

@@ -12,14 +12,12 @@ module.exports = {
       )
       VALUES ($1, $2, $3)
       RETURNING id
-  `;
- 
+  `
     const values = [
          filename,
          path,
          product_id
     ];
-
     return db.query(query, values) 
   },
   async delete(id){

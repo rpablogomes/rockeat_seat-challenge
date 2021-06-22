@@ -28,16 +28,16 @@ CREATE TABLE "files" (
 );
 
 ALTER TABLE "products" ADD FOREIGN KEY ("category_id") REFERENCES "categories" ("id");
-ALTER TABLE "files" ADD FOREIGN KEY ("products_id") REFERENCES "products" ("id");
+ALTER TABLE "files" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id");
 
 CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
   "name" text NOT NULL,
-  "email " text UNIQUE NOT NULL,
+  "email" text UNIQUE NOT NULL,
   "password" text NOT NULL ,
-  "cpf_cnpj" int UNIQUE NOT NULL,
+  "cpf_cnpj" text UNIQUE NOT NULL,
   "cep" text,
-  "adress" text,
+  "address" text,
   "created_at" timestamp DEFAULT (now()),
   "updated_at" timestamp DEFAULT (now())
 );
@@ -72,3 +72,23 @@ WITH (OIDS=FALSE);
 ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
 CREATE INDEX "IDX_session_expire" ON "session" ("expire");
+
+-- token password recovery
+ALTER TABLE "users" ADD COLUMN reset_token text;
+ALTER TABLE "users" ADD COLUMN reset_token_expires text;
+
+-- cascade effect when delete user and products
+
+ALTER TABLE "products"
+DROP CONSTRAINT products_user_id_fkey,
+ADD CONSTRAINT products_user_id_fkey
+FOREIGN KEY ("user_id")
+REFERENCES "users" ("id")
+ON DELETE CASCADE;
+
+ALTER TABLE "files"
+DROP CONSTRAINT files_product_id_fkey,
+ADD CONSTRAINT files_product_id_fkey
+FOREIGN KEY ("product_id")
+REFERENCES "products" ("id")
+ON DELETE CASCADE;
