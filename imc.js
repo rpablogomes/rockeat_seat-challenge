@@ -10,3 +10,4 @@ const imc = peso / (altura * altura);
     else{
         console.log(`${nome}, você não está acima do peso`)
 }
+
